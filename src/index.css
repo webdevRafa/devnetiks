@@ -7,3 +7,20 @@
 html {
     scroll-behavior: smooth;
 }
+
+.offwhite {
+    color: rgb(122, 121, 121);
+}
+
+.dark {
+    background: #0a0a0a;
+}
+.tint {
+    background: #292929;
+}
+.meddark {
+    background: #0e0e0e;
+}
+html {
+    scroll-behavior: smooth;
+}

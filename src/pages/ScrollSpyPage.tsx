@@ -8,6 +8,7 @@ export const ScrollSpyPage: React.FC = () => {
     const sectionRefs = useRef<Record<string, HTMLElement | null>>({});
 
     useEffect(() => {
+        // function for intersection observer. when a section is 60% or more in thje viewport, it is set to activeSection
         const observer = new IntersectionObserver(
             (entries) => {
                 entries.forEach(entry => {
@@ -22,8 +23,14 @@ export const ScrollSpyPage: React.FC = () => {
                 threshold: 0.6, // Triggers when 60% of the section is visible
             }
         );
-        // intesection observer ends
+        // intesection observer function ends
 
+
+        // intersection observer is monitoring these sections
+        // we are looping through every section
+        // we find the matching section with getElementById
+        // if the element is found, save it onto sectionRefs.current object so we can reference later
+        // "here are all the sections i want you to watch. if any of th em come into view, let me know"
         sections.forEach(id => {
             const el = document.getElementById(id);
             if (el) {
@@ -32,9 +39,12 @@ export const ScrollSpyPage: React.FC = () => {
             }
         });
 
+        // take a snapshot with the current refs
+        const sectionRefsSnapshot = {...sectionRefs.current };
+
         return () => {
             sections.forEach(id => {
-                const el = sectionRefs.current[id];
+                const el = sectionRefsSnapshot[id];
                 if (el) observer.unobserve(el);
             });
         };
@@ -42,6 +52,7 @@ export const ScrollSpyPage: React.FC = () => {
 
     return <>
     <div className="relative">
+        
         {/* SIDEBAR NAVIGATION */}
         <div className="fixed right-6 top-1/2 transform -translate-y-1/2 flex flex-col space-y-4 text-gray-950">
         {sections.map((id) => (

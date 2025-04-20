@@ -1,5 +1,6 @@
 import './App.css'
-import { ScrollSpyPage } from './pages/ScrollSpyPage'
+import { Devnetiks } from './pages/Devnetiks';
+
 
 
 function App() {
@@ -7,7 +8,7 @@ function App() {
 
   return (
     <>
-    <ScrollSpyPage />
+    <Devnetiks />
     </>
   )
 }
