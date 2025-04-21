@@ -60,10 +60,10 @@ export const Devnetiks: React.FC = () => {
 
     <div className="relative">
           {/* FIXED SIDEBAR NAVIGATION */}
-          <div className="fixed z-50 right-6 top-1/2 transform -translate-y-1/2 flex flex-col space-y-4 text-gray-950">
+          <div className="fixed z-50 right-6 top-30 md:top-1/2 transform -translate-y-1/2 flex flex-col space-y-4 text-gray-950">
         {sections.map((id) => (
-            <a key={id} href={`#${id}`} className={`text-lg transition ${
-                activeSection === id ? 'text-white font-bold animate-pulse ease-in-out duration-300 scale-120' : 'hover:text-white opacity-50'
+            <a key={id} href={`#${id}`} className={`text-lg transition text-right ${
+                activeSection === id ? 'text-white font-bold animate-pulse ease-in-out duration-300 scale-120' : 'text-white opacity-30'
             }`}>
                 {id}
             </a>
@@ -75,14 +75,14 @@ export const Devnetiks: React.FC = () => {
 
             {/* HOME */}
            <section id="home" className="relative w-full z-[40] h-[100vh] flex items-center justify-center">
-            <div className="w-full h-full flex items-center justify-center relative">
+            <div className="w-full h-full flex items-center justify-center relative px-10 md:px-0">
          <div>
           {/* LOGO */}
-        <img className={`transition ease-out delay-0 w-[300px] md:w-[500px] mb-2 duration-700 ${
+        <img className={`transition ease-out delay-0 w-[250px] md:w-[500px] mb-2 duration-700 ${
             activeSection === 'home' ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-[-2000px] '
         }`} src={logo} alt="" />
        
-            <p className={`offwhite text-3xl transition delay-400 ease-out duration-700 ${
+            <p className={`offwhite text-lg md:text-3xl transition delay-400 ease-out duration-700 ${
                 activeSection === 'home' ? 'opacity-100 translate-y-0 delay-0' : 'opacity-0 translate-y-80'
             }`}>Building sleek, powerful websites tailored to your vision.</p>
          </div>
@@ -102,11 +102,11 @@ export const Devnetiks: React.FC = () => {
            </section>
 
            {/* ABOUT */}
-           <section id="about" className="relative h-[100vh] w-full flex items-center justify-center">
+           <section id="about" className="relative h-[100vh] w-full flex items-center justify-center px-10">
             <div className="w-full h-full flex items-center justify-center relative">
              <div className="w-full max-w-[1200px] relative mx-auto">
                 {/* NAV ITEMS */}
-                <div className="flex text-4xl gap-5 justify-start transition duration-300 ease-out">
+                <div className="darkest flex text-2xl md:text-4xl gap-5 justify-start transition duration-300 ease-out">
   <h1
     onClick={() => setActiveTab('what')}
     className={`cursor-pointer transition-all duration-500 delay-0  ease-in-out ${
