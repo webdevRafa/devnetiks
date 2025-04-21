@@ -12,8 +12,11 @@ html {
     color: rgb(122, 121, 121);
 }
 
-.dark {
+body {
     background: #0a0a0a;
+}
+.darkest {
+background: #0a0a0ad9;
 }
 .tint {
     background: #292929;
