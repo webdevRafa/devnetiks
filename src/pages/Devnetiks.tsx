@@ -60,7 +60,7 @@ export const Devnetiks: React.FC = () => {
 
     <div className="relative">
           {/* FIXED SIDEBAR NAVIGATION */}
-          <div className="fixed px-4 z-50 dark right-0 pb-3 md:pb-0 top-20 md:top-1/2 transform -translate-y-1/2 flex flex-col space-y-4 text-gray-950">
+          <div className="fixed px-4 z-50  right-6 top-30 md:top-1/2 transform -translate-y-1/2 flex flex-col space-y-4 text-gray-950">
         {sections.map((id) => (
             <a key={id} href={`#${id}`} className={`text-lg transition text-right ${
                 activeSection === id ? 'text-white font-bold animate-pulse ease-in-out duration-300 scale-120' : 'text-white opacity-30'
