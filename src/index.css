@@ -21,8 +21,8 @@ background: #0a0a0ad9;
 .tint {
     background: #292929;
 }
-.meddark {
-    background: #0e0e0e;
+.dark {
+    background: #0a0a0a;
 }
 html {
     scroll-behavior: smooth;

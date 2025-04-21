@@ -60,7 +60,7 @@ export const Devnetiks: React.FC = () => {
 
     <div className="relative">
           {/* FIXED SIDEBAR NAVIGATION */}
-          <div className="fixed z-50 right-6 top-30 md:top-1/2 transform -translate-y-1/2 flex flex-col space-y-4 text-gray-950">
+          <div className="fixed px-4 z-50 dark right-0 pb-3 md:pb-0 top-20 md:top-1/2 transform -translate-y-1/2 flex flex-col space-y-4 text-gray-950">
         {sections.map((id) => (
             <a key={id} href={`#${id}`} className={`text-lg transition text-right ${
                 activeSection === id ? 'text-white font-bold animate-pulse ease-in-out duration-300 scale-120' : 'text-white opacity-30'
@@ -97,7 +97,7 @@ export const Devnetiks: React.FC = () => {
             </div>
             {/* BACKGROUND IMAGE FOR HERO SECTION */}
             <div className="absolute z-[-1] overflow-hidden top-0 left-0 w-full h-full">
-            <img className={`min-h-screen object-cover opacity-10 transition ease-in-out duration-2000 ${activeSection === 'home' ? ' scale-100' : ' scale-0'}`} src={computer} alt="" />
+            <img className={`min-h-screen object-cover opacity-50 transition ease-in-out duration-2000 ${activeSection === 'home' ? ' scale-100' : ' scale-0'}`} src={computer} alt="" />
             </div>
            </section>
 
@@ -156,7 +156,7 @@ export const Devnetiks: React.FC = () => {
 </div>
             {/* IMAGE CONTAINER */}
             <div className="absolute z-[-1] h-full right-0 top-0 w-[400px]">
-            <img className={`object-cover transition ease-in-out duration-2000 delay-500  ${activeSection === 'about' ? ' scale-100 opacity-30 translate-x-0' : 'translate-x-[600px] opacity-0 scale-0'}`} src={rafita} alt="" />
+            <img className={`object-cover transition ease-in-out duration-2000 delay-500  ${activeSection === 'about' ? ' scale-100 opacity-50 translate-x-0' : 'translate-x-[600px] opacity-0 scale-0'}`} src={rafita} alt="" />
             </div>
              </div>
             </div>
