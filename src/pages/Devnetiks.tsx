@@ -4,6 +4,10 @@ import logo from "../assets/devnetiks-white.svg";
 import computer from "../assets/computer.jpg";
 import rafita from "../assets/rafita.jpg";
 
+import reactLogo from "../assets/react.png";
+import firebaseLogo from "../assets/firebase.png";
+import tailwindLogo from "../assets/Tailwind CSS.png";
+
 const sections = ['home', 'about', 'services', 'contact'];
 
 export const Devnetiks: React.FC = () => {
@@ -11,6 +15,12 @@ export const Devnetiks: React.FC = () => {
     const [activeSection, setActiveSection] = useState('');
     const [activeTab, setActiveTab] = useState<'what' | 'why' | 'how'>('what');
     const sectionRefs = useRef<Record<string, HTMLElement | null>>({});
+    const sectionColors: Record<string, string> = {
+      home: 'text-cyan-400',
+      about: 'text-emerald-400',
+      services: 'text-rose-400',
+      contact: 'text-'
+    };
 
     useEffect(() => {
         const observer = new IntersectionObserver(
@@ -24,7 +34,7 @@ export const Devnetiks: React.FC = () => {
             },
             {
                 root: null,
-                rootMargin: '0px',
+                rootMargin: '100px',
                 threshold: 0.6,
             }
         );
@@ -63,7 +73,7 @@ export const Devnetiks: React.FC = () => {
           <div className="fixed px-4 z-50  right-6 top-30 md:top-1/2 transform -translate-y-1/2 flex flex-col space-y-4 text-gray-950">
         {sections.map((id) => (
             <a key={id} href={`#${id}`} className={`text-lg transition text-right ${
-                activeSection === id ? 'text-white font-bold animate-pulse ease-in-out duration-300 scale-120' : 'text-white opacity-30'
+                activeSection === id ? ` font-bold animate-pulse ease-in-out duration-300 scale-120 ${sectionColors[id]}` : ' opacity-30'
             }`}>
                 {id}
             </a>
@@ -86,9 +96,9 @@ export const Devnetiks: React.FC = () => {
                 activeSection === 'home' ? 'opacity-100 translate-y-0 delay-0' : 'opacity-0 translate-y-80'
             }`}>Building sleek, powerful websites tailored to your vision.</p>
          </div>
-        <div className="absolute z-[40] w-full h-[20px] bottom-10 left-0">
+        <div className="fixed z-[40] w-full h-[20px] bottom-10 left-0">
        <a href="#about">
-       <FaAngleDoubleDown className={`bottom-0 mx-auto size-10 text-white animate-bounce cursor-pointer transition duration-700 ${
+       <FaAngleDoubleDown className={`bottom-0 mx-auto size-10 text-cyan-400 animate-bounce cursor-pointer transition duration-700 ${
                 activeSection === 'home' ? 'opacity-100 translate-y-0 delay-600' : 'opacity-0 translate-y-20 delay-600'
             }`} />
        </a>
@@ -106,7 +116,7 @@ export const Devnetiks: React.FC = () => {
             <div className="w-full h-full flex items-center justify-center relative">
              <div className="w-full max-w-[1200px] relative mx-auto">
                 {/* NAV ITEMS */}
-                <div className="darkest flex text-2xl md:text-4xl gap-5 justify-start transition duration-300 ease-out">
+                <div className="flex text-2xl md:text-4xl gap-5 justify-start transition duration-300 ease-out">
   <h1
     onClick={() => setActiveTab('what')}
     className={`cursor-pointer transition-all duration-500 delay-0  ease-in-out ${
@@ -145,10 +155,37 @@ export const Devnetiks: React.FC = () => {
     {activeTab === 'why' && "WHY I DO IT"}
     {activeTab === 'how' && "HOW I DO IT"}
   </h1>
-  <p className={`text-2xl transition-all darkest py-5 duration-1000 ${activeTab === 'what' && 'translate-y-0 text-cyan-800'} ${activeTab === 'why' && 'translate-y-[20px] text-emerald-800'} ${activeTab === 'how' && 'translate-y-[40px] text-fuchsia-800'} `}>
-    {activeTab === 'what' && "At Devnetiks, I craft custom web applications using cutting-edge technologies like React, TypeScript, and Google Firebase."}
-    {activeTab === 'why' && "I believe great websites are more than just code — they’re a gateway to bigger opportunities. Helping businesses grow online drives me..."}
-    {activeTab === 'how' && "I combine modern web development frameworks like React and TypeScript with powerful backend tools like Firebase to create seamless solutions..."}
+  <p className={`text-2xl transition-all darkest py-5 duration-1000 text-emerald-800 ${activeTab === 'what' && 'translate-y-0'} ${activeTab === 'why' && 'translate-y-[20px]'} ${activeTab === 'how' && 'translate-y-[40px]'} `}>
+  {activeTab === 'what' && <><div>
+      <p className="mb-5">I build fast, interactive websites using React, TypeScript, and Tailwind CSS, backed by Firebase for powerful real-time functionality. Whether it's a business site or a user dashboard, I focus on delivering polished, scalable solutions that are responsive and clean.</p>
+      <div className="flex gap-5">
+        <img src={reactLogo} alt="" />
+        <img src={firebaseLogo} alt="" />
+        <img className="max-w-[64px]" src={tailwindLogo} alt="" />
+        
+  
+      </div>
+    </div></>}
+    {activeTab === 'why' && <><div>
+      <p className="mb-5">I believe every brand deserves a web presence that’s just as unique and dynamic as they are. I'm passionate about taking the stress out of tech and helping people get online without confusion, frustration, or unnecessary cost. I love making ideas real.</p>
+      <div className="flex gap-5">
+        <img src={reactLogo} alt="" />
+        <img src={firebaseLogo} alt="" />
+        <img className="max-w-[64px]" src={tailwindLogo} alt="" />
+        
+  
+      </div>
+    </div></>}
+    {activeTab === 'how' && <><div>
+      <p className="mb-5">First, I listen—then I design and develop based on what you actually need. I use modern tools like Vite for fast performance, Firebase for real-time database and auth, and Tailwind for pixel-perfect styling. I keep my code clean, my workflow transparent, and my clients in the loop the whole time.</p>
+      <div className="flex gap-5">
+        <img src={reactLogo} alt="" />
+        <img src={firebaseLogo} alt="" />
+        <img className="max-w-[64px]" src={tailwindLogo} alt="" />
+        
+  
+      </div>
+    </div></>}
   </p>
 </div>
 
@@ -156,14 +193,25 @@ export const Devnetiks: React.FC = () => {
 </div>
             {/* IMAGE CONTAINER */}
             <div className="absolute z-[-1] h-full right-0 top-0 w-[400px]">
-            <img className={`object-cover transition ease-in-out duration-2000 delay-500  ${activeSection === 'about' ? ' scale-100 opacity-50 translate-x-0' : 'translate-x-[600px] opacity-0 scale-0'}`} src={rafita} alt="" />
+            <img className={`filter grayscale object-cover transition ease-in-out duration-2000 delay-500  ${activeSection === 'about' ? ' scale-100 opacity-50 translate-x-0' : 'translate-x-[600px] opacity-0 scale-0'}`} src={rafita} alt="" />
             </div>
              </div>
+            </div>
+            <div className="fixed bottom-5 w-full flex items-center justify-center ">
+            <a href="#about">
+       <FaAngleDoubleDown className={`size-10 text-emerald-400 animate-bounce cursor-pointer transition duration-700 ${
+                activeSection === 'about' ? 'opacity-100 translate-y-0 delay-600' : 'opacity-0 translate-y-20 delay-600'
+            }`} />
+       </a>
             </div>
            </section>
 
            {/* SERVICES */}
-           <section id="services" className="h-[100vh] flex items-center justify-center"></section>
+           <section id="services" className="h-[100vh] flex items-center justify-center">
+           <div className="h-[800px]">
+            <h1 className={`text-white ${activeSection === 'services' ? 'opacity-100' : 'opacity-0'}`}>this is my texter for services page I am testing the intersection observer</h1>
+        </div>
+           </section>
 
            {/* CONTACT */}
            <section id="contact" className="h-[100vh] flex items-center justify-center"></section>
