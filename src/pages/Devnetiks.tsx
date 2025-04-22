@@ -193,7 +193,7 @@ export const Devnetiks: React.FC = () => {
 </div>
             {/* IMAGE CONTAINER */}
             <div className="absolute z-[-1] h-full right-0 top-0 w-[400px]">
-            <img className={`filter grayscale object-cover transition ease-in-out duration-2000 delay-500  ${activeSection === 'about' ? ' scale-100 opacity-50 translate-x-0' : 'translate-x-[600px] opacity-0 scale-0'}`} src={rafita} alt="" />
+            <img className={`filter grayscale object-cover transition ease-in-out duration-2000 delay-500  ${activeSection === 'about' ? ' scale-100 opacity-20 translate-x-0' : 'translate-x-[600px] opacity-0 scale-0'}`} src={rafita} alt="" />
             </div>
              </div>
             </div>
