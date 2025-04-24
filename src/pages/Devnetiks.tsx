@@ -3,12 +3,38 @@ import { FaAngleDoubleDown } from "react-icons/fa";
 import logo from "../assets/devnetiks-white.svg";
 import computer from "../assets/computer.jpg";
 import rafita from "../assets/rafita.jpg";
+import rosebg from "../assets/rosebg.svg";
 
 import reactLogo from "../assets/react.png";
 import firebaseLogo from "../assets/firebase.png";
 import tailwindLogo from "../assets/Tailwind CSS.png";
 
 const sections = ['home', 'about', 'services', 'contact'];
+const services = [
+  { name: 'Starter Package (Brochure Website)', price: '$800', ideal: 'Small businesses, freelancers, service providers who just need an online presence.', content: <ul className="text-white list-disc"><li>5-page responsive website</li>
+  <li>Built with React + Typescript</li>
+  <li>Custom Design (no templates)</li>
+  <li>Contact Form</li>
+  <li>Basic SEO Optimization</li>
+  <li>Hosting Setup Guidance</li></ul>,},
+   { name: 'Professional Package (Interactive Website)', price: '$1,500', ideal: 'Businesses who want dynamic content or user interactivity', content: <ul className="text-white list-disc"><li>Everything in Starter Package, plus:</li>
+    <li>Firebase integration <ul className="ml-4 list-disc"><li>Contact form sends submissions to Firestore or email</li>
+    <li>Newsletter sign-up</li></ul></li>
+    <li>CMS-lite Features (testimonials)</li>
+    <li>Authentication system</li>
+    <li>Admin Dashboard</li>
+    <li>Advanced SEO Optimization</li></ul>,},
+     { name: 'Premium Web Application Package (Full Dynamic Site)', price: '$3,000', ideal: 'Startups, real estate agents, gyms, businesses that need user accounts or complex functionality', content: <ul className="text-white list-disc"><li>Everything in Professional Package, plus:</li>
+      <li>User Accounts (signup / login / profile)</li>
+      <li>Custom Firestore Database setup</li>
+      <li>Real-time Features (chat, comments, bookings, threads, etc.)</li>
+      <li>Payment Integration</li>
+      <li>Admin Portal (manage users, posts, products)</li>
+      <li>Cloud Functions (send email notifications on bookings)</li>
+      </ul>,}
+];
+
+
 
 export const Devnetiks: React.FC = () => {
 
@@ -34,7 +60,7 @@ export const Devnetiks: React.FC = () => {
             },
             {
                 root: null,
-                rootMargin: '100px',
+                rootMargin: '0px',
                 threshold: 0.6,
             }
         );
@@ -99,7 +125,7 @@ export const Devnetiks: React.FC = () => {
         <div className="fixed z-[40] w-full h-[20px] bottom-10 left-0">
        <a href="#about">
        <FaAngleDoubleDown className={`bottom-0 mx-auto size-10 text-cyan-400 animate-bounce cursor-pointer transition duration-700 ${
-                activeSection === 'home' ? 'opacity-100 translate-y-0 delay-600' : 'opacity-0 translate-y-20 delay-600'
+                activeSection === 'home' ? 'opacity-100 translate-y-0 delay-600' : 'hidden opacity-0 translate-y-20 delay-600'
             }`} />
        </a>
 
@@ -112,7 +138,7 @@ export const Devnetiks: React.FC = () => {
            </section>
 
            {/* ABOUT */}
-           <section id="about" className="relative h-[100vh] w-full flex items-center justify-center px-10">
+           <section id="about" className="relative z-40 h-[100vh] w-full flex items-center justify-center px-10">
             <div className="w-full h-full flex items-center justify-center relative">
              <div className="w-full max-w-[1200px] relative mx-auto">
                 {/* NAV ITEMS */}
@@ -198,18 +224,50 @@ export const Devnetiks: React.FC = () => {
              </div>
             </div>
             <div className="fixed bottom-5 w-full flex items-center justify-center ">
-            <a href="#about">
-       <FaAngleDoubleDown className={`size-10 text-emerald-400 animate-bounce cursor-pointer transition duration-700 ${
-                activeSection === 'about' ? 'opacity-100 translate-y-0 delay-600' : 'opacity-0 translate-y-20 delay-600'
+            <a href="#services">
+       <FaAngleDoubleDown className={` size-10 text-emerald-400 animate-bounce cursor-pointer transition duration-700 ${
+                activeSection === 'about' ? 'opacity-100 translate-y-0 delay-600 block' : 'hidden opacity-0 translate-y-20'
             }`} />
        </a>
             </div>
            </section>
 
            {/* SERVICES */}
-           <section id="services" className="h-[100vh] flex items-center justify-center">
-           <div className="h-[800px]">
-            <h1 className={`text-white ${activeSection === 'services' ? 'opacity-100' : 'opacity-0'}`}>this is my texter for services page I am testing the intersection observer</h1>
+           <section id="services" className="relative h-[100vh] flex items-center justify-center dark">
+           <div className="h-full w-full flex items-center justify-center">
+         <div>
+         <h1 className={`text-6xl text-rose-400 mb-20 transition duration-700 delay-300 ${activeSection === 'services' ? 'translate-y-0 opacity-100' : 'translate-y-[-300px] opacity-0'}`}>PACKAGES</h1>
+           <div className="flex gap-5 w-full max-w-[1400px]">
+           {services.map((service, index) => {
+  const delay = 300 + index * 150; // delay per card
+
+  return (
+    <div
+      key={index}
+      style={{ transitionDelay: `${delay}ms` }}
+      className={`w-full transition-all duration-700 text-white ${
+        activeSection === 'services'
+          ? 'translate-x-0 opacity-100'
+          : 'translate-x-[-1500px] opacity-0'
+      }`}
+    >
+      <h1 className="mb-5 text-white text-4xl">{service.name}</h1>
+      <h2 className="my-5 text-xl dtext-white">Ideal for: {service.ideal}</h2>
+      {service.content}
+      <p className="my-5 text-lg w-[200px] bg-rose-400 px-5 text-gray-950 font-bold">
+        Price: {service.price}
+      </p>
+    </div>
+  );
+})}
+
+
+           </div>
+         </div>
+        </div>
+        {/* ABSOLUTE BG IMAGE */}
+        <div className={`fixed z-10 top-0 left-0 w-full h-full transition duration-1000 delay-400 ${activeSection === "services" ? 'opacity-80' : 'opacity-0'}`}>
+          <img className="object-cover" src={rosebg} alt="" />
         </div>
            </section>
 
