@@ -236,8 +236,8 @@ export const Devnetiks: React.FC = () => {
            <section id="services" className="relative h-[100vh] flex items-center justify-center dark">
            <div className="h-full w-full flex items-center justify-center">
          <div>
-         <h1 className={`text-6xl text-rose-400 mb-20 transition duration-700 delay-300 ${activeSection === 'services' ? 'translate-y-0 opacity-100' : 'translate-y-[-300px] opacity-0'}`}>PACKAGES</h1>
-           <div className="flex gap-5 w-full max-w-[1400px]">
+         <h1 className={`text-6xl text-rose-400 mb-20 transition duration-700 sticky top-0 z-50 dark py-5 delay-300 ${activeSection === 'services' ? 'translate-y-0 opacity-100' : 'translate-y-[-300px] opacity-0'}`}>PACKAGES</h1>
+           <div className="flex flex-col lg:flex-row gap-5 w-full max-w-[1400px]">
            {services.map((service, index) => {
   const delay = 300 + index * 150; // delay per card
 
@@ -267,7 +267,7 @@ export const Devnetiks: React.FC = () => {
         </div>
         {/* ABSOLUTE BG IMAGE */}
         <div className={`fixed z-10 top-0 left-0 w-full h-full transition duration-1000 delay-400 ${activeSection === "services" ? 'opacity-80' : 'opacity-0'}`}>
-          <img className="object-cover" src={rosebg} alt="" />
+          <img className="min-h-screen object-cover" src={rosebg} alt="" />
         </div>
            </section>
 
