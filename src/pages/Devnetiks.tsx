@@ -239,7 +239,7 @@ export const Devnetiks: React.FC = () => {
            {/* SERVICES */}
            <section id="services" className="relative h-[100vh] w-full flex items-center justify-center dark">
            <div className="h-full w-full flex items-center justify-center">
-         <div className="pt-[400px] md:pt-0">
+         <div className="pt-[1000px] md:pt-0">
           {/* PACKAGES HEADER */}
          <h1 className={`text-center text-3xl md:text-4xl lg:text-6xl text-rose-400 mb-5 transition duration-800  z-50 dark py-3 delay-300 ${activeSection === 'services' ? 'translate-y-0 opacity-100 animate-pulse' : 'translate-y-[1000px] opacity-0'}`}>PACKAGES</h1>
          {/* PACKAGES SUBTEXT */}
