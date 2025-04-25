@@ -242,7 +242,7 @@ export const Devnetiks: React.FC = () => {
            </section>
 
            {/* SERVICES */}
-           <section id="services" className="relative h-[100vh] w-full flex items-center justify-center">
+           <section id="services" className="relative min-h-screen w-full flex items-center justify-center">
            <div className="h-full w-full flex items-center justify-center">
          <div className="md:pt-0">
           {/* PACKAGES HEADER */}
