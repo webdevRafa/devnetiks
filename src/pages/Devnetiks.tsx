@@ -239,11 +239,11 @@ export const Devnetiks: React.FC = () => {
            {/* SERVICES */}
            <section id="services" className="relative h-[100vh] w-full flex items-center justify-center dark">
            <div className="h-full w-full flex items-center justify-center">
-         <div>
+         <div className="pt-[400px] md:pt-0">
           {/* PACKAGES HEADER */}
-         <h1 className={`text-3xl md:text-4xl lg:text-6xl text-rose-400 mb-5 transition duration-800 sticky top-0 z-50 dark py-3 delay-300 ${activeSection === 'services' ? 'translate-y-0 opacity-100 animate-pulse' : 'translate-y-[-500px] opacity-0'}`}>PACKAGES</h1>
+         <h1 className={`text-center text-3xl md:text-4xl lg:text-6xl text-rose-400 mb-5 transition duration-800  z-50 dark py-3 delay-300 ${activeSection === 'services' ? 'translate-y-0 opacity-100 animate-pulse' : 'translate-y-[1000px] opacity-0'}`}>PACKAGES</h1>
          {/* PACKAGES SUBTEXT */}
-         <h2 className={`text-1xl md:text-2xl lg:text-4xl text-white mb-20 transition duration-800  z-50 delay-600 ${activeSection === 'services' ? 'translate-y-0 opacity-100' : 'translate-x-[-500px] opacity-0'}`}>ALL PACKAAGES ARE BUILT WITH REACT + TYPESCRIPT</h2>
+         <h2 className={`text-center text-1xl md:text-2xl lg:text-4xl text-white mb-20 transition duration-800  z-50 delay-600 ${activeSection === 'services' ? 'translate-y-0 opacity-100' : 'translate-x-[-500px] opacity-0'}`}>ALL PACKAAGES ARE BUILT WITH REACT + TYPESCRIPT</h2>
            <div className="flex flex-col lg:flex-row gap-5 w-full max-w-[1400px]">
            {services.map((service, index) => {
   const delay = 300 + index * 150; // delay per card
