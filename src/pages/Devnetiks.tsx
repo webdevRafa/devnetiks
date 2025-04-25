@@ -94,7 +94,7 @@ export const Devnetiks: React.FC = () => {
     return <>
     {/* MAIN CONTAINER */}
 
-    <div className="relative w-full h-full">
+    <div className="relative overflow-hidden">
           {/* FIXED SIDEBAR NAVIGATION */}
           <div className="fixed px-4 z-60  right-6 top-30 md:top-1/2 transform -translate-y-1/2 flex flex-col space-y-4">
         {sections.map((id) => (
@@ -136,7 +136,7 @@ export const Devnetiks: React.FC = () => {
            </section>
 
            {/* ABOUT SECTION*/}
-           <section id="about" className="relative z-40 min-h-screen w-full flex items-center justify-center px-4 md:px-10">
+           <section id="about" className="relative z-40 h-[100vh] w-full flex items-center justify-center px-4 md:px-10">
 
             {/* MAIN CONTAINER FOR ABOUT SECTION */}
             <div className="w-full h-full flex items-center justify-center relative">
@@ -252,14 +252,14 @@ export const Devnetiks: React.FC = () => {
     <div
       key={index}
       style={{ transitionDelay: `${delay}ms` }}
-      className={`w-full transition-all duration-700 text-white ${
+      className={`text-sm w-full transition-all duration-700 text-white ${
         activeSection === 'services'
           ? 'translate-x-0 opacity-100'
           : 'translate-x-[-1500px] opacity-0'
       }`}
     >
       <h1 className={`mb-5 text-white text-4xl transition-all duration-700 ${activeSection === 'services' ? 'translate-x-0' : 'translate-x-[500px]'}`}>{service.name}</h1>
-      <h2 className="my-5 text-xl dtext-white">Ideal for: {service.ideal}</h2>
+      <h2 className="my-5 text-sm dtext-white">Ideal for: {service.ideal}</h2>
       {service.content}
       <p className="animate-pulse my-5 text-lg w-[200px] bg-rose-400 px-5 text-gray-950 font-bold">
         Price: {service.price}
@@ -273,7 +273,7 @@ export const Devnetiks: React.FC = () => {
          </div>
         </div>
         {/* ABSOLUTE BG IMAGE */}
-        <div className={`fixed z-10 top-0 left-0 w-full h-full transition duration-1000 delay-200 ${activeSection === "services" ? 'opacity-80' : 'opacity-0'}`}>
+        <div className={`overflow-hidden fixed z-10 top-0 left-0 w-full h-full transition duration-1000 delay-200 ${activeSection === "services" ? 'opacity-80' : 'opacity-0'}`}>
           <img className={`min-h-screen object-cover transition duration-700 delay-400 ${activeSection === "services" && 'animate-pulse scale-120'}`} src={rosebg} alt="" />
         </div>
            </section>
