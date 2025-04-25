@@ -8,23 +8,28 @@ import aboutbg from "../assets/aboutbg.svg";
 import reactLogo from "../assets/react.png";
 import firebaseLogo from "../assets/firebase.png";
 import tailwindLogo from "../assets/Tailwind CSS.png";
+import { GoPackage } from "react-icons/go";
+import { FiPackage } from "react-icons/fi";
+import { LuPackage, LuPackagePlus } from "react-icons/lu";
+
 
 const sections = ['home', 'about', 'services', 'contact'];
 const services = [
-  { name: 'Starter Package (Brochure Website)', price: '$800', ideal: 'Small businesses, freelancers, service providers who just need an online presence.', content: <ul className="text-white list-disc"><li>5-page responsive website</li>
+  { name: 'Starter Package', sub: 'Brochure Website', icon: <GoPackage className="size-10" />
+    , price: '$800', ideal: 'Small businesses, freelancers, service providers who just need an online presence.', content: <ul className="text-white list-disc"><li>5-page responsive website</li>
   <li>Built with React + Typescript</li>
   <li>Custom Design (no templates)</li>
   <li>Contact Form</li>
   <li>Basic SEO Optimization</li>
   <li>Hosting Setup Guidance</li></ul>,},
-   { name: 'Professional Package (Interactive Website)', price: '$1,500', ideal: 'Businesses who want dynamic content or user interactivity', content: <ul className="text-white list-disc"><li>Everything in Starter Package, plus:</li>
+   { name: 'Professional Package', sub: 'Interactive Website', icon: <FiPackage className="size-10" />, price: '$1,500', ideal: 'Businesses who want dynamic content or user interactivity', content: <ul className="text-white list-disc"><li>Everything in Starter Package, plus:</li>
     <li>Firebase integration <ul className="ml-4 list-disc"><li>Contact form sends submissions to Firestore or email</li>
     <li>Newsletter sign-up</li></ul></li>
     <li>CMS-lite Features (testimonials)</li>
     <li>Authentication system</li>
     <li>Admin Dashboard</li>
     <li>Advanced SEO Optimization</li></ul>,},
-     { name: 'Premium Web Application Package (Full Dynamic Site)', price: '$3,000', ideal: 'Startups, real estate agents, gyms, businesses that need user accounts or complex functionality', content: <ul className="text-white list-disc"><li>Everything in Professional Package, plus:</li>
+     { name: 'Premium Web Application Package', sub: 'Full Dynamic Site', icon: <LuPackagePlus className="size-10" />, price: '$3,000', ideal: 'Startups, real estate agents, gyms, businesses that need user accounts or complex functionality', content: <ul className="text-white list-disc"><li>Everything in Professional Package, plus:</li>
       <li>User Accounts (signup / login / profile)</li>
       <li>Custom Firestore Database setup</li>
       <li>Real-time Features (chat, comments, bookings, threads, etc.)</li>
@@ -61,7 +66,7 @@ export const Devnetiks: React.FC = () => {
             {
                 root: null,
                 rootMargin: '0px',
-                threshold: 0.6,
+                threshold: 0.8,
             }
         );
 
@@ -237,13 +242,13 @@ export const Devnetiks: React.FC = () => {
            </section>
 
            {/* SERVICES */}
-           <section id="services" className="relative h-[100vh] w-full flex items-center justify-center dark">
+           <section id="services" className="relative h-[100vh] w-full flex items-center justify-center">
            <div className="h-full w-full flex items-center justify-center">
          <div className="pt-[400px] md:pt-0">
           {/* PACKAGES HEADER */}
          <h1 className={`text-center text-3xl md:text-4xl lg:text-6xl text-rose-400 mb-5 transition duration-800  z-50 dark py-3 delay-300 ${activeSection === 'services' ? 'translate-y-0 opacity-100 animate-pulse' : 'translate-y-[1000px] opacity-0'}`}>PACKAGES</h1>
          {/* PACKAGES SUBTEXT */}
-         <h2 className={`text-center text-1xl md:text-2xl lg:text-4xl text-white mb-20 transition duration-800  z-50 delay-600 ${activeSection === 'services' ? 'translate-y-0 opacity-100' : 'translate-x-[-500px] opacity-0'}`}>ALL PACKAAGES ARE BUILT WITH REACT + TYPESCRIPT</h2>
+         <h2 className={`text-center text-1xl md:text-2xl lg:text-4xl text-white mb-20 transition duration-800  z-50 delay-600 ${activeSection === 'services' ? 'translate-y-0 opacity-100' : 'translate-x-[-500px] opacity-0'}`}>ALL PACKAGES ARE BUILT WITH REACT + TYPESCRIPT</h2>
            <div className="flex flex-col lg:flex-row gap-5 w-full max-w-[1400px] px-10">
            {services.map((service, index) => {
   const delay = 300 + index * 150; // delay per card
@@ -252,14 +257,16 @@ export const Devnetiks: React.FC = () => {
     <div
       key={index}
       style={{ transitionDelay: `${delay}ms` }}
-      className={`text-sm w-full transition-all duration-700 text-white ${
+      className={`darkest border-2 border-box py-5 px-10 z-40  border-white text-sm w-full transition-all duration-700 text-white ${
         activeSection === 'services'
           ? 'translate-x-0 opacity-100'
           : 'translate-x-[-1500px] opacity-0'
       }`}
-    >
-      <h1 className={`mb-5 text-white text-4xl transition-all duration-700 ${activeSection === 'services' ? 'translate-x-0' : 'translate-x-[500px]'}`}>{service.name}</h1>
-      <h2 className="my-5 text-sm dtext-white">Ideal for: {service.ideal}</h2>
+    > 
+    {service.icon}
+      <h1 className={`mb-0 text-white text-2xl md:text-3xl transition-all duration-700 ${activeSection === 'services' ? 'translate-x-0' : 'translate-x-[500px]'}`}>{service.name}</h1>
+      <h1 className={`mb-5 text-rose-400 text-1xl md:text-2xl transition-all duration-700 ${activeSection === 'services' ? 'translate-x-0' : 'translate-x-[500px]'}`}>{service.sub}</h1>
+      <h2 className="my-5 text-lg text-white"><span className="text-rose-400">Ideal for: </span>{service.ideal}</h2>
       {service.content}
       <p className="animate-pulse my-5 text-lg w-[200px] bg-rose-400 px-5 text-gray-950 font-bold">
         Price: {service.price}
