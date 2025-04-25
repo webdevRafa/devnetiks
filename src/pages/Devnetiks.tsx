@@ -10,7 +10,7 @@ import firebaseLogo from "../assets/firebase.png";
 import tailwindLogo from "../assets/Tailwind CSS.png";
 import { GoPackage } from "react-icons/go";
 import { FiPackage } from "react-icons/fi";
-import { LuPackage, LuPackagePlus } from "react-icons/lu";
+import { LuPackagePlus } from "react-icons/lu";
 
 
 const sections = ['home', 'about', 'services', 'contact'];
