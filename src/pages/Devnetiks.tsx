@@ -50,7 +50,7 @@ export const Devnetiks: React.FC = () => {
       home: 'text-cyan-400',
       about: 'text-emerald-400',
       services: 'text-rose-400',
-      contact: 'text-'
+      contact: 'text-orange-400'
     };
 
     useEffect(() => {
@@ -66,7 +66,7 @@ export const Devnetiks: React.FC = () => {
             {
                 root: null,
                 rootMargin: '0px',
-                threshold: 0.8,
+                threshold: 0.6,
             }
         );
 
@@ -99,7 +99,7 @@ export const Devnetiks: React.FC = () => {
     return <>
     {/* MAIN CONTAINER */}
 
-    <div className="relative overflow-hidden">
+    <div className="relative">
           {/* FIXED SIDEBAR NAVIGATION */}
           <div className="fixed px-4 z-60  right-6 top-30 md:top-1/2 transform -translate-y-1/2 flex flex-col space-y-4">
         {sections.map((id) => (
@@ -117,7 +117,7 @@ export const Devnetiks: React.FC = () => {
             {/* HOME */}
 
             {/* HOME SECTION CONTAINER */}
-           <section id="home" className="relative w-full z-[50] overflow-hidden h-[100vh] flex items-center justify-center">
+           <section id="home" className="relative w-full z-[50] h-[100vh] flex items-center justify-center">
 
             {/* FLEX CONTAINER */}
             <div className="w-full h-full flex items-center justify-center relative px-10 md:px-0">
@@ -135,7 +135,7 @@ export const Devnetiks: React.FC = () => {
         
             </div>
             {/* BACKGROUND IMAGE FOR HERO SECTION */}
-            <div className="absolute z-[-1] overflow-hidden top-0 left-0 w-full h-full">
+            <div className="absolute z-[-1]  top-0 left-0 w-full h-full">
             <img className={`min-h-screen object-cover opacity-50 transition ease-in-out duration-2000 ${activeSection === 'home' ? ' scale-100' : ' scale-0'}`} src={computer} alt="" />
             </div>
            </section>
@@ -157,7 +157,7 @@ export const Devnetiks: React.FC = () => {
     onClick={() => setActiveTab('what')}
     className={`relative z-50 cursor-pointer transition-all duration-800 delay-0  ease-in-out ${
       activeSection === 'about' ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-[-500px]'
-    } ${activeTab === 'what' ? 'text-white' : 'text-gray-700'}
+    } ${activeTab === 'what' ? 'text-emerald-400' : 'text-gray-700'}
     `}
   >
     WHAT
@@ -167,7 +167,7 @@ export const Devnetiks: React.FC = () => {
     onClick={() => setActiveTab('why')}
     className={`cursor-pointer transition-all duration-800 delay-100 ease-in-out ${
       activeSection === 'about' ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-[500px]'
-    } ${activeTab === 'why' ? 'text-white' : 'text-gray-700'}
+    } ${activeTab === 'why' ? 'text-emerald-400' : 'text-gray-700'}
     `}
   >
     WHY
@@ -177,7 +177,7 @@ export const Devnetiks: React.FC = () => {
     onClick={() => setActiveTab('how')}
     className={`cursor-pointer transition-all duration-800 delay-200 ease-in-out ${
       activeSection === 'about' ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-[500px]'
-    } ${activeTab === 'how' ? 'text-white' : 'text-gray-700'}
+    } ${activeTab === 'how' ? 'text-emerald-400' : 'text-gray-700'}
     `}
   >
     HOW
@@ -187,14 +187,16 @@ export const Devnetiks: React.FC = () => {
 {/* ABOUT CONTENT CONTAINER DISPLAYS BASED ON SELECTED NAV ITEM */}
 <div className={`transition duration-1200 ease-out delay-600 ${activeSection === 'about' ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-[500px]'}`}>
 <div className="w-full  text-white mt-20 transition-all duration-700">
-  <h1 className="text-2xl mb-2">
+  <h1 className="text-2xl mb-2 text-emerald-400">
     {activeTab === 'what' && "WHAT I DO"}
     {activeTab === 'why' && "WHY I DO IT"}
     {activeTab === 'how' && "HOW I DO IT"}
   </h1>
-  <p className={`text-2xl transition-all darkest py-5 duration-1000 text-white ${activeTab === 'what' && 'translate-y-0'} ${activeTab === 'why' && 'translate-y-[20px]'} ${activeTab === 'how' && 'translate-y-[40px]'} `}>
-  {activeTab === 'what' && <><div>
+  {/* p tag */}
+  <p className={`text-2xl transition-all darkest max-w-[600px] py-5 duration-1000 text-white`}>
+  {activeTab === 'what' && <><div className="slideLeft">
       <p className="mb-5">I build fast, interactive websites using React, TypeScript, and Tailwind CSS, backed by Firebase for powerful real-time functionality. Whether it's a business site or a user dashboard, I focus on delivering polished, scalable solutions that are responsive and clean.</p>
+      <p className="mb-5 max-w-[420px]">Whether it's a business site or a user dashboard, I focus on delivering polished, scalable solutions that are responsive and clean.</p>
       <div className="flex gap-5">
         <img src={reactLogo} alt="" />
         <img src={firebaseLogo} alt="" />
@@ -203,7 +205,7 @@ export const Devnetiks: React.FC = () => {
   
       </div>
     </div></>}
-    {activeTab === 'why' && <><div>
+    {activeTab === 'why' && <><div className="slideUp">
       <p className="mb-5">I believe every brand deserves a web presence that’s just as unique and dynamic as they are. I'm passionate about taking the stress out of tech and helping people get online without confusion, frustration, or unnecessary cost. I love making ideas real.</p>
       <div className="flex gap-5">
         <img src={reactLogo} alt="" />
@@ -213,7 +215,7 @@ export const Devnetiks: React.FC = () => {
   
       </div>
     </div></>}
-    {activeTab === 'how' && <><div>
+    {activeTab === 'how' && <><div className="slideRight">
       <p className="mb-5">First, I listen—then I design and develop based on what you actually need. I use modern tools like Vite for fast performance, Firebase for real-time database and auth, and Tailwind for pixel-perfect styling. I keep my code clean, my workflow transparent, and my clients in the loop the whole time.</p>
       <div className="flex gap-5">
         <img src={reactLogo} alt="" />
@@ -242,11 +244,11 @@ export const Devnetiks: React.FC = () => {
            </section>
 
            {/* SERVICES */}
-           <section id="services" className="relative h-[100vh] w-full flex items-center justify-center">
+           <section id="services" className="relative w-full h-[100vh] flex items-center justify-center">
            <div className="w-full flex flex-col items-center justify-center">
          <div className="md:pt-0">
           {/* PACKAGES HEADER */}
-         <h1 className={`text-center text-3xl md:text-4xl lg:text-6xl text-rose-400 mb-5 transition duration-800z-50 dark py-3 delay-300 ${activeSection === 'services' ? 'translate-y-0 opacity-100 animate-pulse' : 'translate-y-[1000px] opacity-0'}`}>PACKAGES</h1>
+         <h1 className={`text-center text-3xl md:text-4xl lg:text-6xl text-rose-400 mb-5 transition duration-800 sticky top-0 z-50 dark py-3 delay-300 ${activeSection === 'services' ? 'translate-y-0 opacity-100 animate-pulse' : 'translate-y-[-50px] opacity-0'}`}>PACKAGES</h1>
          {/* PACKAGES SUBTEXT */}
          <h2 className={`text-center text-1xl md:text-2xl lg:text-4xl text-white mb-20 transition duration-800  z-50 delay-600 ${activeSection === 'services' ? 'translate-y-0 opacity-100' : 'translate-x-[-500px] opacity-0'}`}>ALL PACKAGES ARE BUILT WITH REACT + TYPESCRIPT</h2>
            <div className="flex flex-col lg:flex-row gap-5 w-full max-w-[1400px] px-10">
@@ -280,7 +282,7 @@ export const Devnetiks: React.FC = () => {
          </div>
         </div>
         {/* ABSOLUTE BG IMAGE */}
-        <div className={`overflow-hidden fixed z-10 top-0 left-0 w-full h-full transition duration-1000 delay-200 ${activeSection === "services" ? 'opacity-80' : 'opacity-0'}`}>
+        <div className={`overflow-hidden fixed z-[-10] top-0 left-0 w-full h-full transition duration-1000 delay-200 ${activeSection === "services" ? 'opacity-80' : 'opacity-0'}`}>
           <img className={`min-h-screen object-cover transition duration-700 delay-400 ${activeSection === "services" && 'animate-pulse scale-120'}`} src={rosebg} alt="" />
         </div>
            </section>
