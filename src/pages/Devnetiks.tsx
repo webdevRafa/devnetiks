@@ -248,7 +248,7 @@ export const Devnetiks: React.FC = () => {
            <div className="w-full flex flex-col items-center justify-center">
          <div className="md:pt-0">
           {/* PACKAGES HEADER */}
-         <h1 className={`text-center text-3xl md:text-4xl lg:text-6xl text-rose-400 mb-5 transition duration-800 sticky top-0 z-50 dark py-3 delay-300 ${activeSection === 'services' ? 'translate-y-0 opacity-100 animate-pulse' : 'translate-y-[-50px] opacity-0'}`}>PACKAGES</h1>
+         <h1 className={`text-center text-3xl md:text-4xl lg:text-6xl text-rose-400 mb-5 transition duration-800 sticky top-0 z-50 dark py-3 delay-500 ${activeSection === 'services' ? 'translate-y-0 opacity-100 animate-pulse' : 'translate-y-[-50px] opacity-0'}`}>PACKAGES</h1>
          {/* PACKAGES SUBTEXT */}
          <h2 className={`text-center text-1xl md:text-2xl lg:text-4xl text-white mb-20 transition duration-800  z-50 delay-600 ${activeSection === 'services' ? 'translate-y-0 opacity-100' : 'translate-x-[-500px] opacity-0'}`}>ALL PACKAGES ARE BUILT WITH REACT + TYPESCRIPT</h2>
            <div className="flex flex-col lg:flex-row gap-5 w-full max-w-[1400px] px-10">
@@ -288,7 +288,32 @@ export const Devnetiks: React.FC = () => {
            </section>
 
            {/* CONTACT */}
-           <section id="contact" className="h-[100vh] flex items-center justify-center"></section>
+           <section id="contact" className="h-[100vh] w-full z-50 flex items-center justify-center relative">
+             {/* ABSOLUTE BG IMAGE */}
+            <div className={`mx-auto px-5 text-center text-lg md:text-2xl block w-full max-w-[700px] text-white`}>
+                <h1 className={`text-orange-400 mb-5 text-2xl md:text-3xl gap-5 py-2 transition duration-700 delay-100 ${activeSection === "contact" ? 'opacity-100 scale-100' : 'opacity-0 scale-20'}`}>CONTACT ME</h1>
+              <form action="submit">
+               <div className={`flex gap-5 py-2 transition duration-700 delay-100 ${activeSection === "contact" ? 'opacity-100 scale-100' : 'opacity-0 scale-20'}`}>
+               <label className="w-[120px]" htmlFor="name">Name:</label>
+               <input id="name" className="w-full border border-gray-200 p-2 rounded transition duration-300 focus:outline-none focus:border-orange-400" type="text" placeholder="Please enter your name" />
+               </div>
+               <div className={`flex  gap-5 py-2 transition duration-700 delay-200 ${activeSection === "contact" ? 'opacity-100 scale-100' : 'opacity-0 scale-20'}`}>
+               <label className="w-[120px]" htmlFor="email">Email:</label>
+               <input id="email" className="w-full border border-gray-200 p-2 transition duration-300 focus:outline-none focus:border-orange-400" type="text" placeholder="Please enter your email address" />
+               </div>
+               <div className={`flex  gap-5 py-2 transition duration-700 delay-300 ${activeSection === "contact" ? 'opacity-100 scale-100' : 'opacity-0 scale-20'}`}>
+               <label className="w-[120px]" htmlFor="comments">Comments:</label>
+               <textarea id="comments" className="w-full  border border-gray-200 p-2 transition duration-300 focus:outline-none focus:border-orange-400" placeholder="Please provide some information on what you need" />
+               </div>
+               <button 
+  type="submit" 
+  className="mt-5 w-full bg-orange-400 hover:bg-orange-500 text-gray-900 font-bold py-2 px-4 rounded-lg transition duration-300"
+>
+  Send Message
+</button>
+              </form>
+            </div>
+           </section>
         </div>
     </div>
     </>
