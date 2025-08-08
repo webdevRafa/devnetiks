@@ -10,7 +10,13 @@ export type ID = string;
 export type CurrencyCents = number; // $25.00 -> 2500
 export type FirestoreDate = Date | { seconds: number; nanoseconds: number };
 
-export type Role = 'client' | 'admin' | 'contractor';
+export type Role =
+  | 'admin'
+  | 'manager'
+  | 'staff'
+  | 'client'
+  | 'viewer'
+  | 'contractor'; // include only if you actually use it
 export type ProjectStatus = 'planning' | 'active' | 'onHold' | 'completed' | 'archived';
 export type QuoteProjectType = 'brochure' | 'booking' | 'ecommerce' | 'custom';
 export type QuoteType = 'fixed' | 'hourly' | 'retainer';
@@ -39,9 +45,11 @@ export type NotificationType =
   | 'ticket.updated';
 
 // --------------------------------- Auth / Users ---------------------------------
+
+
 export interface User {
-  uid: ID; // Firebase Auth UID
-  role: Role;
+  uid: ID;
+  role: Role;        // <- single source of truth
   name: string;
   email: string;
   companyName?: string;
