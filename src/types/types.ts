@@ -91,6 +91,9 @@ export interface Project {
   orgId?: ID;          // organizations/{id}
   title: string;
   description?: string;
+  name: string;
+  organizationId: string;
+  createdAt: string;
   status: ProjectStatus;
   stack: string[];     // ['React','TypeScript','Tailwind','Firebase']
   stakeholderContactIds?: ID[];
@@ -100,7 +103,6 @@ export interface Project {
   subscriptionId?: ID; // subscriptions/{id}
   assets?: ID[];       // files/{id}
   notes?: string;
-  createdAt: FirestoreDate;
   updatedAt: FirestoreDate;
 }
 
