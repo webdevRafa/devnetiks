@@ -291,10 +291,10 @@ export interface Subscription {
 }
 
 export interface InvoiceLineItem {
-  description: string;
-  amount: CurrencyCents;
-  quantity?: number; // default 1
-  sku?: string;      // service SKU
+  id: string;               // unique ID for the line item
+  name: string;             // item/service name
+  quantity: number;         // number of units
+  unitAmountCents: number;  // price per unit in cents
 }
 
 export interface Invoice {
@@ -302,7 +302,7 @@ export interface Invoice {
   clientId: ID;
   orgId?: ID;
   projectId?: ID;
-
+  items?: InvoiceLineItem[];
   lineItems: InvoiceLineItem[];
   subtotal: CurrencyCents;
   discount?: CurrencyCents;

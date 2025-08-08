@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
-
-import { db } from "@/firebase/firebaseConfig"; // adjust path if needed
-import { collection, doc, getDoc, getDocs, setDoc } from "firebase/firestore";
+import { db } from "@/firebase/firebaseConfig";
+import { collection, getDocs } from "firebase/firestore"; // trimmed
 import { paths } from "@/utils/paths";
 import { passthroughConverter } from "@/utils/firestore";
-import { newEntityId } from "@/utils/id";
 
 import DataTable from "@/components/TableComponent";
 import { Link } from "react-router-dom";
@@ -17,23 +15,48 @@ const InvoiceListPage: React.FC = () => {
 
   useEffect(() => {
     (async () => {
-      const snap = await getDocs(collection(db, paths.invoices()).withConverter(passthroughConverter<Invoice>()));
-      setRows(snap.docs.map(d => d.data()));
+      const snap = await getDocs(
+        collection(db, paths.invoices()).withConverter(
+          passthroughConverter<Invoice>()
+        )
+      );
+      setRows(snap.docs.map((d) => d.data()));
     })();
   }, []);
 
   const columns = [
-    { header: "Invoice", accessor: "id" as keyof Invoice, render: (v: any, r: Invoice) => <Link className="text-blue-600" to={`/invoices/${r.id}`}>{String(v)}</Link> },
+    {
+      header: "Invoice",
+      accessor: "id" as keyof Invoice,
+      render: (v: any, r: Invoice) => (
+        <Link className="text-blue-600" to={`/invoices/${r.id}`}>
+          {String(v)}
+        </Link>
+      ),
+    },
     { header: "Status", accessor: "status" as keyof Invoice },
-    { header: "Subtotal", accessor: "subtotalCents" as keyof Invoice, render: (v: any) => fmt.money(v ?? 0) },
-    { header: "Total", accessor: "totalCents" as keyof Invoice, render: (v: any) => fmt.money(v ?? 0) },
+    {
+      header: "Subtotal",
+      accessor: "subtotalCents" as keyof Invoice,
+      render: (v: any) => fmt.money(v ?? 0),
+    },
+    {
+      header: "Total",
+      accessor: "totalCents" as keyof Invoice,
+      render: (v: any) => fmt.money(v ?? 0),
+    },
   ];
 
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
         <h1 className="text-xl font-semibold">Invoices</h1>
-        <Link to="/invoices/new" className="px-3 py-2 text-sm rounded-md bg-blue-600 text-white">New Invoice</Link>
+        <Link
+          to="/invoices/new"
+          className="px-3 py-2 text-sm rounded-md bg-blue-600 text-white"
+        >
+          New Invoice
+        </Link>
       </div>
       <DataTable<Invoice> data={rows} columns={columns} />
     </div>

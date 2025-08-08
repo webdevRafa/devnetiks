@@ -1,4 +1,5 @@
 // files.ts
+
 // File naming + mime helpers + icon mapping.
 
 import { generateId } from "./id";
