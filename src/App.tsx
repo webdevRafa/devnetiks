@@ -32,7 +32,7 @@ function Shell({ children }: { children: React.ReactNode }) {
 function Home() {
   return (
     <div className="space-y-2">
-      <h1 className="text-2xl font-bold">Welcome to Devnetiks HELLO</h1>
+      <h1 className="text-2xl font-bold">Welcome to Devnetiks</h1>
       <p className="text-gray-600">Use the nav to create or view projects.</p>
     </div>
   );
