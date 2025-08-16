@@ -1,27 +1,18 @@
 @import "tailwindcss";
 /* index.css — Devnetiks “Midnight Indigo + Teal” palette */
+/* index.css — Devnetiks custom palette (non-Tailwind colors) */
 
 :root {
-    /* surfaces */
-    --color-background: #0b0f1a;      /* deep ink */
-    --color-card:       #0f172a;      /* slate-900 */
-    --color-card-hover: #1e293b;      /* slate-800 */
+    /* Surfaces */
+    --color-background:    #0B0D12; /* deep obsidian */
+    --color-card:          #0F1522; /* inky navy slate */
+    --color-card-hover:    #172034; /* subtle lift on hover */
   
-    /* accent A: indigo (primary actions) */
-    --accent-color1:        #6366f1;  /* indigo-500 */
-    --accent-color1-hover:  #4f46e5;  /* indigo-600 */
+    /* Primary action (mid blue) */
+    --accent-color1:       #2F7AFB; /* vivid nautical blue */
+    --accent-color1-hover: #2563C6; /* darker hover */
   
-    /* accent B: teal (secondary/emphasis) */
-    --accent-color2:        #14b8a6;  /* teal-500 */
-    --accent-color2-hover:  #0d9488;  /* teal-600 */
+    /* Secondary action (modern mint/green) */
+    --accent-color2:       #2FCF9A; /* crisp mint green */
+    --accent-color2-hover: #26A87E; /* darker hover */
   }
-  
-  /* optional helpers (nice with Tailwind) */
-  .bg-app        { background-color: var(--color-background); }
-  .card          { background-color: var(--color-card); }
-  .card:hover    { background-color: var(--color-card-hover); }
-  .btn-primary   { background-color: var(--accent-color1); }
-  .btn-primary:hover { background-color: var(--accent-color1-hover); }
-  .btn-secondary { background-color: var(--accent-color2); }
-  .btn-secondary:hover { background-color: var(--accent-color2-hover); }
-  
