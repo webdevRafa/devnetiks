@@ -13,7 +13,7 @@ const DashboardLayout: React.FC = () => {
     <div className="min-h-screen flex bg-gray-50">
       <aside className="w-60 bg-white border-r">
         <div className="px-4 py-4 font-semibold text-lg">
-          <Link to="/">Devnetiks</Link>
+          <Link to="/app/projects">Devnetiks</Link>
         </div>
         <nav className="px-2 py-2 space-y-1">
           {nav.map((n) => (
@@ -21,7 +21,9 @@ const DashboardLayout: React.FC = () => {
               key={n.to}
               to={n.to}
               className={({ isActive }) =>
-                `block px-3 py-2 rounded-md text-sm ${isActive ? "bg-gray-100 font-medium" : "hover:bg-gray-50"}`
+                `block px-3 py-2 rounded-md text-sm ${
+                  isActive ? "bg-gray-100 font-medium" : "hover:bg-gray-50"
+                }`
               }
             >
               {n.label}

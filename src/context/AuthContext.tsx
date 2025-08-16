@@ -1,32 +1,77 @@
-// src/context/AuthContext.tsx
-import React, { createContext, useContext, useEffect, useState } from "react";
-import { onAuthStateChanged, getAuth } from "firebase/auth";
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
+import {
+  getAuth,
+  onAuthStateChanged,
+  GoogleAuthProvider,
+  signInWithPopup,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  sendPasswordResetEmail,
+  signOut as fbSignOut,
+  updateProfile,
+} from "firebase/auth";
 import type { User as FirebaseUser } from "firebase/auth";
-import { doc, getDoc } from "firebase/firestore";
 import { db } from "@/firebase/firebaseConfig";
+import { doc, getDoc, setDoc, serverTimestamp } from "firebase/firestore";
 import { paths } from "@/utils/paths";
 import { passthroughConverter } from "@/utils/firestore";
 
-// NOTE: import your app types from the same module that defines them
-import type { User as AppUser, Organization, Project } from "@/types/types";
+type Role = "admin" | "manager" | "staff" | "client" | "viewer";
 
-interface Profile extends AppUser {
-  // don't redeclare `role` here — it already exists on AppUser
-  organization?: Organization;
-  projects?: Project[];
-}
+export type Profile = {
+  id: string;
+  role: Role;
+  email?: string | null;
+  displayName?: string | null;
+  photoURL?: string | null;
+  createdAt?: any;
+  updatedAt?: any;
+};
 
-interface AuthContextValue {
+type AuthContextShape = {
   user: FirebaseUser | null;
   profile: Profile | null;
   loading: boolean;
-}
+  signInWithGoogle: () => Promise<void>;
+  signInWithEmail: (email: string, password: string) => Promise<void>;
+  signUpWithEmail: (
+    email: string,
+    password: string,
+    displayName?: string
+  ) => Promise<void>;
+  resetPassword: (email: string) => Promise<void>;
+  signOut: () => Promise<void>;
+};
 
-const AuthContext = createContext<AuthContextValue>({
-  user: null,
-  profile: null,
-  loading: true,
-});
+const AuthContext = createContext<AuthContextShape | undefined>(undefined);
+
+async function ensureUserProfile(u: FirebaseUser): Promise<Profile> {
+  const ref = doc(db, paths.user(u.uid)).withConverter(
+    passthroughConverter<Profile>()
+  );
+  const snap = await getDoc(ref);
+  if (snap.exists()) {
+    const p = snap.data();
+    return { ...p, id: u.uid };
+  }
+  const newProfile: Profile = {
+    id: u.uid,
+    role: "client",
+    email: u.email,
+    displayName: u.displayName,
+    photoURL: u.photoURL,
+    createdAt: serverTimestamp() as any,
+    updatedAt: serverTimestamp() as any,
+  };
+  await setDoc(ref, newProfile as any, { merge: true });
+  return newProfile;
+}
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
@@ -37,35 +82,77 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
   useEffect(() => {
     const auth = getAuth();
-    const unsub = onAuthStateChanged(auth, async (firebaseUser) => {
-      setUser(firebaseUser);
-
-      if (firebaseUser) {
-        try {
-          const ref = doc(db, paths.user(firebaseUser.uid)).withConverter(
-            passthroughConverter<Profile>()
-          );
-          const snap = await getDoc(ref);
-          setProfile(snap.exists() ? snap.data() : null);
-        } catch (e) {
-          console.error("Error loading profile:", e);
+    const unsub = onAuthStateChanged(auth, async (u) => {
+      try {
+        setUser(u);
+        if (u) {
+          const p = await ensureUserProfile(u);
+          setProfile(p);
+        } else {
           setProfile(null);
         }
-      } else {
+      } catch (e) {
+        console.error("AuthContext error:", e);
         setProfile(null);
+      } finally {
+        setLoading(false);
       }
-
-      setLoading(false);
     });
-
     return () => unsub();
   }, []);
 
-  return (
-    <AuthContext.Provider value={{ user, profile, loading }}>
-      {children}
-    </AuthContext.Provider>
+  const signInWithGoogle = async () => {
+    const auth = getAuth();
+    await signInWithPopup(auth, new GoogleAuthProvider());
+  };
+
+  const signInWithEmail = async (email: string, password: string) => {
+    const auth = getAuth();
+    await signInWithEmailAndPassword(auth, email, password);
+  };
+
+  const signUpWithEmail = async (
+    email: string,
+    password: string,
+    displayName?: string
+  ) => {
+    const auth = getAuth();
+    const cred = await createUserWithEmailAndPassword(auth, email, password);
+    if (displayName) {
+      await updateProfile(cred.user, { displayName });
+    }
+    await ensureUserProfile(cred.user);
+  };
+
+  const resetPassword = async (email: string) => {
+    const auth = getAuth();
+    await sendPasswordResetEmail(auth, email);
+  };
+
+  const signOut = async () => {
+    const auth = getAuth();
+    await fbSignOut(auth);
+  };
+
+  const value = useMemo<AuthContextShape>(
+    () => ({
+      user,
+      profile,
+      loading,
+      signInWithGoogle,
+      signInWithEmail,
+      signUpWithEmail,
+      resetPassword,
+      signOut,
+    }),
+    [user, profile, loading]
   );
+
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
 
-export const useAuth = () => useContext(AuthContext);
+export function useAuth() {
+  const ctx = useContext(AuthContext);
+  if (!ctx) throw new Error("useAuth must be used within <AuthProvider>");
+  return ctx;
+}
