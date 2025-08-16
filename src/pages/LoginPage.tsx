@@ -6,6 +6,7 @@ import {
   GoogleAuthProvider,
 } from "firebase/auth";
 import { useNavigate, Link } from "react-router-dom";
+import glogin from "../assets/google-cont.png";
 
 export default function LoginPage() {
   const auth = getAuth();
@@ -21,7 +22,8 @@ export default function LoginPage() {
     setErr(null);
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      nav("/app/projects", { replace: true });
+      // Always route through role-aware redirect
+      nav("/after-login", { replace: true });
     } catch (e: any) {
       setErr(e?.message || "Login failed");
     } finally {
@@ -34,7 +36,8 @@ export default function LoginPage() {
     setErr(null);
     try {
       await signInWithPopup(auth, new GoogleAuthProvider());
-      nav("/app/projects", { replace: true });
+      // FIX: do not hard-route to /app/projects (admin). Let AfterLogin send clients to /client.
+      nav("/after-login", { replace: true });
     } catch (e: any) {
       setErr(e?.message || "Google sign-in failed");
     } finally {
@@ -50,9 +53,9 @@ export default function LoginPage() {
         <button
           onClick={googleLogin}
           disabled={busy}
-          className="w-full mb-4 px-4 py-2 rounded-xl border border-gray-300 hover:bg-gray-50 disabled:opacity-60"
+          className="w-full mb-4 px-4 py-2 rounded-xl hover:bg-gray-50 disabled:opacity-60"
         >
-          Continue with Google
+          <img src={glogin} alt="" />
         </button>
 
         <div className="relative my-4">

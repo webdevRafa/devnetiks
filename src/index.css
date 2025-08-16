@@ -1,1 +1,27 @@
 @import "tailwindcss";
+/* index.css — Devnetiks “Midnight Indigo + Teal” palette */
+
+:root {
+    /* surfaces */
+    --color-background: #0b0f1a;      /* deep ink */
+    --color-card:       #0f172a;      /* slate-900 */
+    --color-card-hover: #1e293b;      /* slate-800 */
+  
+    /* accent A: indigo (primary actions) */
+    --accent-color1:        #6366f1;  /* indigo-500 */
+    --accent-color1-hover:  #4f46e5;  /* indigo-600 */
+  
+    /* accent B: teal (secondary/emphasis) */
+    --accent-color2:        #14b8a6;  /* teal-500 */
+    --accent-color2-hover:  #0d9488;  /* teal-600 */
+  }
+  
+  /* optional helpers (nice with Tailwind) */
+  .bg-app        { background-color: var(--color-background); }
+  .card          { background-color: var(--color-card); }
+  .card:hover    { background-color: var(--color-card-hover); }
+  .btn-primary   { background-color: var(--accent-color1); }
+  .btn-primary:hover { background-color: var(--accent-color1-hover); }
+  .btn-secondary { background-color: var(--accent-color2); }
+  .btn-secondary:hover { background-color: var(--accent-color2-hover); }
+  

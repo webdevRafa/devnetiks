@@ -14,6 +14,9 @@ export const paths = {
     projects: () => `projects`,
     project: (id: string) => `projects/${id}`,
   
+    projectMembers: () => `projectMembers`,
+  projectMember: (id: string) => `projectMembers/${id}`,
+  
     milestones: () => `milestones`,
     milestone: (id: string) => `milestones/${id}`,
   

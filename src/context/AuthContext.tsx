@@ -29,6 +29,7 @@ export type Profile = {
   role: Role;
   email?: string | null;
   displayName?: string | null;
+  orgId?: string | null;
   photoURL?: string | null;
   createdAt?: any;
   updatedAt?: any;
@@ -66,6 +67,7 @@ async function ensureUserProfile(u: FirebaseUser): Promise<Profile> {
     email: u.email,
     displayName: u.displayName,
     photoURL: u.photoURL,
+    orgId: null,
     createdAt: serverTimestamp() as any,
     updatedAt: serverTimestamp() as any,
   };

@@ -32,7 +32,7 @@ const OrgListPage: React.FC = () => {
       header: "Name",
       accessor: "name" as keyof Organization,
       render: (v: any, r: Organization) => (
-        <Link className="text-blue-600" to={`/organizations/${r.id}`}>
+        <Link className="text-blue-600" to={`/app/organizations/${r.id}`}>
           {String(v)}
         </Link>
       ),
@@ -50,7 +50,7 @@ const OrgListPage: React.FC = () => {
       <div className="flex items-center justify-between">
         <h1 className="text-xl font-semibold">Organizations</h1>
         <Link
-          to="/organizations/new"
+          to="/app/organizations/new"
           className="px-3 py-2 text-sm rounded-md bg-blue-600 text-white"
         >
           New Organization

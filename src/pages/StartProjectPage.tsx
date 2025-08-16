@@ -1,10 +1,25 @@
 import React, { useState } from "react";
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  doc,
+  serverTimestamp,
+  setDoc,
+} from "firebase/firestore";
 import { db } from "@/firebase/firebaseConfig";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "@/context/AuthContext";
+import { upsertOrganizationByDomain } from "@/utils/orgs";
+import { paths } from "@/utils/paths";
+import { newEntityId } from "@/utils/id";
+
+// NOTE: This preserves your original "quotes" write so existing analytics/ops keep working,
+// and *adds* org/contact/project creation + optional membership + user.orgId when signed in.
 
 export default function StartProjectPage() {
   const nav = useNavigate();
+  const { user } = useAuth();
+
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState<string | null>(null);
 
@@ -19,17 +34,95 @@ export default function StartProjectPage() {
     e.preventDefault();
     setErr(null);
     setBusy(true);
+
     try {
       const parsedBudget = budget ? Number(budget.replace(/[^\d.]/g, "")) : 0;
+
+      // --- 1) Upsert Organization by declared company (or fallback to contact's name) ---
+      const org = await upsertOrganizationByDomain({
+        name: company || `${name || "Unknown"} Org`,
+        // If you add a website field to the form later, pass it here.
+        // website: websiteFieldValue,
+      });
+
+      // --- 2) Create/Upsert Contact (optional but recommended) ---
+      if (email) {
+        const contactId = newEntityId("contacts");
+        await setDoc(
+          doc(db, paths.contact(contactId)),
+          {
+            id: contactId,
+            name: name || null,
+            email,
+            orgId: org.id,
+            createdAt: serverTimestamp(),
+            updatedAt: serverTimestamp(),
+            source: "public_form",
+          },
+          { merge: true }
+        );
+      }
+
+      // --- 3) Create a Project in draft/lead status ---
+      const projectId = newEntityId("projects");
+      const projectName = details?.trim()
+        ? details.trim().slice(0, 80)
+        : `${projectType} for ${company || name || "New Client"}`;
+
+      await setDoc(
+        doc(db, paths.project(projectId)),
+        {
+          id: projectId,
+          name: projectName,
+          orgId: org.id, // standardized forward-looking field
+          status: "lead", // you can change to "draft" if you prefer
+          source: "public_form",
+          createdAt: serverTimestamp(),
+          updatedAt: serverTimestamp(),
+        } as any,
+        { merge: true }
+      );
+
+      // --- 4) Optionally link the signed-in user to the org + project ---
+      if (user) {
+        // Convenience pointer for the client portal (ClientOrgPage reads this)
+        await setDoc(
+          doc(db, paths.user(user.uid)),
+          { orgId: org.id, updatedAt: serverTimestamp() },
+          { merge: true }
+        );
+
+        // Add membership (simple owner/client role)
+        const pmId = newEntityId("projectMembers");
+        await setDoc(
+          doc(db, paths.projectMember(pmId)),
+          {
+            id: pmId,
+            projectId,
+            userId: user.uid,
+            role: "owner",
+            createdAt: serverTimestamp(),
+          },
+          { merge: true }
+        );
+      }
+
+      // --- 5) Preserve your existing "quotes" collection write ---
       await addDoc(collection(db, "quotes"), {
         createdAt: serverTimestamp(),
         status: "new",
         contact: { name, company, email },
         project: { type: projectType, budget: parsedBudget, details },
         source: "public_form",
+        // helpful denormalized pointers:
+        orgId: org.id,
+        projectId,
       });
+
+      // --- 6) Done ---
       nav("/thank-you", { replace: true });
     } catch (error: any) {
+      console.error(error);
       setErr(error?.message || "Failed to submit request");
     } finally {
       setBusy(false);
@@ -43,6 +136,7 @@ export default function StartProjectPage() {
         <p className="text-gray-600 mb-6">
           Tell us what you need and we’ll get back within 1 business day.
         </p>
+
         <form onSubmit={submit} className="grid gap-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
             <input
@@ -50,6 +144,7 @@ export default function StartProjectPage() {
               placeholder="Your name"
               value={name}
               onChange={(e) => setName(e.target.value)}
+              required
             />
             <input
               className="border rounded-xl px-3 py-2"
@@ -58,13 +153,16 @@ export default function StartProjectPage() {
               onChange={(e) => setCompany(e.target.value)}
             />
           </div>
+
           <input
             className="border rounded-xl px-3 py-2"
             placeholder="Email"
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            required
           />
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
             <select
               className="border rounded-xl px-3 py-2"
@@ -82,15 +180,19 @@ export default function StartProjectPage() {
               placeholder="Budget (USD)"
               value={budget}
               onChange={(e) => setBudget(e.target.value)}
+              inputMode="decimal"
             />
           </div>
+
           <textarea
             className="border rounded-xl px-3 py-2 min-h-[120px]"
             placeholder="Project details"
             value={details}
             onChange={(e) => setDetails(e.target.value)}
           />
+
           {err && <p className="text-sm text-red-600">{err}</p>}
+
           <button
             type="submit"
             disabled={busy}
