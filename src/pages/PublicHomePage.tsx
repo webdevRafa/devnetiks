@@ -2,6 +2,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { motion as m, type Variants, type Transition } from "framer-motion";
+import ServicesTicker from "@/components/ServicesTicker";
+import logo from "@/assets/devlogo.svg";
 
 const easeOutBezier: Transition["ease"] = [0.16, 1, 0.3, 1];
 
@@ -84,7 +86,7 @@ export default function PublicHomePage() {
           to="/"
           className="font-semibold tracking-tight text-white hover:opacity-90"
         >
-          Devnetiks
+          <img className="w-[140px]" src={logo} alt="" />
         </Link>
         <nav className="flex items-center gap-3">
           <Link
@@ -151,25 +153,8 @@ export default function PublicHomePage() {
           </Link>
         </m.div>
 
-        <m.div
-          variants={fadeUp}
-          className="mt-6 flex flex-wrap items-center gap-2 text-xs text-white/60"
-        >
-          <span className="rounded-md border border-white/10 bg-[var(--color-card)] px-2.5 py-1">
-            React
-          </span>
-          <span className="rounded-md border border-white/10 bg-[var(--color-card)] px-2.5 py-1">
-            TypeScript
-          </span>
-          <span className="rounded-md border border-white/10 bg-[var(--color-card)] px-2.5 py-1">
-            Tailwind CSS
-          </span>
-          <span className="rounded-md border border-white/10 bg-[var(--color-card)] px-2.5 py-1">
-            Firebase
-          </span>
-          <span className="rounded-md border border-white/10 bg-[var(--color-card)] px-2.5 py-1">
-            Stripe
-          </span>
+        <m.div variants={fadeUp} className="mt-6">
+          <ServicesTicker />
         </m.div>
       </m.section>
 
