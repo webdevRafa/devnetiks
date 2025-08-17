@@ -13,7 +13,7 @@ import { useAuth } from "@/context/AuthContext";
 import { upsertOrganizationByDomain } from "@/utils/orgs";
 import { paths } from "@/utils/paths";
 import { newEntityId } from "@/utils/id";
-
+import logo from "@/assets/devlogo.svg";
 // StartProjectPage — Devnetiks Design
 // - Dark modern palette via CSS variables in index.css
 // - Clean two-column layout (copy + form)
@@ -149,7 +149,7 @@ export default function StartProjectPage() {
       {/* Header */}
       <header className="mx-auto flex max-w-7xl items-center justify-between px-6 py-6">
         <Link to="/" className="font-semibold tracking-tight hover:opacity-90">
-          Devnetiks
+          <img className="w-[140px]" src={logo} alt="" />
         </Link>
         <nav className="flex items-center gap-3">
           <Link
@@ -162,7 +162,7 @@ export default function StartProjectPage() {
       </header>
 
       {/* Content */}
-      <main className="mx-auto grid max-w-7xl grid-cols-1 gap-10 px-6 pb-20 md:grid-cols-2 md:gap-12">
+      <main className="mx-auto grid max-w-7xl grid-cols-1 gap-10 px-6 pb-20 md:grid-cols-2 md:gap-12 mt-20">
         {/* Left: pitch */}
         <section className="self-start">
           <h1 className="text-balance text-4xl font-bold leading-tight md:text-5xl">
