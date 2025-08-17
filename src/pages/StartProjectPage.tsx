@@ -127,7 +127,7 @@ export default function StartProjectPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[var(--color-background)] text-white overflow-hidden">
+    <div className="relative min-h-screen bg-[var(--color-background)] text-white overflow-hidden">
       {/* decorative page glow */}
       <div
         aria-hidden
