@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { db } from "@/firebase/firebaseConfig";
 import {
   collection,
-  getDocs,
   limit,
+  onSnapshot,
   orderBy,
   query,
   where,
@@ -11,10 +11,12 @@ import {
 import { useAuth } from "@/context/AuthContext";
 import ClientProjectRequestForm from "@/components/ClientProjectRequestForm";
 import StatusBadge from "@/components/StatusBadge";
+import { Link } from "react-router-dom";
+import { Clock, MailCheck, FileText } from "lucide-react";
 
 type Quote = {
   id?: string;
-  status?: string;
+  status?: string; // QuoteStatus
   projectType?: string;
   createdAt?: any;
 };
@@ -30,51 +32,80 @@ export default function ClientHomePage() {
   const { user } = useAuth();
   const [quotes, setQuotes] = useState<Quote[]>([]);
   const [projects, setProjects] = useState<Project[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [loadingQuotes, setLoadingQuotes] = useState(true);
+  const [loadingProjects, setLoadingProjects] = useState(true);
 
   useEffect(() => {
-    let isMounted = true;
-    async function load() {
-      if (!user) return;
-      try {
-        const qRef = query(
+    if (!user) return;
+    // Try ordered query first (requires a composite index).
+    const orderedRef = query(
+      collection(db, "quotes"),
+      where("submittedByUserId", "==", user.uid),
+      orderBy("createdAt", "desc"),
+      limit(12)
+    );
+    let cleanup = () => {};
+    const unsub = onSnapshot(
+      orderedRef,
+      (snap) => {
+        setQuotes(snap.docs.map((d) => ({ id: d.id, ...d.data() } as Quote)));
+        setLoadingQuotes(false);
+      },
+      async () => {
+        // Silent fallback without orderBy (avoids index requirement)
+        const noOrderRef = query(
           collection(db, "quotes"),
           where("submittedByUserId", "==", user.uid),
-          orderBy("createdAt", "desc"),
-          limit(5)
+          limit(12)
         );
-        const qSnap = await getDocs(qRef);
-        const qRows = qSnap.docs.map(
-          (d) => ({ id: d.id, ...d.data() } as Quote)
+        const unsubFallback = onSnapshot(
+          noOrderRef,
+          (snap2) => {
+            setQuotes(
+              snap2.docs.map((d) => ({ id: d.id, ...d.data() } as Quote))
+            );
+            setLoadingQuotes(false);
+          },
+          () => setLoadingQuotes(false)
         );
-
-        const pRef = query(
-          collection(db, "projects"),
-          where("clientId", "==", user.uid),
-          orderBy("createdAt", "desc"),
-          limit(5)
-        );
-        const pSnap = await getDocs(pRef);
-        const pRows = pSnap.docs.map(
-          (d) => ({ id: d.id, ...d.data() } as Project)
-        );
-
-        if (isMounted) {
-          setQuotes(qRows);
-          setProjects(pRows);
-          setLoading(false);
-        }
-      } catch (err) {
-        if (isMounted) setLoading(false);
-        // eslint-disable-next-line no-console
-        console.error(err);
+        cleanup = () => unsubFallback();
       }
-    }
-    load();
-    return () => {
-      isMounted = false;
-    };
+    );
+    cleanup = () => unsub();
+    return () => cleanup();
   }, [user?.uid]);
+
+  useEffect(() => {
+    if (!user) return;
+    // Projects can stay as a lightweight live list too
+    const pRef = query(
+      collection(db, "projects"),
+      where("clientId", "==", user.uid),
+      orderBy("createdAt", "desc"),
+      limit(8)
+    );
+    const unsub = onSnapshot(
+      pRef,
+      (snap) => {
+        setProjects(
+          snap.docs.map((d) => ({ id: d.id, ...d.data() } as Project))
+        );
+        setLoadingProjects(false);
+      },
+      (err) => {
+        console.error(err);
+        setLoadingProjects(false);
+      }
+    );
+    return () => unsub();
+  }, [user?.uid]);
+
+  const pending = quotes.filter(
+    (q) => (q.status ?? "new") === "new" || q.status === "reviewed"
+  );
+  const responded = quotes.filter((q) =>
+    ["quoted", "accepted", "declined", "archived"].includes(q.status ?? "")
+  );
 
   return (
     <div className="space-y-8">
@@ -86,7 +117,8 @@ export default function ClientHomePage() {
           </h1>
           <p className="mt-2 text-white/70 max-w-2xl">
             Start a project request and we’ll reply with a tailored quote.
-            You’ll also see your recent quotes and projects below.
+            You’ll also see your pending requests, responses, and projects
+            below.
           </p>
           <div className="mt-4 hidden md:block">
             <ClientProjectRequestForm />
@@ -100,41 +132,93 @@ export default function ClientHomePage() {
       </section>
 
       {/* Lists */}
-      <section className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+      <section className="grid grid-cols-1 lg:grid-cols-3 gap-4">
         <Card
-          title="Recent quotes"
-          subtitle="We’ll notify you when we respond."
+          title={
+            <div className="flex items-center gap-2">
+              <Clock size={16} /> <span>Pending requests</span>
+            </div>
+          }
+          subtitle="Requests you’ve submitted that we’re reviewing."
+          className="lg:col-span-1"
         >
-          {loading ? (
+          {loadingQuotes ? (
             <div className="text-sm text-white/60">Loading…</div>
-          ) : quotes.length === 0 ? (
-            <Empty label="No quotes yet" />
+          ) : pending.length === 0 ? (
+            <Empty label="No pending requests" />
           ) : (
             <ul className="divide-y divide-white/5">
-              {quotes.map((q) => (
+              {pending.map((q) => (
                 <li
                   key={q.id}
                   className="py-3 flex items-center justify-between"
                 >
-                  <div className="text-sm">
-                    <div className="font-medium capitalize">
+                  <Link
+                    to={`/client/requests/${q.id}`}
+                    className="text-sm group"
+                  >
+                    <div className="font-medium capitalize group-hover:underline">
                       {q.projectType || "project"}
                     </div>
                     <div className="text-white/50">
                       #{q.id?.slice(0, 6)} • {readableDate(q.createdAt)}
                     </div>
-                  </div>
-                  <div>
-                    <StatusBadge status={(q.status as any) || "pending"} />
-                  </div>
+                  </Link>
+                  <StatusBadge status={(q.status as any) || "pending"} />
                 </li>
               ))}
             </ul>
           )}
         </Card>
 
-        <Card title="Your projects" subtitle="Active and recent projects.">
-          {loading ? (
+        <Card
+          title={
+            <div className="flex items-center gap-2">
+              <MailCheck size={16} /> <span>Quotes & responses</span>
+            </div>
+          }
+          subtitle="We’ll notify you as soon as we reply."
+          className="lg:col-span-1"
+        >
+          {loadingQuotes ? (
+            <div className="text-sm text-white/60">Loading…</div>
+          ) : responded.length === 0 ? (
+            <Empty label="No responses yet" />
+          ) : (
+            <ul className="divide-y divide-white/5">
+              {responded.map((q) => (
+                <li
+                  key={q.id}
+                  className="py-3 flex items-center justify-between"
+                >
+                  <Link
+                    to={`/client/requests/${q.id}`}
+                    className="text-sm group"
+                  >
+                    <div className="font-medium capitalize group-hover:underline">
+                      {q.projectType || "project"}
+                    </div>
+                    <div className="text-white/50">
+                      #{q.id?.slice(0, 6)} • {readableDate(q.createdAt)}
+                    </div>
+                  </Link>
+                  <StatusBadge status={(q.status as any) || "quoted"} />
+                </li>
+              ))}
+            </ul>
+          )}
+        </Card>
+
+        <Card
+          title={
+            <div className="flex items-center gap-2">
+              <FileText size={16} /> <span>Your projects</span>
+            </div>
+          }
+          subtitle="Active and recent projects."
+          className="lg:col-span-1"
+        >
+          {loadingProjects ? (
             <div className="text-sm text-white/60">Loading…</div>
           ) : projects.length === 0 ? (
             <Empty label="No projects yet" />
@@ -153,9 +237,7 @@ export default function ClientHomePage() {
                       #{p.id?.slice(0, 6)} • {readableDate(p.createdAt)}
                     </div>
                   </div>
-                  <div>
-                    <StatusBadge status={(p.status as any) || "active"} />
-                  </div>
+                  <StatusBadge status={(p.status as any) || "active"} />
                 </li>
               ))}
             </ul>
@@ -169,14 +251,21 @@ export default function ClientHomePage() {
 function Card({
   title,
   subtitle,
+  className = "",
   children,
 }: {
-  title: string;
+  title: React.ReactNode;
   subtitle?: string;
+  className?: string;
   children: React.ReactNode;
 }) {
   return (
-    <div className="rounded-2xl border border-white/10 bg-[var(--color-card)] p-6">
+    <div
+      className={
+        "rounded-2xl border border-white/10 bg-[var(--color-card)] p-6 " +
+        className
+      }
+    >
       <div className="mb-4">
         <h2 className="text-lg font-semibold">{title}</h2>
         {subtitle && <p className="text-sm text-white/60">{subtitle}</p>}

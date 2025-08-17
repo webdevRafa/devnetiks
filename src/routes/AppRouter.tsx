@@ -28,6 +28,10 @@ import InvoiceListPage from "@/pages/invoices/InvoiceListPage";
 import InvoiceFormPage from "@/pages/invoices/InvoiceFormPage";
 import InvoiceDetailPage from "@/pages/invoices/InvoiceDetailPage";
 
+// Quotes (admin)
+import QuoteListPage from "@/pages/quotes/QuoteListPage";
+import QuoteDetailPage from "@/pages/quotes/QuoteDetailPage";
+import QuoteRespondPage from "@/pages/quotes/QuoteRespondPage";
 // Client portal (the three files we created)
 import ClientLayout from "@/pages/client/ClientLayout";
 import ClientHomePage from "@/pages/client/ClientHomePage";
@@ -60,6 +64,12 @@ const router = createBrowserRouter([
       { path: "organizations/:id/edit", element: <OrgFormPage /> },
 
       // Projects
+
+      // Requests / Quotes
+      { path: "quotes", element: <QuoteListPage /> },
+      { path: "quotes/:id", element: <QuoteDetailPage /> },
+      { path: "quotes/:id/respond", element: <QuoteRespondPage /> },
+
       { path: "projects", element: <ProjectListPage /> },
       { path: "projects/new", element: <ProjectFormPage /> },
       { path: "projects/:id", element: <ProjectDetailPage /> },

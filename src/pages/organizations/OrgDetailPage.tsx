@@ -1,7 +1,14 @@
 // src/pages/organizations/OrgDetailPage.tsx
 import React, { useEffect, useState } from "react";
 import { db } from "@/firebase/firebaseConfig";
-import { doc, getDoc } from "firebase/firestore";
+import {
+  doc,
+  getDoc,
+  collection,
+  getDocs,
+  query,
+  where,
+} from "firebase/firestore";
 import { paths } from "@/utils/paths";
 import { passthroughConverter } from "@/utils/firestore";
 import DetailCard from "@/components/DetailCard";
@@ -109,8 +116,65 @@ const OrgDetailPage: React.FC = () => {
           </div>
         </div>
       </DetailCard>
+
+      {/* Requests from this organization */}
+      <div className="mt-6 border rounded-xl p-6 bg-white shadow-sm">
+        <div className="flex items-center justify-between mb-3">
+          <h2 className="text-lg font-semibold">
+            Requests from this organization
+          </h2>
+          <Link
+            to="/app/quotes"
+            className="text-blue-600 hover:underline text-sm"
+          >
+            View all
+          </Link>
+        </div>
+        <OrgQuotes orgId={org.id} />
+      </div>
     </div>
   );
 };
+
+function OrgQuotes({ orgId }: { orgId: string }) {
+  const [items, setItems] = React.useState<any[]>([]);
+  const [loading, setLoading] = React.useState(true);
+
+  React.useEffect(() => {
+    (async () => {
+      setLoading(true);
+      const col = collection(db, "quotes");
+      const qy = query(col, where("orgId", "==", orgId));
+      const snap = await getDocs(qy);
+      setItems(snap.docs.map((d) => ({ id: d.id, ...(d.data() as any) })));
+      setLoading(false);
+    })();
+  }, [orgId]);
+
+  if (loading) return <div className="text-gray-500 text-sm">Loading…</div>;
+  if (!items.length)
+    return <div className="text-gray-600 text-sm">No requests yet.</div>;
+
+  return (
+    <ul className="divide-y divide-gray-200">
+      {items.map((r) => (
+        <li key={r.id} className="py-2 flex items-center justify-between">
+          <div>
+            <div className="text-gray-900">{r.clientName || r.email}</div>
+            <div className="text-gray-600 text-sm">
+              {r.projectType} • {r.status}
+            </div>
+          </div>
+          <Link
+            to={`/app/quotes/${r.id}`}
+            className="px-3 py-1 rounded border border-gray-300 bg-white hover:bg-gray-50 text-sm"
+          >
+            Open
+          </Link>
+        </li>
+      ))}
+    </ul>
+  );
+}
 
 export default OrgDetailPage;
