@@ -8,7 +8,8 @@ export default function SiteHeader() {
         <img src="/devnetiks-emblem.png" width="44" height="44" alt="" className="h-10 w-10 rounded-full sm:h-11 sm:w-11" />
         <span className="text-xl sm:text-2xl">Devnetiks</span>
       </Link>
-      <nav aria-label="Main navigation">
+      <nav aria-label="Main navigation" className="flex items-center gap-5">
+        <a href="/#portfolio" className="hidden min-h-11 items-center text-sm font-medium text-white/75 hover:text-white sm:inline-flex">Portfolio</a>
         <Link to={pathname === "/start" ? "/" : "/start"} className="inline-flex min-h-11 items-center rounded-xl bg-[var(--accent-color1)] px-3 py-2 text-sm font-semibold text-white transition hover:bg-[var(--accent-color1-hover)] sm:px-4">
           {pathname === "/start" ? "Back to home" : "Start a Project"}
         </Link>

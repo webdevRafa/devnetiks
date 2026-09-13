@@ -5,6 +5,7 @@ import { motion as m, type Variants, type Transition } from "framer-motion";
 import ServicesTicker from "@/components/ServicesTicker";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
+import PortfolioSection from "@/components/PortfolioSection";
 
 const easeOutBezier: Transition["ease"] = [0.16, 1, 0.3, 1];
 
@@ -126,10 +127,10 @@ export default function PublicHomePage() {
             Get a Quote
           </Link>
           <a
-            href="mailto:devnetiks@gmail.com"
+            href="#portfolio"
             className="rounded-xl border border-white/15 px-5 py-3 text-sm font-semibold text-white/90 transition hover:bg-white/5"
           >
-            Email us
+            View portfolio
           </a>
         </m.div>
 
@@ -190,6 +191,8 @@ export default function PublicHomePage() {
           </Card>
         </div>
       </m.section>
+
+      <PortfolioSection />
 
       {/* PROCESS */}
       <m.section
