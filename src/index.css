@@ -16,3 +16,15 @@
     --accent-color2:       #2FCF9A; /* crisp mint green */
     --accent-color2-hover: #26A87E; /* darker hover */
   }
+
+body { margin: 0; min-width: 320px; background: var(--color-background); color: white; }
+:focus-visible { outline: 2px solid var(--accent-color2); outline-offset: 4px; }
+.contact-input {
+  display: block; width: 100%; margin-top: .5rem; border: 1px solid rgb(255 255 255 / .15);
+  border-radius: .75rem; background: var(--color-background); padding: .8rem 1rem;
+  color: white; font-size: 1rem; font-weight: 400;
+}
+.contact-input::placeholder { color: rgb(255 255 255 / .4); }
+.contact-input:focus { border-color: var(--accent-color2); }
+.skip-link { position: fixed; top: -5rem; left: 1rem; z-index: 100; padding: .75rem 1rem; background: white; color: #0B0D12; border-radius: .5rem; }
+.skip-link:focus { top: 1rem; }

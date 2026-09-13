@@ -3,7 +3,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { motion as m, type Variants, type Transition } from "framer-motion";
 import ServicesTicker from "@/components/ServicesTicker";
-import logo from "@/assets/devlogo.svg";
+import SiteHeader from "@/components/SiteHeader";
+import SiteFooter from "@/components/SiteFooter";
 
 const easeOutBezier: Transition["ease"] = [0.16, 1, 0.3, 1];
 
@@ -80,29 +81,8 @@ export default function PublicHomePage() {
         }}
       />
 
-      {/* NAV (simple) */}
-      <header className="mx-auto flex max-w-7xl items-center justify-between px-6 py-6">
-        <Link
-          to="/"
-          className="font-semibold tracking-tight text-white hover:opacity-90"
-        >
-          <img className="w-[140px]" src={logo} alt="" />
-        </Link>
-        <nav className="flex items-center gap-3">
-          <Link
-            to="/login"
-            className="rounded-xl border border-white/15 px-4 py-2 text-sm text-white/90 transition hover:bg-white/5"
-          >
-            Log in
-          </Link>
-          <Link
-            to="/start"
-            className="rounded-xl bg-[var(--accent-color1)] px-4 py-2 text-sm font-medium text-white transition hover:bg-[var(--accent-color1-hover)]"
-          >
-            Start a Project
-          </Link>
-        </nav>
-      </header>
+      <SiteHeader />
+      <main id="main-content">
 
       {/* HERO */}
       <m.section
@@ -145,12 +125,12 @@ export default function PublicHomePage() {
           >
             Get a Quote
           </Link>
-          <Link
-            to="/login"
+          <a
+            href="mailto:devnetiks@gmail.com"
             className="rounded-xl border border-white/15 px-5 py-3 text-sm font-semibold text-white/90 transition hover:bg-white/5"
           >
-            Client Login
-          </Link>
+            Email us
+          </a>
         </m.div>
 
         <m.div variants={fadeUp} className="mt-6">
@@ -183,12 +163,12 @@ export default function PublicHomePage() {
 
           <Card
             title="Data-Backed Apps"
-            subtitle="Forms, auth, and dashboards."
+            subtitle="Useful tools, built around your business."
           >
             <p>
-              Capture leads, manage content, and personalize experiences. We
-              wire secure auth, Firestore data models, and admin tooling so your
-              team can move quickly.
+              Bring your ideas to life with interactive tools, useful content,
+              and connected experiences. We build around the way your business
+              works, with room to grow.
             </p>
             <div className="pt-1 text-sm text-white/60">
               Build once, iterate fast, scale when it clicks.
@@ -200,12 +180,12 @@ export default function PublicHomePage() {
             subtitle="From intent to paid—smooth."
           >
             <p>
-              Capacity-aware booking flows, checkout via Stripe or Deluxe, email
-              receipts, and admin overviews. Money-safe: we store amounts in
-              cents and keep an audit trail.
+              Make it easy for customers to book a time, reserve a spot, and
+              pay online. Clear steps and thoughtful details keep the experience
+              smooth from the first click to confirmation.
             </p>
             <div className="pt-1 text-sm text-white/60">
-              Great for appointments, events, hunts, or services.
+              Great for appointments, events, and services.
             </div>
           </Card>
         </div>
@@ -286,24 +266,8 @@ export default function PublicHomePage() {
         </m.div>
       </m.section>
 
-      {/* FOOTER */}
-      <footer className="mx-auto max-w-7xl px-6 pb-10 text-xs text-white/50">
-        <div className="flex flex-wrap items-center justify-between gap-3 border-t border-white/10 pt-6">
-          <span>© {new Date().getFullYear()} Devnetiks LLC</span>
-          <div className="flex items-center gap-3">
-            <span className="text-white/60">Built with</span>
-            <span className="rounded-md border border-white/10 bg-[var(--color-card)] px-2 py-1">
-              React
-            </span>
-            <span className="rounded-md border border-white/10 bg-[var(--color-card)] px-2 py-1">
-              Tailwind
-            </span>
-            <span className="rounded-md border border-white/10 bg-[var(--color-card)] px-2 py-1">
-              Firebase
-            </span>
-          </div>
-        </div>
-      </footer>
+      </main>
+      <SiteFooter />
     </div>
   );
 }

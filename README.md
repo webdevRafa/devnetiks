@@ -1,69 +1,37 @@
-# React + TypeScript + Vite
+# Devnetiks
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Public marketing and contact website for **Devnetiks LLC**, built with React, TypeScript, Tailwind CSS, and Vite. The navbar uses Devnetiks with the supplied emblem; every page identifies Devnetiks LLC as the owner.
 
-Currently, two official plugins are available:
+## Development
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Use Node.js 22.12+ (or a supported newer LTS release).
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```sh
+npm ci
+npm run dev
+npm run lint
+npm run build
+npm run preview
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Contact delivery — one-time activation required
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+The form at `/start` submits directly to [FormSubmit](https://formsubmit.co/documentation) for delivery to **devnetiks@gmail.com**. It uses native browser validation, a honeypot, and FormSubmit's default CAPTCHA. The visitor's email is used for Reply-To. No account, database, backend function, or API key is required by this application.
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+Before accepting inquiries:
+
+1. Submit a test inquiry from the deployed website and complete the provider's spam check.
+2. Open the FormSubmit activation email sent to devnetiks@gmail.com (check spam) and activate the form.
+3. Submit another test from the production domain and confirm both delivery and Reply-To. Repeat activation if the provider requests it for another domain.
+
+Delivery is not verified until this activation and mailbox test are complete. FormSubmit handles the request off-site; the form discloses this to visitors. After submission, the provider returns visitors to `/thank-you` on the same domain. A direct mailto link is available on every page if the service is unavailable. Never put sensitive information in test submissions.
+
+## Deployment
+
+Pushes to the branch connected to Vercel use the existing Git deployment integration. Build command: `npm run build`; output directory: `dist`. `vercel.json` supplies SPA rewrites so direct visits and refreshes at `/start` and `/thank-you` work. No Firebase environment variables are needed.
+
+## Removed functionality
+
+Authentication, client/admin dashboards, organizations, projects, invoices, quotes, CRM utilities, Firebase initialization, and their unused dependencies have been removed. Old application URLs fall back to the public homepage. The existing Firebase service and any previously stored records are not changed by this repository update; retire those separately if no other application uses them.
+
+The original user-supplied emblem is in `public/devnetiks-emblem.png`, used by the navbar, confirmation page, favicon, and touch icon.

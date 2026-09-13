@@ -21,14 +21,9 @@ const DEFAULT_ITEMS = [
   "Quote & intake forms",
   "Booking & scheduling",
   "Payments & subscriptions",
-  "Client portals",
-  "Admin dashboards",
-  "E‑sign agreements",
-  "Invoices & receipts",
   "File uploads & galleries",
   "Notifications & email",
   "Domains & deployments",
-  "Support tickets",
 ];
 
 export default function ServicesTicker({
