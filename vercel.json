@@ -1,9 +1,32 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "rewrites": [
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "redirects": [
     {
-      "source": "/((?!assets/|.*\\.[^/]+$).*)",
-      "destination": "/index.html"
+      "source": "/contact",
+      "destination": "/start",
+      "permanent": true
+    },
+    {
+      "source": "/login",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/client/:path*",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/app/:path*",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/invoices/:path*",
+      "destination": "/",
+      "permanent": true
     }
   ]
 }

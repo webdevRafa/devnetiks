@@ -1,20 +1,10 @@
 import { Link } from "react-router-dom";
-import { motion as m, type Variants } from "framer-motion";
 import ServicesTicker from "@/components/ServicesTicker";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import PortfolioSection from "@/components/PortfolioSection";
 import ArrowUpRight from "@/components/ArrowUpRight";
 import "./PublicHomePage.css";
-
-const fadeIn: Variants = {
-  hidden: { opacity: 0 },
-  show: { opacity: 1, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } },
-};
-const stagger: Variants = {
-  hidden: {},
-  show: { transition: { staggerChildren: 0.08 } },
-};
 
 const services = [
   {
@@ -55,7 +45,7 @@ export default function PublicHomePage() {
             Modern web apps,{" "}<span className="home-gradient-text">delivered end-to-end</span>.
           </h1>
           <p className="mt-5 max-w-2xl text-pretty text-white/70 md:text-lg">
-            We design and build with React, TypeScript, Tailwind CSS, and Firebase. From sleek brochure sites to data-backed apps to full booking & payment systems—Devnetiks turns ideas into shipped products.
+            Devnetiks LLC designs and builds custom websites and web apps for businesses. From standout marketing sites to booking and payment systems, we turn your ideas into useful digital experiences.
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-5">
             <Link to="/start" className="home-primary-link">Get a Quote <span aria-hidden="true"><ArrowUpRight /></span></Link>
@@ -69,18 +59,18 @@ export default function PublicHomePage() {
             <p className="home-eyebrow">What we build</p>
             <h2 id="services-heading">Built around your business.</h2>
           </div>
-          <m.div initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.15 }} variants={stagger} className="home-services-grid">
+          <div className="home-services-grid">
             {services.map((service) => (
-              <m.article variants={fadeIn} key={service.title} className="home-service">
+              <article key={service.title} className="home-service">
                 <svg className="home-service-icon" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   {service.paths.map((d) => <path key={d} d={d} />)}
                 </svg>
                 <h3>{service.title}</h3>
                 <p className="home-service-subtitle">{service.subtitle}</p>
                 <p className="home-service-description">{service.description}</p>
-              </m.article>
+              </article>
             ))}
-          </m.div>
+          </div>
         </section>
 
         <PortfolioSection />

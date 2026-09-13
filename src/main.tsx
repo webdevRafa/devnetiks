@@ -1,13 +1,10 @@
 import { StrictMode } from "react";
-import { createRoot } from "react-dom/client";
+import { createRoot, hydrateRoot } from "react-dom/client";
+import { BrowserRouter } from "react-router-dom";
 import "./index.css";
 import App from "./App";
-import { MotionConfig } from "framer-motion";
 
-createRoot(document.getElementById("root")!).render(
-  <StrictMode>
-    <MotionConfig reducedMotion="user">
-      <App />
-    </MotionConfig>
-  </StrictMode>
-);
+const root = document.getElementById("root")!;
+const app = <StrictMode><BrowserRouter><App /></BrowserRouter></StrictMode>;
+if (root.dataset.prerendered === "true") hydrateRoot(root, app);
+else createRoot(root).render(app);

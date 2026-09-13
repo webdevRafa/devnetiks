@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState, type FormEvent } from "react";
+import { SITE_URL } from "@/seo";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 
@@ -58,7 +59,7 @@ export default function StartProjectPage() {
           }} className="mt-6 grid gap-5" aria-busy={busy}>
             <input type="hidden" name="_subject" value="New Devnetiks website inquiry" />
             <input type="hidden" name="_template" value="table" />
-            <input type="hidden" name="_next" value={`${window.location.origin}/thank-you`} />
+            <input type="hidden" name="_next" value={`${SITE_URL}/thank-you`} />
             <input type="text" name="_honey" className="hidden" tabIndex={-1} autoComplete="off" aria-hidden="true" />
             <div className="grid gap-5 sm:grid-cols-2">
               <label className="text-sm font-medium" htmlFor="name">Your name *

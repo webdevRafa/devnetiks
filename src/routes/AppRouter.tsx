@@ -1,16 +1,15 @@
-import { createBrowserRouter, RouterProvider, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import PublicHomePage from "@/pages/PublicHomePage";
 import StartProjectPage from "@/pages/StartProjectPage";
 import ThankYouPage from "@/pages/ThankYouPage";
-
-const router = createBrowserRouter([
-  { path: "/", element: <PublicHomePage /> },
-  { path: "/start", element: <StartProjectPage /> },
-  { path: "/contact", element: <Navigate to="/start" replace /> },
-  { path: "/thank-you", element: <ThankYouPage /> },
-  { path: "*", element: <Navigate to="/" replace /> },
-]);
+import NotFoundPage from "@/pages/NotFoundPage";
 
 export default function AppRouter() {
-  return <RouterProvider router={router} />;
+  return <Routes>
+    <Route path="/" element={<PublicHomePage />} />
+    <Route path="/start" element={<StartProjectPage />} />
+    <Route path="/contact" element={<Navigate to="/start" replace />} />
+    <Route path="/thank-you" element={<ThankYouPage />} />
+    <Route path="*" element={<NotFoundPage />} />
+  </Routes>;
 }
