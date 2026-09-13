@@ -6,6 +6,15 @@
     <link rel="apple-touch-icon" href="/devnetiks-emblem.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#0B0D12" />
+    <link rel="preload" as="image" href="/devnetiks-emblem.png" fetchpriority="high" />
+    <style>
+      /* Available before the application CSS/JavaScript arrive. */
+      html { background: #0B0D12; scrollbar-gutter: stable; }
+      body { margin: 0; }
+      #root { min-height: 100svh; }
+      #app-loading { position: fixed; inset: 0; z-index: 100; display: grid; place-content: center; gap: 12px; background: #0B0D12; color: #aab6c7; text-align: center; font: 14px/1.5 system-ui, sans-serif; }
+      #app-loading a { color: #e2e8f0; text-underline-offset: 4px; }
+    </style>
     <meta name="description" content="Devnetiks LLC designs and builds modern websites and web apps. Tell us about your project at devnetiks@gmail.com." />
     <meta property="og:title" content="Devnetiks | Modern websites &amp; web apps" />
     <meta property="og:description" content="From idea to launch. Websites and web apps by Devnetiks LLC." />
@@ -15,6 +24,11 @@
   <body>
     <a class="skip-link" href="#main-content">Skip to content</a>
     <div id="root"></div>
+    <div id="app-loading">
+      <span role="status">Loading Devnetiks…</span>
+      <a href="mailto:devnetiks@gmail.com">devnetiks@gmail.com</a>
+    </div>
+    <noscript><style>#app-loading { display: none; }</style><p style="color: white; padding: 24px">Please enable JavaScript to explore Devnetiks, or <a href="mailto:devnetiks@gmail.com" style="color: inherit">email devnetiks@gmail.com</a>.</p></noscript>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

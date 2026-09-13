@@ -1,4 +1,4 @@
-.portfolio-section { scroll-margin-top: 2rem; }
+.portfolio-section { scroll-margin-top: 1rem; }
 .portfolio-heading { display: flex; align-items: flex-end; justify-content: space-between; gap: 2rem; margin-bottom: 2.5rem; }
 .portfolio-eyebrow { display: flex; align-items: center; gap: .65rem; color: var(--accent-color2); font-size: .7rem; font-weight: 600; letter-spacing: .15em; text-transform: uppercase; }
 .portfolio-eyebrow::before { content: ""; height: 1px; width: 1.75rem; background: currentColor; }
@@ -12,7 +12,7 @@
 .brand-preview:focus-visible::before { opacity: .75; background-position: center; background: radial-gradient(280px circle at 50% 50%, rgb(var(--glow-color) / .48), transparent 80%); }
 .portfolio-satx-brand { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; min-height: 320px; padding: 4rem 2rem 3rem; background: radial-gradient(ellipse at 50% 100%, #68231f55, transparent 75%), #151416; --glow-color: 190 58 44; }
 .portfolio-feature-label { position: absolute; z-index: 1; top: 1.5rem; left: 1.5rem; right: 3.25rem; color: #e1aba5; font-size: .65rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; }
-.portfolio-satx-brand > img { width: 100%; max-width: 255px; height: auto; }
+.portfolio-satx-brand > img { width: 100%; max-width: 255px; height: auto; aspect-ratio: 1170 / 327.62; }
 .portfolio-satx-brand > p { text-align: center; color: rgb(255 255 255 / .85); font-size: .8rem; line-height: 1.8; }
 .portfolio-satx-brand > p span { color: rgb(255 255 255 / .5); }
 .portfolio-feature-project { display: flex; flex-direction: column; padding: 1rem 0 1rem 1.5rem; border-left: 1px solid rgb(255 255 255 / .1); }

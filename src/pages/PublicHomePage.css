@@ -4,8 +4,8 @@
 .home-eyebrow { display: flex; align-items: center; gap: .75rem; color: var(--accent-color2); font-size: .7rem; font-weight: 600; letter-spacing: .15em; text-transform: uppercase; }
 .home-eyebrow::before { content: ""; width: 1.75rem; height: 1px; background: currentColor; }
 .home-gradient-text { background: linear-gradient(100deg, var(--accent-color1), #2ba9be 55%, var(--accent-color2)); background-clip: text; color: transparent; }
-.home-primary-link { display: inline-flex; min-height: 48px; align-items: center; justify-content: center; gap: 1.5rem; padding: .85rem 1.25rem; border-radius: .75rem; background: var(--accent-color1); color: white; font-size: .85rem; font-weight: 600; transition: background .2s, box-shadow .2s; }
-.home-primary-link:hover { background: var(--accent-color1-hover); box-shadow: 0 6px 28px #2f7afb25; }
+.home-primary-link { display: inline-flex; min-height: 48px; align-items: center; gap: .85rem; padding: .5rem 0; color: #e2e8f0; font-size: .85rem; font-weight: 600; text-decoration: underline; text-underline-offset: .35rem; text-decoration-thickness: 1px; text-decoration-color: rgb(255 255 255 / .5); transition: color .2s, text-decoration-color .2s; }
+.home-primary-link:hover { color: var(--accent-color2); text-decoration-color: currentColor; }
 .home-primary-link span, .home-text-link span { transition: transform .2s; }
 .home-primary-link:hover span { transform: translate(2px, -2px); }
 .home-text-link { display: inline-flex; align-items: center; gap: .8rem; min-height: 48px; color: #d4d9e0; font-size: .85rem; font-weight: 600; }

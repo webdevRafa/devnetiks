@@ -17,7 +17,9 @@
     --accent-color2-hover: #26A87E; /* darker hover */
   }
 
+html { scrollbar-gutter: stable; scroll-padding-top: 112px; }
 body { margin: 0; min-width: 320px; background: var(--color-background); color: white; }
+#root { min-height: 100svh; }
 :focus-visible { outline: 2px solid var(--accent-color2); outline-offset: 4px; }
 .contact-input {
   display: block; width: 100%; margin-top: .5rem; border: 1px solid rgb(255 255 255 / .15);

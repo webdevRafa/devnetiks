@@ -7,9 +7,9 @@ import PortfolioSection from "@/components/PortfolioSection";
 import ArrowUpRight from "@/components/ArrowUpRight";
 import "./PublicHomePage.css";
 
-const fadeUp: Variants = {
-  hidden: { opacity: 0, y: 20 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } },
+const fadeIn: Variants = {
+  hidden: { opacity: 0 },
+  show: { opacity: 1, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } },
 };
 const stagger: Variants = {
   hidden: {},
@@ -49,20 +49,20 @@ export default function PublicHomePage() {
       <div className="home-ambient" aria-hidden="true" />
       <SiteHeader />
       <main id="main-content">
-        <m.section initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }} variants={stagger} className="home-hero mx-auto max-w-7xl px-6 pt-10 md:pt-16">
-          <m.p variants={fadeUp} className="home-eyebrow mb-5">Design. Develop. Deliver.</m.p>
-          <m.h1 variants={fadeUp} className="max-w-3xl text-balance text-4xl font-bold leading-tight md:text-6xl">
+        <section className="home-hero mx-auto max-w-7xl px-6 pt-10 md:pt-16">
+          <p className="home-eyebrow mb-5">Design. Develop. Deliver.</p>
+          <h1 className="max-w-3xl text-balance text-4xl font-bold leading-tight md:text-6xl">
             Modern web apps,{" "}<span className="home-gradient-text">delivered end-to-end</span>.
-          </m.h1>
-          <m.p variants={fadeUp} className="mt-5 max-w-2xl text-pretty text-white/70 md:text-lg">
+          </h1>
+          <p className="mt-5 max-w-2xl text-pretty text-white/70 md:text-lg">
             We design and build with React, TypeScript, Tailwind CSS, and Firebase. From sleek brochure sites to data-backed apps to full booking & payment systems—Devnetiks turns ideas into shipped products.
-          </m.p>
-          <m.div variants={fadeUp} className="mt-8 flex flex-wrap items-center gap-5">
+          </p>
+          <div className="mt-8 flex flex-wrap items-center gap-5">
             <Link to="/start" className="home-primary-link">Get a Quote <span aria-hidden="true"><ArrowUpRight /></span></Link>
             <a href="#portfolio" className="home-text-link">View portfolio <span aria-hidden="true">↓</span></a>
-          </m.div>
-          <m.div variants={fadeUp} className="mt-8"><ServicesTicker maxWidthPx={580} /></m.div>
-        </m.section>
+          </div>
+          <div className="mt-8"><ServicesTicker maxWidthPx={580} /></div>
+        </section>
 
         <section className="home-services mx-auto max-w-7xl px-6" aria-labelledby="services-heading">
           <div className="home-section-intro">
@@ -71,7 +71,7 @@ export default function PublicHomePage() {
           </div>
           <m.div initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.15 }} variants={stagger} className="home-services-grid">
             {services.map((service) => (
-              <m.article variants={fadeUp} key={service.title} className="home-service">
+              <m.article variants={fadeIn} key={service.title} className="home-service">
                 <svg className="home-service-icon" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   {service.paths.map((d) => <path key={d} d={d} />)}
                 </svg>
