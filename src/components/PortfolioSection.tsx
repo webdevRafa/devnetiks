@@ -1,5 +1,7 @@
 import { useEffect, useRef, type ReactNode } from "react";
 import { Link, useLocation } from "react-router-dom";
+import BrandPreview from "./BrandPreview";
+import ArrowUpRight from "./ArrowUpRight";
 import "./PortfolioSection.css";
 
 const projects = [
@@ -44,18 +46,10 @@ const projects = [
   },
 ];
 
-function ExternalArrow() {
-  return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      <path d="M7 17 17 7M7 7h10v10" />
-    </svg>
-  );
-}
-
 function ProjectLink({ href, children }: { href: string; children: ReactNode }) {
   return (
     <a className="portfolio-link" href={href} target="_blank" rel="noopener noreferrer">
-      {children}<ExternalArrow /><span className="sr-only"> (opens in a new tab)</span>
+      {children}<ArrowUpRight /><span className="sr-only"> (opens in a new tab)</span>
     </a>
   );
 }
@@ -80,37 +74,37 @@ export default function PortfolioSection() {
       </div>
 
       <div className="portfolio-feature">
-        <div className="portfolio-satx-brand">
+        <BrandPreview className="portfolio-satx-brand" href="https://www.satxink.com/" label="Visit SATX INK marketing website">
           <span className="portfolio-feature-label">Website + business system</span>
-          <img src="/portfolio/satxink.svg" width="1170" height="328" alt="SATXINK" loading="lazy" decoding="async" />
+          <img src="/portfolio/satxink.svg" width="1170" height="328" alt="SATX INK" loading="lazy" decoding="async" />
           <p>Two connected experiences.<br /><span>One studio software brand.</span></p>
-        </div>
+        </BrandPreview>
 
         <article className="portfolio-feature-project" aria-labelledby="satxink-marketing-heading">
           <p className="portfolio-project-type">01 / The introduction</p>
-          <h3 id="satxink-marketing-heading">SATXINK Marketing</h3>
-          <p className="portfolio-description">A dedicated marketing website that introduces the SATXINK platform, explains the studio experience, and helps shop owners explore what’s possible.</p>
-          <ul className="portfolio-tags" aria-label="SATXINK marketing capabilities">
+          <h3 id="satxink-marketing-heading">SATX INK Marketing</h3>
+          <p className="portfolio-description">A dedicated marketing website that introduces the SATX INK platform, explains the studio experience, and helps shop owners explore what’s possible.</p>
+          <ul className="portfolio-tags" aria-label="SATX INK marketing capabilities">
             <li>Product storytelling</li><li>Demo discovery</li>
           </ul>
           <div className="portfolio-project-action">
-            <ProjectLink href="https://www.satxink.com/">Visit SATXINK</ProjectLink>
+            <ProjectLink href="https://www.satxink.com/">Visit SATX INK</ProjectLink>
             <p className="portfolio-domain">satxink.com</p>
           </div>
         </article>
 
         <article className="portfolio-feature-project" aria-labelledby="satxink-system-heading">
           <p className="portfolio-project-type">02 / The experience</p>
-          <h3 id="satxink-system-heading">SATXINK System</h3>
+          <h3 id="satxink-system-heading">SATX INK System</h3>
           <p className="portfolio-description">The companion shop platform: artist profiles, flash collections, booking requests, appointment offers, and deposits, with workspaces for owners, artists, and clients.</p>
-          <ul className="portfolio-tags" aria-label="SATXINK system capabilities">
+          <ul className="portfolio-tags" aria-label="SATX INK system capabilities">
             <li>Flash & booking</li><li>Studio operations</li>
           </ul>
           <div className="portfolio-project-action">
             <ProjectLink href="https://demo.satxink.com/">View system demo</ProjectLink>
             <p className="portfolio-demo-note">
-              <img src="/portfolio/satxink-demo-emblem.webp" width="24" height="24" alt="" loading="lazy" decoding="async" />
-              Demo branded as Graven House Tattoo.
+              <img src="/portfolio/sweet-venom-logo.png" width="1983" height="793" alt="Sweet Venom logo" loading="lazy" decoding="async" />
+              Demo branded as Sweet Venom.
             </p>
           </div>
         </article>
@@ -119,9 +113,9 @@ export default function PortfolioSection() {
       <div className="portfolio-project-grid">
         {projects.map((project) => (
           <article key={project.theme} className="portfolio-card" aria-labelledby={`${project.theme}-heading`}>
-            <div className={`portfolio-logo-stage portfolio-logo-stage--${project.theme}`}>
+            <BrandPreview className={`portfolio-logo-stage portfolio-logo-stage--${project.theme}`} href={project.url} label={`Visit ${project.name} website`}>
               <img src={project.logo} alt={`${project.name} logo`} width={project.width} height={project.height} loading="lazy" decoding="async" />
-            </div>
+            </BrandPreview>
             <div className="portfolio-card-body">
               <p className="portfolio-project-type">{project.category}</p>
               <h3 id={`${project.theme}-heading`}>{project.name}</h3>

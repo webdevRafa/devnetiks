@@ -1,274 +1,109 @@
-// src/pages/PublicHomePage.tsx
-import React from "react";
 import { Link } from "react-router-dom";
-import { motion as m, type Variants, type Transition } from "framer-motion";
+import { motion as m, type Variants } from "framer-motion";
 import ServicesTicker from "@/components/ServicesTicker";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import PortfolioSection from "@/components/PortfolioSection";
-
-const easeOutBezier: Transition["ease"] = [0.16, 1, 0.3, 1];
+import ArrowUpRight from "@/components/ArrowUpRight";
+import "./PublicHomePage.css";
 
 const fadeUp: Variants = {
-  hidden: { opacity: 0, y: 24 },
-  show: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6, ease: easeOutBezier },
-  },
+  hidden: { opacity: 0, y: 20 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } },
 };
-
 const stagger: Variants = {
   hidden: {},
-  show: { transition: { staggerChildren: 0.08, delayChildren: 0.1 } },
+  show: { transition: { staggerChildren: 0.08 } },
 };
 
-type CardProps = React.PropsWithChildren<{ title: string; subtitle: string }>;
+const services = [
+  {
+    title: "Brochure & Marketing Sites",
+    subtitle: "Make a lasting first impression.",
+    description: "Fast, thoughtful websites that bring your brand to life. From landing pages to a complete business presence, every detail helps people understand what you do and take the next step.",
+    paths: ["M3 5h18v14H3z", "M3 9h18M7 7h.01M10 7h.01M7 13h5M7 16h9"],
+  },
+  {
+    title: "Data-Backed Apps",
+    subtitle: "Turn a good idea into a useful tool.",
+    description: "Custom web apps built around the way your business works. Connect your content, simplify everyday tasks, and give your team and customers an experience that feels natural.",
+    paths: ["m12 3 9 5-9 5-9-5 9-5Z", "m3 12 9 5 9-5M3 16l9 5 9-5"],
+  },
+  {
+    title: "Booking & Payments",
+    subtitle: "Make the next step effortless.",
+    description: "Let customers book a time, reserve a spot, and pay online. Clear steps and connected workflows make it easier to go from the first visit to a confirmed appointment.",
+    paths: ["M4 5h16v16H4zM8 3v4M16 3v4M4 10h16", "m8 15 3 3 5-5"],
+  },
+];
 
-const Card: React.FC<CardProps> = ({ title, subtitle, children }) => {
-  const handleMouseMove: React.MouseEventHandler<HTMLDivElement> = (e) => {
-    const el = e.currentTarget;
-    const rect = el.getBoundingClientRect();
-    const x = ((e.clientX - rect.left) / rect.width) * 100;
-    const y = ((e.clientY - rect.top) / rect.height) * 100;
-    el.style.setProperty("--x", `${x}%`);
-    el.style.setProperty("--y", `${y}%`);
-  };
-
-  return (
-    <m.div
-      variants={fadeUp}
-      onMouseMove={handleMouseMove}
-      className="group relative overflow-hidden rounded-2xl border border-white/10 bg-[var(--color-card)] p-6 transition-colors hover:bg-[var(--color-card-hover)]"
-    >
-      {/* subtle glow on hover */}
-      <div
-        className="pointer-events-none absolute -inset-40 rounded-full opacity-0 blur-3xl transition-opacity duration-500 group-hover:opacity-20"
-        style={{
-          background:
-            "radial-gradient(1200px circle at var(--x,50%) var(--y,50%), var(--accent-color1), transparent 40%)",
-        }}
-        aria-hidden
-      />
-      <div className="relative">
-        <h3 className="text-lg font-semibold text-white">{title}</h3>
-        <p className="mt-1 text-sm text-white/60">{subtitle}</p>
-        <div className="mt-4 space-y-3 text-[0.95rem] leading-relaxed text-white/80">
-          {children}
-        </div>
-      </div>
-    </m.div>
-  );
-};
+const steps = [
+  { number: "01", title: "Plan", body: "Start with a conversation. We get clear on your goals, your audience, and what success looks like—then shape the scope together." },
+  { number: "02", title: "Build", body: "See your idea take shape. We design, develop, and refine the experience with you, keeping the work focused and the feedback flowing." },
+  { number: "03", title: "Launch & Support", body: "Go live with confidence. We help you launch, settle in, and keep improving as your business and your customers’ needs grow." },
+];
 
 export default function PublicHomePage() {
   return (
-    <div className="min-h-screen bg-[var(--color-background)] text-white">
-      {/* decorative gradients */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-x-0 top-[-16rem] h-[32rem] -z-10"
-        style={{
-          background:
-            "radial-gradient(800px circle at 50% 20%, rgba(47,122,251,0.25), transparent 40%)",
-        }}
-      />
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-x-0 bottom-[-16rem] h-[32rem] -z-10"
-        style={{
-          background:
-            "radial-gradient(800px circle at 50% 80%, rgba(47,207,154,0.18), transparent 40%)",
-        }}
-      />
-
+    <div className="public-home min-h-screen bg-[var(--color-background)] text-white">
+      <div className="home-ambient" aria-hidden="true" />
       <SiteHeader />
       <main id="main-content">
+        <m.section initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }} variants={stagger} className="home-hero mx-auto max-w-7xl px-6 pt-10 md:pt-16">
+          <m.p variants={fadeUp} className="home-eyebrow mb-5">Design. Develop. Deliver.</m.p>
+          <m.h1 variants={fadeUp} className="max-w-3xl text-balance text-4xl font-bold leading-tight md:text-6xl">
+            Modern web apps,{" "}<span className="home-gradient-text">delivered end-to-end</span>.
+          </m.h1>
+          <m.p variants={fadeUp} className="mt-5 max-w-2xl text-pretty text-white/70 md:text-lg">
+            We design and build with React, TypeScript, Tailwind CSS, and Firebase. From sleek brochure sites to data-backed apps to full booking & payment systems—Devnetiks turns ideas into shipped products.
+          </m.p>
+          <m.div variants={fadeUp} className="mt-8 flex flex-wrap items-center gap-5">
+            <Link to="/start" className="home-primary-link">Get a Quote <span aria-hidden="true"><ArrowUpRight /></span></Link>
+            <a href="#portfolio" className="home-text-link">View portfolio <span aria-hidden="true">↓</span></a>
+          </m.div>
+          <m.div variants={fadeUp} className="mt-8"><ServicesTicker maxWidthPx={580} /></m.div>
+        </m.section>
 
-      {/* HERO */}
-      <m.section
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, amount: 0.4 }}
-        variants={stagger}
-        className="mx-auto max-w-7xl px-6 pt-10 md:pt-16"
-      >
-        <m.h1
-          variants={fadeUp}
-          className="max-w-3xl text-balance text-4xl font-bold leading-tight md:text-6xl"
-        >
-          Modern web apps,{" "}
-          <span
-            className="bg-clip-text text-transparent"
-            style={{
-              backgroundImage:
-                "linear-gradient(90deg, var(--accent-color1), var(--accent-color2))",
-            }}
-          >
-            delivered end-to-end
-          </span>
-          .
-        </m.h1>
+        <section className="home-services mx-auto max-w-7xl px-6" aria-labelledby="services-heading">
+          <div className="home-section-intro">
+            <p className="home-eyebrow">What we build</p>
+            <h2 id="services-heading">Built around your business.</h2>
+          </div>
+          <m.div initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.15 }} variants={stagger} className="home-services-grid">
+            {services.map((service) => (
+              <m.article variants={fadeUp} key={service.title} className="home-service">
+                <svg className="home-service-icon" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  {service.paths.map((d) => <path key={d} d={d} />)}
+                </svg>
+                <h3>{service.title}</h3>
+                <p className="home-service-subtitle">{service.subtitle}</p>
+                <p className="home-service-description">{service.description}</p>
+              </m.article>
+            ))}
+          </m.div>
+        </section>
 
-        <m.p
-          variants={fadeUp}
-          className="mt-4 max-w-2xl text-pretty text-white/70 md:text-lg"
-        >
-          We design and build with React, TypeScript, Tailwind CSS, and
-          Firebase. From sleek brochure sites to data-backed apps to full
-          booking & payment systems—Devnetiks turns ideas into shipped products.
-        </m.p>
+        <PortfolioSection />
 
-        <m.div variants={fadeUp} className="mt-8 flex flex-wrap gap-3">
-          <Link
-            to="/start"
-            className="rounded-xl bg-[var(--accent-color1)] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[var(--accent-color1-hover)]"
-          >
-            Get a Quote
-          </Link>
-          <a
-            href="#portfolio"
-            className="rounded-xl border border-white/15 px-5 py-3 text-sm font-semibold text-white/90 transition hover:bg-white/5"
-          >
-            View portfolio
-          </a>
-        </m.div>
-
-        <m.div variants={fadeUp} className="mt-6">
-          <ServicesTicker />
-        </m.div>
-      </m.section>
-
-      {/* VALUE / WHAT WE BUILD */}
-      <m.section
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, amount: 0.3 }}
-        variants={stagger}
-        className="mx-auto max-w-7xl px-6 py-12 md:py-16"
-      >
-        <div className="grid gap-6 md:grid-cols-3">
-          <Card
-            title="Brochure & Marketing Sites"
-            subtitle="Fast, elegant, on-brand."
-          >
-            <p>
-              Launch a polished presence with performance and accessibility
-              built in. We handle SEO basics, analytics, and deploy to modern
-              hosting.
-            </p>
-            <div className="pt-1 text-sm text-white/60">
-              Perfect for promos, product pages, and portfolios.
-            </div>
-          </Card>
-
-          <Card
-            title="Data-Backed Apps"
-            subtitle="Useful tools, built around your business."
-          >
-            <p>
-              Bring your ideas to life with interactive tools, useful content,
-              and connected experiences. We build around the way your business
-              works, with room to grow.
-            </p>
-            <div className="pt-1 text-sm text-white/60">
-              Build once, iterate fast, scale when it clicks.
-            </div>
-          </Card>
-
-          <Card
-            title="Booking & Payments"
-            subtitle="From intent to paid—smooth."
-          >
-            <p>
-              Make it easy for customers to book a time, reserve a spot, and
-              pay online. Clear steps and thoughtful details keep the experience
-              smooth from the first click to confirmation.
-            </p>
-            <div className="pt-1 text-sm text-white/60">
-              Great for appointments, events, and services.
-            </div>
-          </Card>
-        </div>
-      </m.section>
-
-      <PortfolioSection />
-
-      {/* PROCESS */}
-      <m.section
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, amount: 0.25 }}
-        variants={stagger}
-        className="mx-auto max-w-7xl px-6 pb-10 md:pb-16"
-      >
-        <m.h2
-          variants={fadeUp}
-          className="text-2xl font-semibold tracking-tight text-white md:text-3xl"
-        >
-          A simple path from idea to launch
-        </m.h2>
-
-        <div className="mt-6 grid gap-4 md:grid-cols-3">
-          {[
-            {
-              step: "01",
-              title: "Plan",
-              body: "Clarify goals, users, and scope. Pick the essentials, skip the fluff.",
-            },
-            {
-              step: "02",
-              title: "Build",
-              body: "Ship a clean React/TS codebase with Tailwind styling and Firebase backend.",
-            },
-            {
-              step: "03",
-              title: "Launch & Support",
-              body: "Deploy, observe, iterate. Add features when your users ask for them.",
-            },
-          ].map((s) => (
-            <m.div
-              key={s.step}
-              variants={fadeUp}
-              className="rounded-2xl border border-white/10 bg-[var(--color-card)] p-5"
-            >
-              <div className="text-xs font-semibold text-white/50">
-                {s.step}
-              </div>
-              <div className="mt-1 text-lg font-semibold text-white">
-                {s.title}
-              </div>
-              <div className="mt-2 text-sm leading-relaxed text-white/70">
-                {s.body}
-              </div>
-            </m.div>
-          ))}
-        </div>
-
-        <m.div variants={fadeUp} className="mt-8">
-          <Link
-            to="/start"
-            className="inline-flex items-center gap-2 rounded-xl bg-[var(--accent-color2)] px-5 py-3 text-sm font-semibold text-black transition hover:bg-[var(--accent-color2-hover)]"
-          >
-            Start scoping your project
-            <svg
-              className="h-4 w-4"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              aria-hidden
-            >
-              <path
-                d="M5 12h14M13 5l7 7-7 7"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </Link>
-        </m.div>
-      </m.section>
-
+        <section className="home-process mx-auto max-w-7xl px-6" aria-labelledby="process-heading">
+          <div className="home-section-intro">
+            <p className="home-eyebrow">How we work</p>
+            <h2 id="process-heading">A simple path from idea to launch.</h2>
+          </div>
+          <ol className="home-process-steps">
+            {steps.map((step) => (
+              <li key={step.number} className="home-process-step">
+                <span className="home-step-number" aria-hidden="true">{step.number}</span>
+                <h3>{step.title}</h3>
+                <p>{step.body}</p>
+              </li>
+            ))}
+          </ol>
+          <div className="home-next">
+            <div><p className="home-eyebrow">Your next chapter</p><h2>Let’s build what’s next.</h2></div>
+            <Link to="/start" className="home-primary-link">Tell us about your project <span aria-hidden="true"><ArrowUpRight /></span></Link>
+          </div>
+        </section>
       </main>
       <SiteFooter />
     </div>

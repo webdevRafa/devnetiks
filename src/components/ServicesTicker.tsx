@@ -64,10 +64,10 @@ export default function ServicesTicker({
         {[...items, ...items].map((t, i) => (
           <span
             key={i}
-            className="shrink-0 rounded-md border border-white/10 bg-[var(--color-card)] px-3 py-1 text-xs text-white/80 min-w-[140px] text-center"
+            className="inline-flex shrink-0 items-center gap-5 px-2 py-1 text-xs text-white/50"
             aria-hidden={i >= items.length}
           >
-            {t}
+            {t}<span aria-hidden="true" className="text-[var(--accent-color2)]/60">·</span>
           </span>
         ))}
       </div>
