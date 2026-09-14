@@ -48,14 +48,14 @@ export default function PortfolioSection() {
 
   useEffect(() => {
     // The section mounts after the browser's initial fragment navigation in this SPA.
-    if (hash === "#portfolio") sectionRef.current?.scrollIntoView({ block: "start" });
+    if (hash === "#projects" || hash === "#portfolio") sectionRef.current?.scrollIntoView({ block: "start" });
   }, [hash]);
 
   return (
-    <section ref={sectionRef} id="portfolio" aria-labelledby="portfolio-heading" className="portfolio-section mx-auto max-w-7xl px-6 pb-16 md:pb-20">
+    <section ref={sectionRef} id="projects" aria-labelledby="portfolio-heading" className="portfolio-section mx-auto max-w-7xl px-6 pb-16 md:pb-20">
       <div className="portfolio-heading">
         <div>
-          <p className="portfolio-eyebrow">Portfolio</p>
+          <p className="portfolio-eyebrow">From concept to launch</p>
           <h2 id="portfolio-heading" className="mt-3 text-3xl font-semibold tracking-tight md:text-4xl">Built by Devnetiks.</h2>
         </div>
         <p className="max-w-lg text-base leading-relaxed text-white/65">From the first impression to the everyday workflow. A selection of websites and systems we’ve built for real businesses.</p>

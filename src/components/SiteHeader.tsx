@@ -54,7 +54,7 @@ export default function SiteHeader() {
         <span className="text-xl sm:text-2xl">Devnetiks</span>
       </Link>
       <nav aria-label="Main navigation" className="flex items-center gap-5">
-        <a href="/#portfolio" className="hidden min-h-11 items-center text-sm font-medium text-white/75 hover:text-white sm:inline-flex">Portfolio</a>
+        <a href="/#projects" className="hidden min-h-11 items-center text-sm font-medium text-white/75 hover:text-white sm:inline-flex">Things We’ve Built</a>
         <Link to={pathname === "/start" ? "/" : "/start"} className="site-header-action inline-flex min-h-11 items-center rounded-xl px-3 py-2 text-sm font-semibold sm:px-4">
           {pathname === "/start" ? "Back to home" : "Share Your Idea"}
         </Link>

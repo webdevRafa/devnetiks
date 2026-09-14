@@ -14,7 +14,7 @@ export default function DetailPage() {
   return <div className="detail-page">
     <SiteHeader />
     <main id="main-content" className="detail-main">
-      <nav className="detail-breadcrumb" aria-label="Breadcrumb"><Link to="/">Home</Link><span aria-hidden="true">/</span><span>{page.kind === "service" ? "Services" : "Selected work"}</span></nav>
+      <nav className="detail-breadcrumb" aria-label="Breadcrumb"><Link to="/">Home</Link><span aria-hidden="true">/</span><span>{page.kind === "service" ? "Services" : "Things we’ve built"}</span></nav>
       <header className="detail-intro">
         <p className="home-eyebrow">{page.eyebrow}</p>
         <h1>{page.heading}</h1>

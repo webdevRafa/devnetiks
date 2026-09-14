@@ -52,7 +52,7 @@ export default function PublicHomePage() {
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-5">
             <Link to="/start" className="home-primary-link">Get a Quote <span aria-hidden="true"><ArrowUpRight /></span></Link>
-            <a href="#portfolio" className="home-text-link">View portfolio <span aria-hidden="true">↓</span></a>
+            <a href="#projects" className="home-text-link">Explore things we’ve built <span aria-hidden="true">↓</span></a>
           </div>
           <div className="mt-8"><ServicesTicker maxWidthPx={580} /></div>
         </section>

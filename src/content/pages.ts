@@ -86,7 +86,7 @@ export const detailPages: DetailPage[] = [
     path: "/work/satx-ink", kind: "case-study",
     title: "SATX INK Website & Tattoo Booking Platform | Devnetiks",
     description: "Explore Devnetiks’ SATX INK work: a product marketing website and tattoo studio platform for artist profiles, flash requests, appointment offers, and deposits.",
-    eyebrow: "Selected work / SATX INK",
+    eyebrow: "Things we’ve built / SATX INK",
     heading: "From discovering the product to booking the artwork.",
     intro: "Two connected builds for SATX INK: a marketing website that explains the product and a configurable studio system that brings artists, flash designs, and booking requests together.",
     highlights: ["Product marketing website", "Studio-branded platform", "Artist-led booking workflow"],
