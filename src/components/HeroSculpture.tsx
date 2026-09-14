@@ -61,11 +61,27 @@ export default function HeroSculpture() {
   const onReady = useCallback(() => setReady(true), []);
   const onLost = useCallback(() => { setLost(true); setReady(false); }, []);
 
-  return <div ref={container} className="hero-sculpture" data-ready={live && ready} onPointerMove={event => {
-    if (event.pointerType !== "mouse") return;
-    const bounds = event.currentTarget.getBoundingClientRect();
-    pointer.current = { x: (event.clientX - bounds.left) / bounds.width * 2 - 1, y: (event.clientY - bounds.top) / bounds.height * 2 - 1 };
-  }} onPointerLeave={() => { pointer.current = { x: 0, y: 0 }; }}>
+  useEffect(() => {
+    const reset = () => { pointer.current = { x: 0, y: 0 }; };
+    if (!active) { reset(); return; }
+    const move = (event: PointerEvent) => {
+      if (event.pointerType !== "mouse") return;
+      pointer.current = {
+        x: Math.max(-1, Math.min(1, event.clientX / window.innerWidth * 2 - 1)),
+        y: Math.max(-1, Math.min(1, event.clientY / window.innerHeight * 2 - 1)),
+      };
+    };
+    window.addEventListener("pointermove", move, { passive: true });
+    document.documentElement.addEventListener("pointerleave", reset);
+    window.addEventListener("blur", reset);
+    return () => {
+      window.removeEventListener("pointermove", move);
+      document.documentElement.removeEventListener("pointerleave", reset);
+      window.removeEventListener("blur", reset);
+    };
+  }, [active]);
+
+  return <div ref={container} className="hero-sculpture" data-ready={live && ready}>
     <div className="sculpture-art" aria-hidden="true">
       <StillSculpture />
       {live && <SceneBoundary onFailure={onLost}><Suspense fallback={null}><Scene active={active} pointer={pointer} onReady={onReady} onLost={onLost} /></Suspense></SceneBoundary>}
