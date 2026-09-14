@@ -2,6 +2,8 @@ import { useEffect, useRef, useState, type FormEvent } from "react";
 import { SITE_URL } from "@/seo";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
+import ArrowUpRight from "@/components/ArrowUpRight";
+import "./StartProjectPage.css";
 
 export default function StartProjectPage() {
   const [busy, setBusy] = useState(false);
@@ -34,14 +36,14 @@ export default function StartProjectPage() {
   return (
     <div className="flex min-h-screen flex-col bg-[var(--color-background)] text-white">
       <SiteHeader />
-      <main id="main-content" className="mx-auto grid w-full max-w-7xl gap-10 px-6 pb-20 pt-10 md:grid-cols-2 md:gap-12 md:pt-16">
-        <section>
-          <p className="mb-3 text-sm font-semibold tracking-wide text-[var(--accent-color2)]">LET’S BUILD SOMETHING</p>
-          <h1 className="text-balance text-4xl font-bold leading-tight md:text-5xl">Start a project</h1>
+      <main id="main-content" className="start-layout">
+        <section className="start-intro">
+          <p className="start-eyebrow">LET’S BUILD SOMETHING</p>
+          <h1 className="start-title">Start a project</h1>
           <p className="mt-4 max-w-xl text-white/70 md:text-lg">Have an idea, a website that needs a refresh, or a question? Tell us a little about it. We’ll reply by email to talk through the next steps.</p>
-          <div className="mt-8 rounded-2xl border border-white/10 bg-[var(--color-card)] p-6">
+          <div className="start-process">
             <h2 className="font-semibold">A simple way to get started</h2>
-            <ol className="mt-4 list-decimal space-y-3 pl-5 text-sm leading-relaxed text-white/70">
+            <ol className="start-steps">
               <li>Share what you have in mind.</li>
               <li>We’ll discuss the scope, timeline, and budget.</li>
               <li>Build a clear plan for your launch.</li>
@@ -50,13 +52,14 @@ export default function StartProjectPage() {
           <p className="mt-7 text-sm text-white/60">Prefer email? Reach us directly at</p>
           <a href="mailto:devnetiks@gmail.com" className="mt-2 inline-block text-lg text-[var(--accent-color2)] underline underline-offset-4 hover:text-white">devnetiks@gmail.com</a>
         </section>
-        <section aria-labelledby="contact-heading" className="rounded-2xl border border-white/10 bg-[var(--color-card)] p-6 md:p-7">
+        <section aria-labelledby="contact-heading" className="start-form-panel">
+          <div className="start-form-heading"><p className="start-eyebrow">YOUR PROJECT</p>
           <h2 id="contact-heading" className="text-xl font-semibold">Tell us about your project</h2>
-          <p className="mt-2 text-sm text-white/60">Just the basics. Fields marked * are required.</p>
+          <p className="mt-2 text-sm text-white/60">Just the basics. Fields marked * are required.</p></div>
           <form action="https://formsubmit.co/devnetiks@gmail.com" method="POST" onSubmit={submit} onInput={(event) => {
             const field = event.target;
             if (field instanceof HTMLInputElement || field instanceof HTMLTextAreaElement) field.setCustomValidity("");
-          }} className="mt-6 grid gap-5" aria-busy={busy}>
+          }} className="start-form" aria-busy={busy}>
             <input type="hidden" name="_subject" value="New Devnetiks website inquiry" />
             <input type="hidden" name="_template" value="table" />
             <input type="hidden" name="_next" value={`${SITE_URL}/thank-you`} />
@@ -76,8 +79,8 @@ export default function StartProjectPage() {
               <textarea id="message" name="message" required maxLength={5000} rows={6} className="contact-input resize-y" placeholder="Tell us about your goals, what you need, and any timing you have in mind." />
             </label>
             <p id="form-note" className="text-xs leading-relaxed text-white/60">Your details are sent through FormSubmit to Devnetiks LLC so we can respond to your inquiry. A quick spam check may appear after you continue.</p>
-            <button type="submit" disabled={busy} aria-describedby="form-note" className="min-h-12 rounded-xl bg-[var(--accent-color1)] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[var(--accent-color1-hover)] disabled:cursor-wait disabled:opacity-60">{busy ? "Continuing…" : "Send message"}</button>
-            <p role="status" className="text-center text-xs text-white/60">{busy ? "Opening the form submission page. If it doesn’t open, email us directly." : "We’ll reply to the email address you provide."}</p>
+            <button type="submit" disabled={busy} aria-describedby="form-note" className="start-submit">{busy ? "Continuing…" : "Send message"}<ArrowUpRight /></button>
+            <p role="status" className="text-xs text-white/60">{busy ? "Opening the form submission page. If it doesn’t open, email us directly." : "We’ll reply to the email address you provide."}</p>
           </form>
         </section>
       </main>
