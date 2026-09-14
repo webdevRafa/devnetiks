@@ -43,6 +43,12 @@ function World(props: Props) {
     const lookAt = new Vector3(...values[1]);
     const position = new Vector3(...values[0]);
     const aspect = size.width / size.height;
+    if (props.focus === 0) {
+      // Fit the monitor and its cue to the canvas, including narrow phone layouts.
+      const distance = Math.max(2.18 / (Math.tan(Math.PI / 9) * aspect * .86), 1.2 / (Math.tan(Math.PI / 9) * .82));
+      const monitorCenter = new Vector3(0, 2.04, -.7);
+      return { position: monitorCenter.clone().add(new Vector3(0, .3, distance)), look: monitorCenter };
+    }
     const framing = props.focus === null ? 1.7 : props.focus === 2 ? .75 : 1.3;
     position.sub(lookAt).multiplyScalar(Math.max(1, framing / aspect)).add(lookAt);
     return { position, look: lookAt };
