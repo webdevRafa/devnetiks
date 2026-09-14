@@ -1,7 +1,7 @@
 import { Canvas, useFrame, useLoader, useThree, type ThreeEvent } from "@react-three/fiber";
 import { useEffect, useMemo, useRef } from "react";
 import { RoundedBoxGeometry } from "three/addons/geometries/RoundedBoxGeometry.js";
-import { SRGBColorSpace, TextureLoader, Vector3 } from "three";
+import { SRGBColorSpace, TextureLoader, Vector3, type Mesh } from "three";
 
 type Props = { active: boolean; reduced: boolean; focus: number | null; selected: number; onSelect: (index: number) => void; onReady: () => void; onFailure: () => void };
 function Box({ position = [0, 0, 0], size, color = "#18212a", metal = .45 }: { position?: [number, number, number]; size: [number, number, number]; color?: string; metal?: number }) {
@@ -10,7 +10,17 @@ function Box({ position = [0, 0, 0], size, color = "#18212a", metal = .45 }: { p
   useEffect(() => () => geometry.dispose(), [geometry]);
   return <mesh position={position} geometry={geometry}><meshStandardMaterial color={color} roughness={.4} metalness={metal} /></mesh>;
 }
-function Device({ index, position, rotation = 0, width, height, image, selected, onSelect }: { index: number; position: [number, number, number]; rotation?: number; width: number; height: number; image: string; selected: number; onSelect: Props["onSelect"] }) {
+function Device({ index, position, rotation = 0, width, height, image, selected, onSelect, active, reduced }: { index: number; position: [number, number, number]; rotation?: number; width: number; height: number; image: string; selected: number; onSelect: Props["onSelect"]; active: boolean; reduced: boolean }) {
+  const ring = useRef<Mesh>(null);
+  const phase = useRef(index * -1.4);
+  useFrame((_, delta) => {
+    if (!ring.current) return;
+    if (reduced) { ring.current.scale.setScalar(1); return; }
+    if (!active) return;
+    phase.current += Math.min(delta, .05);
+    const pulse = Math.pow((Math.sin(phase.current * Math.PI / 2.5) + 1) / 2, 4);
+    ring.current.scale.setScalar(1 + pulse * .2);
+  });
   const texture = useLoader(TextureLoader, image);
   useMemo(() => { texture.colorSpace = SRGBColorSpace; }, [texture]);
   const color = index === 1 ? "#d9b768" : index === 2 ? "#45d8c1" : "#4eacdf";
@@ -20,18 +30,23 @@ function Device({ index, position, rotation = 0, width, height, image, selected,
     <Box size={[width + .09, height + .09, .13]} color="#070a10" />
     <mesh position={[0, 0, .073]}><planeGeometry args={[width, height]} /><meshBasicMaterial map={texture} toneMapped={false} /></mesh>
     <mesh position={[0, height / 2 + .21, 0]}><sphereGeometry args={[.05, 16, 12]} /><meshBasicMaterial color={selected === index ? "#aaffef" : color} /></mesh>
-    <mesh position={[0, height / 2 + .21, -.005]}><torusGeometry args={[.092, .009, 8, 32]} /><meshBasicMaterial color={color} /></mesh>
+    <mesh ref={ring} position={[0, height / 2 + .21, -.005]}><torusGeometry args={[.092, .009, 8, 32]} /><meshBasicMaterial color={color} /></mesh>
   </group>;
 }
 
 function World(props: Props) {
   const { onReady, onFailure } = props;
-  const { camera, gl, invalidate } = useThree();
+  const { camera, gl, invalidate, size } = useThree();
   const look = useRef(new Vector3(0, 1.1, 0));
   const target = useMemo(() => {
     const values = props.focus === 0 ? [[0, 2.9, 6.6], [0, 1.9, -.55]] : props.focus === 1 ? [[-3, 2.6, 5.5], [-2.9, 1.15, .65]] : props.focus === 2 ? [[3.2, 2.5, 5.1], [3.15, 1.2, .8]] : [[0, 3.8, 8.9], [0, 1.1, 0]];
-    return { position: new Vector3(...values[0]), look: new Vector3(...values[1]) };
-  }, [props.focus]);
+    const lookAt = new Vector3(...values[1]);
+    const position = new Vector3(...values[0]);
+    const aspect = size.width / size.height;
+    const framing = props.focus === null ? 1.7 : props.focus === 2 ? .75 : 1.3;
+    position.sub(lookAt).multiplyScalar(Math.max(1, framing / aspect)).add(lookAt);
+    return { position, look: lookAt };
+  }, [props.focus, size.width, size.height]);
   useEffect(() => {
     if (props.reduced) { camera.position.copy(target.position); look.current.copy(target.look); camera.lookAt(look.current); }
     invalidate();
@@ -40,7 +55,7 @@ function World(props: Props) {
     if (!props.active || props.reduced) return;
     const amount = 1 - Math.exp(-Math.min(delta, .05) * 4);
     camera.position.lerp(target.position, amount); look.current.lerp(target.look, amount); camera.lookAt(look.current);
-    if (camera.position.distanceTo(target.position) > .001 || look.current.distanceTo(target.look) > .001) invalidate();
+    invalidate();
   });
   useEffect(() => {
     onReady();
@@ -58,16 +73,16 @@ function World(props: Props) {
     <Box position={[0, -.18, .2]} size={[9, .18, 4.2]} color="#10222d" />
     <Box position={[0, -.075, .2]} size={[8.9, .035, 4.1]} color="#151e25" />
     <Box position={[0, -.3, -.1]} size={[8.4, .12, 3.6]} color="#08131d" />
-    <Device index={0} position={[0, 1.95, -.7]} width={4.2} height={4.2 * 742 / 1600} image="/workspace/satx.webp" selected={props.selected} onSelect={props.onSelect} />
+    <Device index={0} position={[0, 1.95, -.7]} width={4.2} height={4.2 * 742 / 1600} image="/workspace/satx.webp" selected={props.selected} onSelect={props.onSelect} active={props.active} reduced={props.reduced} />
     <Box position={[0, .51, -.73]} size={[.2, .96, .18]} />
     <Box position={[0, .04, -.55]} size={[1.25, .09, .75]} />
     <group position={[-2.95, 0, .7]} rotation={[0, .16, 0]}>
-      <Device index={1} position={[0, 1.05, -.1]} width={2.5} height={2.5 * 839 / 1600} image="/workspace/rancho.webp" selected={props.selected} onSelect={props.onSelect} />
+      <Device index={1} position={[0, 1.05, -.1]} width={2.5} height={2.5 * 839 / 1600} image="/workspace/rancho.webp" selected={props.selected} onSelect={props.onSelect} active={props.active} reduced={props.reduced} />
       <Box position={[0, .07, .55]} size={[2.7, .1, 1.5]} color="#293741" />
       {Array.from({ length: 4 }, (_, row) => Array.from({ length: 12 }, (_, col) => <Box key={`${row}-${col}`} position={[-1.12 + col * .202, .132, .16 + row * .16]} size={[.17, .025, .12]} color="#090f17" />))}
       <Box position={[0, .132, 1.08]} size={[.82, .012, .33]} color="#192631" />
     </group>
-    <Device index={2} position={[3.05, 1.12, .75]} rotation={-.17} width={.95} height={.95 * 864 / 477} image="/workspace/roofzeus.webp" selected={props.selected} onSelect={props.onSelect} />
+    <Device index={2} position={[3.05, 1.12, .75]} rotation={-.17} width={.95} height={.95 * 864 / 477} image="/workspace/roofzeus.webp" selected={props.selected} onSelect={props.onSelect} active={props.active} reduced={props.reduced} />
     <Box position={[3.05, .025, .82]} size={[1.15, .08, .75]} />
     <Box position={[3.05, .35, .55]} size={[.24, .65, .15]} />
     <group position={[0, .07, 1.15]} rotation={[0, -.035, 0]}>
