@@ -1,5 +1,5 @@
 import { Canvas, useFrame, useLoader, useThree, type ThreeEvent } from "@react-three/fiber";
-import { useEffect, useMemo, useRef } from "react";
+import { useEffect, useLayoutEffect, useMemo, useRef } from "react";
 import { RoundedBoxGeometry } from "three/addons/geometries/RoundedBoxGeometry.js";
 import { SRGBColorSpace, TextureLoader, Vector3, type Mesh } from "three";
 
@@ -37,6 +37,7 @@ function Device({ index, position, rotation = 0, width, height, image, selected,
 function World(props: Props) {
   const { onReady, onFailure } = props;
   const { camera, gl, invalidate, size } = useThree();
+  const initialized = useRef(false);
   const look = useRef(new Vector3(0, 1.1, 0));
   const target = useMemo(() => {
     const values = props.focus === 0 ? [[0, 2.9, 6.6], [0, 1.9, -.55]] : props.focus === 1 ? [[-3, 2.6, 5.5], [-2.9, 1.15, .65]] : props.focus === 2 ? [[3.2, 2.5, 5.1], [3.15, 1.2, .8]] : [[0, 3.8, 8.9], [0, 1.1, 0]];
@@ -49,12 +50,21 @@ function World(props: Props) {
       const monitorCenter = new Vector3(0, 2.04, -.7);
       return { position: monitorCenter.clone().add(new Vector3(0, .3, distance)), look: monitorCenter };
     }
-    const framing = props.focus === null ? 1.7 : props.focus === 2 ? .75 : 1.3;
-    position.sub(lookAt).multiplyScalar(Math.max(1, framing / aspect)).add(lookAt);
+    if (props.focus !== null) {
+      const laptop = props.focus === 1;
+      const center = laptop ? new Vector3(-2.966, 1.15, .6) : new Vector3(3.05, 1.23, .75);
+      const halfWidth = laptop ? 1.4 : .57;
+      const halfHeight = laptop ? .88 : 1.14;
+      const distance = Math.max(halfWidth / (Math.tan(Math.PI / 9) * aspect * .86), halfHeight / (Math.tan(Math.PI / 9) * .82));
+      const angle = laptop ? .16 : -.17;
+      return { position: center.clone().add(new Vector3(Math.sin(angle) * distance, .24, Math.cos(angle) * distance)), look: center };
+    }
+    position.sub(lookAt).multiplyScalar(Math.max(1, 1.7 / aspect)).add(lookAt);
     return { position, look: lookAt };
   }, [props.focus, size.width, size.height]);
-  useEffect(() => {
-    if (props.reduced) { camera.position.copy(target.position); look.current.copy(target.look); camera.lookAt(look.current); }
+  useLayoutEffect(() => {
+    if (!initialized.current || props.reduced) { camera.position.copy(target.position); look.current.copy(target.look); camera.lookAt(look.current); }
+    initialized.current = true;
     invalidate();
   }, [target, props.reduced, camera, invalidate]);
   useFrame((_, delta) => {

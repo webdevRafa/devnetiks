@@ -16,6 +16,7 @@ class WorkspaceBoundary extends Component<{ children: ReactNode; onFailure: () =
 }
 
 export default function ProjectWorkspace() {
+  const introPlayed = useRef(false);
   const root = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
   const [foreground, setForeground] = useState(true);
@@ -29,16 +30,25 @@ export default function ProjectWorkspace() {
     const motion = matchMedia("(prefers-reduced-motion: reduce)");
     const update = () => { setReduced(motion.matches); };
     update(); motion.addEventListener("change", update);
-    const observer = new IntersectionObserver(([entry]) => setVisible(entry.isIntersecting), { rootMargin: "100px" });
-    if (root.current) observer.observe(root.current);
+    const observer = new IntersectionObserver(([entry]) => setVisible(entry.isIntersecting), { threshold: .2 });
+    const stage = root.current?.querySelector(".workspace-stage");
+    if (stage) observer.observe(stage);
     const visibility = () => setForeground(document.visibilityState === "visible");
     visibility(); document.addEventListener("visibilitychange", visibility);
     return () => { motion.removeEventListener("change", update); observer.disconnect(); document.removeEventListener("visibilitychange", visibility); };
   }, []);
   useEffect(() => { if (visible) setLoaded(true); }, [visible]);
+  useEffect(() => {
+    if (!ready || !visible || !foreground || introPlayed.current) return;
+    const timer = window.setTimeout(() => {
+      introPlayed.current = true;
+      setFocus(0);
+    }, reduced ? 0 : 650);
+    return () => window.clearTimeout(timer);
+  }, [ready, visible, foreground, reduced]);
   const onReady = useCallback(() => setReady(true), []);
   const onFailure = useCallback(() => { setFailed(true); setReady(false); }, []);
-  const select = useCallback((index: number) => { setSelected(index); setFocus(index); }, []);
+  const select = useCallback((index: number) => { introPlayed.current = true; setSelected(index); setFocus(index); }, []);
   return <div className="project-workspace" ref={root}>
     <noscript><style>{".project-workspace{display:none!important}.projects-standard{display:block!important}"}</style></noscript>
     <div className="workspace-stage" data-ready={ready && !failed}>
@@ -46,7 +56,7 @@ export default function ProjectWorkspace() {
       {loaded && !failed && <WorkspaceBoundary onFailure={onFailure}><Suspense fallback={null}><WorkspaceScene active={visible && foreground} reduced={reduced} focus={focus} selected={selected} onSelect={select} onReady={onReady} onFailure={onFailure} /></Suspense></WorkspaceBoundary>}
       <div className="workspace-instructions"><span>{ready ? "Choose a screen or a project below." : "Explore the projects below."}</span>{focus !== null && ready && <button onClick={() => setFocus(null)}>View full workspace ↗</button>}</div>
     </div>
-    <div className="workspace-choices" role="group" aria-label="Choose a project">{projects.map((project, index) => <button key={project.name} aria-pressed={selected === index} onClick={() => select(index)}><span>0{index + 1}</span>{project.name}<span aria-hidden="true">↗</span></button>)}</div>
+    <div className="workspace-choices" role="group" aria-label="Choose a project">{projects.map((project, index) => <button key={project.name} aria-pressed={selected === index} onClick={() => select(index)}><span>0{index + 1}</span><span className="workspace-choice-name" title={project.name}>{project.name}</span><span aria-hidden="true">↗</span></button>)}</div>
     {projects.map((project, index) => <div key={project.name} className="workspace-detail" hidden={selected !== index}>
       <div><p className="portfolio-project-type">{project.kind}</p><h3 className={`workspace-brand workspace-brand--${project.image}`}><img src={`/portfolio/${project.logo}`} alt={project.name} loading="lazy" /></h3></div>
       <div><p className="portfolio-description">{project.description}</p><div className="workspace-links">

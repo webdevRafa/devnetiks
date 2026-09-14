@@ -27,8 +27,8 @@
   .workspace-stage { aspect-ratio: 1; margin-inline: -12px; }
   .workspace-instructions { flex-wrap: wrap; padding-inline: 12px; gap: 0 12px; font-size: .7rem; }
   .workspace-canvas { bottom: 70px; }
-  .workspace-choices { grid-template-columns: 1fr; margin-top: 12px; }
-  .workspace-choices button { padding: 13px 12px; min-height: 48px; }
+  .workspace-choices { grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 12px; }
+  .workspace-choices button { padding: 13px 8px; min-height: 48px; gap: 0; font-size: .8rem; }
   .workspace-detail { grid-template-columns: 1fr; gap: 20px; padding-top: 24px; min-height: 0; }
   .workspace-brand img { height: 68px; width: 210px; }
   .workspace-brand--rancho img { height: 110px; width: 110px; }
@@ -37,3 +37,9 @@
 }
 
 @media (prefers-reduced-motion: reduce) { .workspace-fallback, .workspace-canvas, .workspace-stage[data-ready="true"] .workspace-fallback { transition: none; } }
+
+.workspace-choice-name { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.workspace-choices button { min-width: 0; }
+@media (max-width: 767px) {
+  .workspace-choices button > span:first-child, .workspace-choices button > span:last-child { display: none; }
+}
