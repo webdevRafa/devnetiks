@@ -7,10 +7,10 @@ import "./PortfolioSection.css";
 const projects = [
   {
     name: "RoofZeus",
-    category: "Roofing estimate platform",
+    category: "Lead generation & partner integrations",
     description:
-      "A guided experience that helps homeowners explore roofing estimates, starting with their ZIP code and moving through a clear, step-by-step request.",
-    capabilities: ["Guided estimate flow", "Homeowner inquiries"],
+      "A simple landing page with a powerful business model: capture roofing leads, document consent with TrustedForm certificates, and deliver leads to buying partners like Modernize. Built to turn website traffic into lead-sale revenue.",
+    capabilities: ["Lead capture", "TrustedForm certificates", "Partner delivery"],
     url: "https://roofzeus.com/",
     domain: "roofzeus.com",
     logo: "/portfolio/roofzeus.webp",
