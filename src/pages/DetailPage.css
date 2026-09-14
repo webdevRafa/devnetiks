@@ -9,7 +9,7 @@
 .detail-highlights li { display: flex; gap: 14px; align-items: baseline; }
 .detail-highlights span { color: var(--accent-color2); font-size: .7rem; font-variant-numeric: tabular-nums; }
 .detail-image { margin: 0 0 64px; }
-.detail-image img { width: 100%; height: auto; aspect-ratio: 1440/1000; border: 1px solid #ffffff20; border-radius: 16px; background: #141a23; }
+.detail-image img { width: 100%; height: auto; border: 1px solid #ffffff20; border-radius: 16px; background: #141a23; }
 .detail-image figcaption { color: #99a8bb; font-size: .8rem; line-height: 1.7; margin: 14px 4px 0; max-width: 800px; }
 .detail-content { display: grid; grid-template-columns: 1fr 2.2fr; gap: 80px; padding-bottom: 40px; }
 .detail-outline { align-self: start; border-top: 1px solid #ffffff20; padding-top: 20px; }

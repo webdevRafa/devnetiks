@@ -4,7 +4,7 @@ export type DetailPage = {
   highlights: string[];
   sections: { id?: string; heading: string; paragraphs: string[] }[];
   questions?: { question: string; answer: string }[];
-  images?: { src: string; alt: string; caption: string }[];
+  images?: { src: string; width: number; height: number; alt: string; caption: string }[];
   links?: { href: string; label: string }[];
   related: { href: string; label: string; summary: string }[];
 };
@@ -91,8 +91,8 @@ export const detailPages: DetailPage[] = [
     intro: "Two connected builds for SATX INK: a marketing website that explains the product and a configurable studio system that brings artists, flash designs, and booking requests together.",
     highlights: ["Product marketing website", "Studio-branded platform", "Artist-led booking workflow"],
     images: [
-      { src: "/work/satx-ink.jpg", alt: "SATX INK marketing homepage introducing flash, booking requests, and deposits under a shop’s brand", caption: "The SATX INK marketing website introduces the product and leads visitors to a demo or walkthrough." },
-      { src: "/work/sweet-venom.jpg", alt: "Sweet Venom public demo of the SATX INK tattoo studio website", caption: "Sweet Venom is the demonstration studio for the SATX INK system, shown separately from the product’s marketing website." },
+      { src: "/work/satx-ink-flash.webp", width: 1442, height: 750, alt: "SATX INK flash gallery showing tattoo designs with artist names and prices", caption: "The SATX INK marketing website showcases a flash gallery with artwork, artist names, and prices." },
+      { src: "/work/sweet-venom.jpg", width: 1440, height: 1000, alt: "Sweet Venom public demo of the SATX INK tattoo studio website", caption: "Sweet Venom is the demonstration studio for the SATX INK system, shown separately from the product’s marketing website." },
     ],
     sections: [
       { heading: "Two audiences, two connected experiences.", paragraphs: [

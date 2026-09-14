@@ -27,3 +27,5 @@ The logo previews are public website links. `BrandPreview.tsx` updates local CSS
 ## Case-study screenshots — 2026-09-14
 
 Screenshots in `public/work/` capture the public marketing homepages at https://www.satxink.com/, https://demo.satxink.com/ (Sweet Venom demonstration studio). Captured at 1440 × 1000 with reduced motion. Descriptions were checked against the public sites and the existing read-only project source snapshots. They describe implemented workflows, not measured business outcomes. Sweet Venom is a system demo, not an additional client.
+
+The first SATX INK case-study image was replaced with the owner-supplied `Screenshot 2026-09-14 150359.png`, converted to WebP at quality 85 without cropping or resizing. Its native dimensions are declared to reserve the correct layout space. The Sweet Venom screenshot remains unchanged.
