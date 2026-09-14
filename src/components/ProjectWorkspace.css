@@ -1,0 +1,24 @@
+.project-workspace { display: none; }
+@media (min-width: 1024px) {
+  .project-workspace { display: block; }
+  .projects-standard { display: none; }
+}
+.workspace-stage { position: relative; aspect-ratio: 1.9; background: radial-gradient(ellipse at 50% 60%, #12344655, transparent 70%); }
+.workspace-canvas { position: absolute; inset: 0 0 40px; }
+.workspace-canvas canvas { touch-action: pan-y; }
+.workspace-fallback { position: absolute; inset: 10% 5% 15%; display: flex; align-items: center; justify-content: center; gap: 20px; }
+.workspace-fallback img { width: 34%; max-height: 95%; object-fit: contain; border: 8px solid #18212c; border-radius: 10px; }
+.workspace-fallback img:last-child { width: 16%; }
+.workspace-stage[data-ready="true"] .workspace-fallback { visibility: hidden; }
+.workspace-instructions { position: absolute; bottom: 0; left: 0; right: 0; display: flex; justify-content: space-between; align-items: center; min-height: 44px; color: #93a7b8; font-size: .75rem; }
+.workspace-instructions button { min-height: 44px; color: #72ddcb; cursor: pointer; }
+.workspace-choices { display: grid; grid-template-columns: repeat(3, 1fr); border-block: 1px solid #ffffff20; margin-top: 24px; }
+.workspace-choices button { display: flex; align-items: center; gap: 14px; padding: 22px 18px; text-align: left; color: #a8b7c8; cursor: pointer; border-bottom: 2px solid transparent; }
+.workspace-choices button[aria-pressed="true"] { color: white; border-bottom-color: #3bceb2; background: linear-gradient(110deg, transparent, #17385845); }
+.workspace-choices button > span:first-child { font-size: .65rem; color: #55cbb7; }
+.workspace-choices button > span:last-child { margin-left: auto; }
+.workspace-detail { display: grid; grid-template-columns: 1fr 2fr; gap: 48px; padding: 30px 0 0; min-height: 200px; }
+.workspace-detail[hidden] { display: none; }
+.workspace-detail h3 { font-size: 1.5rem; font-weight: 600; margin-top: 12px; }
+.workspace-detail .portfolio-description { margin-top: 0; }
+.workspace-links { display: flex; flex-wrap: wrap; gap: 12px 24px; margin-top: 16px; }

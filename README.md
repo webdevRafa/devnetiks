@@ -46,3 +46,7 @@ The original user-supplied emblem is in `public/devnetiks-emblem.png`, used by t
 ## Procedural hero sculpture
 
 The homepage uses a lazy-loaded React Three Fiber / Three.js scene built from geometry, with no external models or textures. `HeroSculpture.tsx` provides the prerendered SVG fallback, visibility tracking, and pause control; `HeroScene.tsx` owns the scene. Rendering pauses outside the viewport or in a hidden tab. Reduced-motion visitors receive the static artwork without downloading the scene. The fixed aspect ratio reserves layout space. WebGL initialization failures and context loss retain the static fallback. Pixel ratio is capped at 1.5, and the scene uses no postprocessing or shadows.
+
+## Desktop project workspace
+
+At 1024px and above, the projects section uses a lazy-loaded 3D desk with the owner-supplied website screenshots as sRGB screen textures. Device clicks and keyboard-accessible project buttons select a project; camera transitions respect reduced motion. Rendering is on demand and suspended offscreen. The static preview and project controls remain usable if WebGL fails. Mobile and no-JavaScript visitors retain the original project list. All site and case-study links remain ordinary HTML links.

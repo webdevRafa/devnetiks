@@ -29,3 +29,7 @@ The logo previews are public website links. `BrandPreview.tsx` updates local CSS
 Screenshots in `public/work/` capture the public marketing homepages at https://www.satxink.com/, https://demo.satxink.com/ (Sweet Venom demonstration studio). Captured at 1440 × 1000 with reduced motion. Descriptions were checked against the public sites and the existing read-only project source snapshots. They describe implemented workflows, not measured business outcomes. Sweet Venom is a system demo, not an additional client.
 
 The first SATX INK case-study image was replaced with the owner-supplied `Screenshot 2026-09-14 150359.png`, converted to WebP at quality 85 without cropping or resizing. Its native dimensions are declared to reserve the correct layout space. The Sweet Venom screenshot remains unchanged.
+
+## Desktop workspace textures
+
+Owner-supplied screenshots from 2026-09-14: `162035` is SATX INK on the monitor, `162116` is Rancho de Paloma Blanca on the left laptop, and `162152` is RoofZeus on the phone. Optimized WebP copies are in `public/workspace/`, preserving the full image and its aspect ratio (1600×742, 1600×839, and 477×864). These are static screen previews, not live embedded websites. Combined transfer size is 257,932 bytes.

@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import BrandPreview from "./BrandPreview";
 import ArrowUpRight from "./ArrowUpRight";
 import "./PortfolioSection.css";
+import ProjectWorkspace from "./ProjectWorkspace";
 
 const projects = [
   {
@@ -61,7 +62,8 @@ export default function PortfolioSection() {
         <p className="max-w-lg text-base leading-relaxed text-white/65">From the first impression to the everyday workflow. A selection of websites and systems we’ve built for real businesses.</p>
       </div>
 
-      <div className="portfolio-feature">
+      <ProjectWorkspace />
+      <div className="projects-standard"><div className="portfolio-feature">
         <BrandPreview className="portfolio-satx-brand" href="https://www.satxink.com/" label="Visit SATX INK marketing website">
           <span className="portfolio-feature-label">Website + business system</span>
           <img src="/portfolio/satxink.svg" width="1170" height="328" alt="SATX INK" loading="lazy" decoding="async" />
@@ -121,6 +123,7 @@ export default function PortfolioSection() {
         ))}
       </div>
 
+      </div>
       <div className="portfolio-closing">
         <p>Have something in mind for your business?</p>
         <Link to="/start" className="portfolio-contact-link">Let’s build your next project <span aria-hidden="true">→</span></Link>
