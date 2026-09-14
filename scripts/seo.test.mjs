@@ -8,7 +8,7 @@ const origin = "https://www.devnetiks.com";
 
 test("public pages ship unique SEO metadata and readable content without JavaScript", async () => {
   const titles = new Set();
-  for (const [file, path, heading] of [["index.html", "/", "Modern websites and web apps"], ["start.html", "/start", "Start a project"], ["web-design-san-antonio.html", "/web-design-san-antonio", "A website"], ["custom-web-app-development.html", "/custom-web-app-development", "Build the software"], ["work/satx-ink.html", "/work/satx-ink", "From discovering"], ["work/rogers-roofing.html", "/work/rogers-roofing", "A clear next step"]]) {
+  for (const [file, path, heading] of [["index.html", "/", "Modern websites and web apps"], ["start.html", "/start", "Start a project"], ["web-design-san-antonio.html", "/web-design-san-antonio", "A website"], ["custom-web-app-development.html", "/custom-web-app-development", "Build the software"], ["work/satx-ink.html", "/work/satx-ink", "From discovering"]]) {
     const html = await read(file);
     const metadata = head(html);
     assert.match(html, new RegExp(`<h1[^>]*>${heading}`));
@@ -26,9 +26,9 @@ test("public pages ship unique SEO metadata and readable content without JavaScr
     assert.ok(data["@graph"].some(entity => entity.legalName === "Devnetiks LLC"));
     assert.doesNotMatch(JSON.stringify(data), /aggregateRating|reviewCount|streetAddress/);
   }
-  assert.equal(titles.size, 6);
+  assert.equal(titles.size, 5);
   const home = await read("index.html");
-  for (const project of ["SATX INK Marketing", "SATX INK System", "RoofZeus", "Rancho de Paloma Blanca", "Roger’s Roofing"]) assert.ok(home.includes(project));
+  for (const project of ["SATX INK Marketing", "SATX INK System", "RoofZeus", "Rancho de Paloma Blanca"]) assert.ok(home.includes(project));
   assert.doesNotMatch(home, /opacity:0/);
   assert.match(await read("start.html"), /value="https:\/\/www.devnetiks.com\/thank-you"/);
 });
@@ -36,7 +36,7 @@ test("public pages ship unique SEO metadata and readable content without JavaScr
 test("sitemap includes only indexable canonical pages; robots permits crawling", async () => {
   const sitemap = await read("sitemap.xml");
   const urls = [...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map(match => match[1]);
-  assert.deepEqual(urls, ["/", "/start", "/web-design-san-antonio", "/custom-web-app-development", "/work/satx-ink", "/work/rogers-roofing"].map(path => `${origin}${path}`));
+  assert.deepEqual(urls, ["/", "/start", "/web-design-san-antonio", "/custom-web-app-development", "/work/satx-ink"].map(path => `${origin}${path}`));
   const robots = await read("robots.txt");
   assert.ok(robots.includes(`Sitemap: ${origin}/sitemap.xml`));
   assert.match(robots, /User-agent: \*\nAllow: \//);
@@ -67,7 +67,7 @@ test("hosting serves real pages instead of a catch-all homepage rewrite", async 
 
 
 test("service and case-study pages have working internal destinations and local images", async () => {
-  const files = ["index.html", "web-design-san-antonio.html", "custom-web-app-development.html", "work/satx-ink.html", "work/rogers-roofing.html"];
+  const files = ["index.html", "web-design-san-antonio.html", "custom-web-app-development.html", "work/satx-ink.html"];
   for (const file of files) {
     const html = await read(file);
     for (const [, href] of html.matchAll(/href="(\/[^"#]*)[^" ]*"/g)) {

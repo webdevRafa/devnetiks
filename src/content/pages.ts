@@ -39,10 +39,10 @@ export const detailPages: DetailPage[] = [
     questions: [
       { question: "Do you only work with San Antonio businesses?", answer: "San Antonio is a focus for our website services, and we also work with businesses beyond the area. Share your project and we can discuss how to work together." },
       { question: "How much does a custom website cost?", answer: "The scope drives the price: number of pages, content needs, integrations, and custom functionality. We discuss those details before proposing a budget. A marketing website and a booking application are different projects." },
-      { question: "Can you add an estimate or inquiry form?", answer: "Yes. We can design a form around the information your business needs, with delivery and follow-up requirements agreed during scoping. Roger’s Roofing is an example of a service website with an estimate request journey." },
+      { question: "Can you add an estimate or inquiry form?", answer: "Yes. We can design a form around the information your business needs, with delivery and follow-up requirements agreed during scoping." },
     ],
     related: [
-      { href: "/work/rogers-roofing", label: "Roger’s Roofing", summary: "A San Antonio contractor website built around services and estimate requests." },
+      { href: "/work/satx-ink", label: "SATX INK", summary: "Explore a product marketing website and its connected studio platform." },
       { href: "/custom-web-app-development", label: "Need more than a website?", summary: "Explore custom accounts, booking workflows, and business tools." },
     ],
   },
@@ -112,36 +112,6 @@ export const detailPages: DetailPage[] = [
       ] },
     ],
     links: [{ href: "https://www.satxink.com/", label: "Visit SATX INK" }, { href: "https://demo.satxink.com/", label: "Explore the Sweet Venom demo" }],
-    related: [{ href: "/custom-web-app-development", label: "Custom web app development", summary: "Plan a workflow, portal, or booking system for your business." }, { href: "/work/rogers-roofing", label: "Roger’s Roofing", summary: "See a different approach: a local service website with focused lead capture." }],
-  },
-  {
-    path: "/work/rogers-roofing", kind: "case-study",
-    title: "Roger’s Roofing: San Antonio Website Case Study | Devnetiks",
-    description: "See how Devnetiks built Roger’s Roofing’s San Antonio business website around residential roofing services, a clear process, and online estimate requests.",
-    eyebrow: "Selected work / San Antonio service business",
-    heading: "A clear next step for a homeowner with a roofing problem.",
-    intro: "For Roger’s Roofing, Devnetiks built a service-focused website that introduces the business, explains the work, and gives San Antonio homeowners a direct way to request an estimate.",
-    highlights: ["Residential roofing services", "Responsive business website", "Structured estimate requests"],
-    images: [{ src: "/work/rogers-roofing.jpg", alt: "Roger’s Roofing homepage with residential roofing information and an estimate request call to action", caption: "The public website introduces the roofing business and keeps the estimate journey close at hand." }],
-    sections: [
-      { heading: "Make the services understandable.", paragraphs: [
-        "A homeowner may arrive with a specific issue without knowing which service to request. The website organizes residential roofing, leak and water testing, maintenance, replacement, repairs, and inspections into readable descriptions.",
-        "The service presentation gives visitors a way to connect their concern with the work the company offers. Navigation also leads to the business’s approach, process, and estimate form so a visitor can investigate before making contact.",
-      ] },
-      { heading: "Explain what happens after the inquiry.", paragraphs: [
-        "The process section walks through sharing the issue, having the roof inspected, reviewing options, and completing the work. This gives the estimate request context rather than leaving the visitor with a button and no explanation.",
-        "The visual design pairs roofing imagery with focused sections and a responsive layout. The objective is to make the information and next action understandable across phone and desktop screens.",
-      ] },
-      { heading: "Capture useful context with the estimate request.", paragraphs: [
-        "The estimate form collects contact details, property address, the requested service, urgency, preferred contact method, and a message. These fields give the business more context than a name-and-email form alone.",
-        "The implementation includes submission feedback and confirmation handling. An estimate request starts a conversation about the property and work; it is not presented as an automatically calculated roofing price or a confirmed appointment.",
-      ] },
-      { heading: "What this work demonstrates.", paragraphs: [
-        "This project shows how custom website development can connect local service information to a practical inquiry workflow. The result is a public business website with organized services, an explanation of the process, and a structured path to request an estimate.",
-        "For another San Antonio business, the same starting questions apply: what does the customer need to understand, and what information does your team need to help them? The design and form should answer both.",
-      ] },
-    ],
-    links: [{ href: "https://www.rogersroofingtx.com/", label: "Visit Roger’s Roofing" }],
-    related: [{ href: "/web-design-san-antonio", label: "Website design for San Antonio businesses", summary: "Explore a website built around your services and customer journey." }, { href: "/work/satx-ink", label: "SATX INK", summary: "Explore the product website and studio booking platform." }],
+    related: [{ href: "/custom-web-app-development", label: "Custom web app development", summary: "Plan a workflow, portal, or booking system for your business." }, { href: "/web-design-san-antonio", label: "Website design & development", summary: "Explore custom websites for San Antonio businesses and beyond." }],
   },
 ];

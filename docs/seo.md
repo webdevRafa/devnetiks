@@ -4,7 +4,7 @@ Primary website: https://www.devnetiks.com/
 
 ## What is included
 
-- Complete prerendered HTML for the homepage, contact page, two service pages, and two case studies, including visible services and all five portfolio entries. Visitors and crawlers receive the same content.
+- Complete prerendered HTML for the homepage, contact page, two service pages, and the SATX INK case study, including visible services and all four portfolio entries. Visitors and crawlers receive the same content.
 - Unique titles/descriptions, canonical URLs, Open Graph and large-image Twitter/X metadata in the initial HTML. Metadata also updates during client navigation.
 - Organization, WebSite, WebPage/ContactPage, service catalog, and contact breadcrumb structured data. No invented address, ratings, prices, or location claims.
 - Sitemap: https://www.devnetiks.com/sitemap.xml
@@ -57,6 +57,5 @@ New canonical pages:
 - https://www.devnetiks.com/web-design-san-antonio
 - https://www.devnetiks.com/custom-web-app-development
 - https://www.devnetiks.com/work/satx-ink
-- https://www.devnetiks.com/work/rogers-roofing
 
 These pages are included in the existing sitemap and internal navigation. After deployment, the owner may inspect each new URL in Search Console and request indexing once. Repeated requests do not accelerate indexing. Service structured data describes the service area without an invented office address. FAQs are visible content, without a promise of FAQ rich results. No client sites were modified for backlinks.

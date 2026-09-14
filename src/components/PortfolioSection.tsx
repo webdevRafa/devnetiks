@@ -31,20 +31,7 @@ const projects = [
     height: 1024,
     theme: "rancho",
   },
-  {
-    name: "Roger’s Roofing",
-    category: "Contractor website & estimate requests",
-    description:
-      "A service-focused website for a San Antonio roofing company, with clear service information and a straightforward way for homeowners to request an estimate.",
-    capabilities: ["Service showcase", "Estimate requests"],
-    url: "https://www.rogersroofingtx.com/",
-    domain: "rogersroofingtx.com",
-    logo: "/portfolio/rogers-roofing.png",
-    width: 1672,
-    height: 941,
-    theme: "rogers",
-    caseStudy: "/work/rogers-roofing",
-  },
+
 ];
 
 function ProjectLink({ href, children }: { href: string; children: ReactNode }) {
@@ -126,7 +113,6 @@ export default function PortfolioSection() {
                 {project.capabilities.map((capability) => <li key={capability}>{capability}</li>)}
               </ul>
               <div className="portfolio-project-action">
-                {project.caseStudy && <Link className="portfolio-link mr-5" to={project.caseStudy}>Read case study</Link>}
                 <ProjectLink href={project.url}>Visit website<span className="sr-only">: {project.name}</span></ProjectLink>
                 <p className="portfolio-domain">{project.domain}</p>
               </div>

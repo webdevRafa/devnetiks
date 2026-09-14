@@ -6,7 +6,6 @@ export default function SiteFooter() {
         <Link to="/web-design-san-antonio" className="hover:text-white">San Antonio website design</Link>
         <Link to="/custom-web-app-development" className="hover:text-white">Custom web applications</Link>
         <Link to="/work/satx-ink" className="hover:text-white">SATX INK case study</Link>
-        <Link to="/work/rogers-roofing" className="hover:text-white">Roger’s Roofing case study</Link>
       </nav>
       <div className="flex flex-wrap items-center justify-between gap-4 border-t border-white/10 pt-6">
         <div>
