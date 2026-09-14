@@ -43,6 +43,7 @@ const projects = [
     width: 1672,
     height: 941,
     theme: "rogers",
+    caseStudy: "/work/rogers-roofing",
   },
 ];
 
@@ -88,6 +89,7 @@ export default function PortfolioSection() {
             <li>Product storytelling</li><li>Demo discovery</li>
           </ul>
           <div className="portfolio-project-action">
+            <Link className="portfolio-link mr-5" to="/work/satx-ink">Read case study</Link>
             <ProjectLink href="https://www.satxink.com/">Visit SATX INK</ProjectLink>
             <p className="portfolio-domain">satxink.com</p>
           </div>
@@ -124,6 +126,7 @@ export default function PortfolioSection() {
                 {project.capabilities.map((capability) => <li key={capability}>{capability}</li>)}
               </ul>
               <div className="portfolio-project-action">
+                {project.caseStudy && <Link className="portfolio-link mr-5" to={project.caseStudy}>Read case study</Link>}
                 <ProjectLink href={project.url}>Visit website<span className="sr-only">: {project.name}</span></ProjectLink>
                 <p className="portfolio-domain">{project.domain}</p>
               </div>

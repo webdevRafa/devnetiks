@@ -33,7 +33,7 @@ Pushes to the branch connected to Vercel use the existing Git deployment integra
 
 ## Search and social previews
 
-`src/seo.ts` is the shared source for initial HTML metadata and client-side navigation updates. The build generates `sitemap.xml` and `robots.txt`. Only `/` and `/start` are indexable; the confirmation and missing-page templates carry `noindex, follow`. The social preview is `public/social/devnetiks-share-v1.png`. When replacing it, use a new versioned URL and update the dimensions in `src/seo.ts`.
+`src/content/pages.ts` holds service and case-study content. `src/seo.ts` is the shared source for initial HTML metadata and client-side navigation updates. The build generates `sitemap.xml` and `robots.txt`. The homepage, `/start`, two service pages, and two case studies are indexable; the confirmation and missing-page templates carry `noindex, follow`. The social preview is `public/social/devnetiks-share-v1.png`. When replacing it, use a new versioned URL and update the dimensions in `src/seo.ts`.
 
 Run `npm run build` and `npm run test:seo` before deploying. After deployment, `node scripts/submit-indexnow.mjs` verifies the public ownership file and submits production sitemap URLs to IndexNow. It is intentionally not run during builds, which also run for previews. See [SEO setup and maintenance](docs/seo.md) for the Google Search Console step and validation links.
 

@@ -8,7 +8,7 @@ const origin = "https://www.devnetiks.com";
 
 test("public pages ship unique SEO metadata and readable content without JavaScript", async () => {
   const titles = new Set();
-  for (const [file, path, heading] of [["index.html", "/", "Modern web apps"], ["start.html", "/start", "Start a project"]]) {
+  for (const [file, path, heading] of [["index.html", "/", "Modern websites and web apps"], ["start.html", "/start", "Start a project"], ["web-design-san-antonio.html", "/web-design-san-antonio", "A website"], ["custom-web-app-development.html", "/custom-web-app-development", "Build the software"], ["work/satx-ink.html", "/work/satx-ink", "From discovering"], ["work/rogers-roofing.html", "/work/rogers-roofing", "A clear next step"]]) {
     const html = await read(file);
     const metadata = head(html);
     assert.match(html, new RegExp(`<h1[^>]*>${heading}`));
@@ -26,7 +26,7 @@ test("public pages ship unique SEO metadata and readable content without JavaScr
     assert.ok(data["@graph"].some(entity => entity.legalName === "Devnetiks LLC"));
     assert.doesNotMatch(JSON.stringify(data), /aggregateRating|reviewCount|streetAddress/);
   }
-  assert.equal(titles.size, 2);
+  assert.equal(titles.size, 6);
   const home = await read("index.html");
   for (const project of ["SATX INK Marketing", "SATX INK System", "RoofZeus", "Rancho de Paloma Blanca", "Roger’s Roofing"]) assert.ok(home.includes(project));
   assert.doesNotMatch(home, /opacity:0/);
@@ -36,7 +36,7 @@ test("public pages ship unique SEO metadata and readable content without JavaScr
 test("sitemap includes only indexable canonical pages; robots permits crawling", async () => {
   const sitemap = await read("sitemap.xml");
   const urls = [...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map(match => match[1]);
-  assert.deepEqual(urls, [`${origin}/`, `${origin}/start`]);
+  assert.deepEqual(urls, ["/", "/start", "/web-design-san-antonio", "/custom-web-app-development", "/work/satx-ink", "/work/rogers-roofing"].map(path => `${origin}${path}`));
   const robots = await read("robots.txt");
   assert.ok(robots.includes(`Sitemap: ${origin}/sitemap.xml`));
   assert.match(robots, /User-agent: \*\nAllow: \//);
@@ -63,4 +63,25 @@ test("hosting serves real pages instead of a catch-all homepage rewrite", async 
   assert.equal(config.rewrites, undefined);
   assert.ok(config.redirects.some(route => route.source === "/contact" && route.destination === "/start" && route.permanent));
   assert.match(await read("404.html"), /This page isn’t here/);
+});
+
+
+test("service and case-study pages have working internal destinations and local images", async () => {
+  const files = ["index.html", "web-design-san-antonio.html", "custom-web-app-development.html", "work/satx-ink.html", "work/rogers-roofing.html"];
+  for (const file of files) {
+    const html = await read(file);
+    for (const [, href] of html.matchAll(/href="(\/[^"#]*)[^" ]*"/g)) {
+      if (href.includes(".")) continue;
+      await read(href === "/" ? "index.html" : `${href.slice(1)}.html`);
+    }
+    for (const [, src] of html.matchAll(/src="(\/work\/[^" ]+)"/g)) {
+      const asset = await readFile(new URL(`../dist${src}`, import.meta.url));
+      assert.ok(asset.length > 10000 && asset.length < 1000000);
+      assert.ok(html.includes('width="1440" height="1000"'));
+    }
+    if (file.includes("development") || file.includes("web-design")) {
+      assert.match(head(html), /"@type":"Service"/);
+      assert.match(html, /<details>/);
+    }
+  }
 });

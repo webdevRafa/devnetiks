@@ -8,19 +8,22 @@ import "./PublicHomePage.css";
 
 const services = [
   {
-    title: "Brochure & Marketing Sites",
+    title: "Website Design & Development",
+    href: "/web-design-san-antonio",
     subtitle: "Make a lasting first impression.",
     description: "Fast, thoughtful websites that bring your brand to life. From landing pages to a complete business presence, every detail helps people understand what you do and take the next step.",
     paths: ["M3 5h18v14H3z", "M3 9h18M7 7h.01M10 7h.01M7 13h5M7 16h9"],
   },
   {
-    title: "Data-Backed Apps",
+    title: "Custom Web App Development",
+    href: "/custom-web-app-development",
     subtitle: "Turn a good idea into a useful tool.",
     description: "Custom web apps built around the way your business works. Connect your content, simplify everyday tasks, and give your team and customers an experience that feels natural.",
     paths: ["m12 3 9 5-9 5-9-5 9-5Z", "m3 12 9 5 9-5M3 16l9 5 9-5"],
   },
   {
-    title: "Booking & Payments",
+    title: "Booking & Payment Systems",
+    href: "/custom-web-app-development#booking",
     subtitle: "Make the next step effortless.",
     description: "Let customers book a time, reserve a spot, and pay online. Clear steps and connected workflows make it easier to go from the first visit to a confirmed appointment.",
     paths: ["M4 5h16v16H4zM8 3v4M16 3v4M4 10h16", "m8 15 3 3 5-5"],
@@ -40,12 +43,12 @@ export default function PublicHomePage() {
       <SiteHeader />
       <main id="main-content">
         <section className="home-hero mx-auto max-w-7xl px-6 pt-10 md:pt-16">
-          <p className="home-eyebrow mb-5">Design. Develop. Deliver.</p>
+          <p className="home-eyebrow mb-5">Web design & development · San Antonio, Texas</p>
           <h1 className="max-w-3xl text-balance text-4xl font-bold leading-tight md:text-6xl">
-            Modern web apps,{" "}<span className="home-gradient-text">delivered end-to-end</span>.
+            Modern websites and web apps,{" "}<span className="home-gradient-text">delivered end-to-end</span>.
           </h1>
           <p className="mt-5 max-w-2xl text-pretty text-white/70 md:text-lg">
-            Devnetiks LLC designs and builds custom websites and web apps for businesses. From standout marketing sites to booking and payment systems, we turn your ideas into useful digital experiences.
+            Devnetiks builds custom websites and web applications for businesses in San Antonio and beyond. From marketing websites to booking and payment systems, we take your project from idea to launch.
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-5">
             <Link to="/start" className="home-primary-link">Get a Quote <span aria-hidden="true"><ArrowUpRight /></span></Link>
@@ -68,6 +71,7 @@ export default function PublicHomePage() {
                 <h3>{service.title}</h3>
                 <p className="home-service-subtitle">{service.subtitle}</p>
                 <p className="home-service-description">{service.description}</p>
+                <Link className="home-primary-link mt-4" to={service.href}>Explore {service.title.toLowerCase()} <span aria-hidden="true">↗</span></Link>
               </article>
             ))}
           </div>

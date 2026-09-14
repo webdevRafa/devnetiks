@@ -1,4 +1,5 @@
 // src/App.tsx
+import RouteScroll from "@/components/RouteScroll";
 import AppRouter from "@/routes/AppRouter";
 import PageMetadata from "@/components/PageMetadata";
 import { useLayoutEffect } from "react";
@@ -9,5 +10,5 @@ export default function App() {
     // It never occupies document space or waits for nonessential images.
     document.getElementById("app-loading")?.remove();
   }, []);
-  return <><PageMetadata /><AppRouter /></>;
+  return <><PageMetadata /><RouteScroll /><AppRouter /></>;
 }

@@ -1,14 +1,16 @@
+import { detailPages } from "./content/pages";
 export const SITE_URL = "https://www.devnetiks.com";
 export const SOCIAL_IMAGE = `${SITE_URL}/social/devnetiks-share-v1.png`;
-export const INDEXABLE_PATHS = ["/", "/start"];
+export const INDEXABLE_PATHS = ["/", "/start", ...detailPages.map(page => page.path)];
 export const PRERENDER_PATHS = [...INDEXABLE_PATHS, "/thank-you", "/404"];
 
 const pages: Record<string, { title: string; description: string; index: boolean }> = {
   "/": {
-    title: "Web Design & Custom Web App Development | Devnetiks",
-    description: "Devnetiks LLC builds custom websites, web apps, and booking systems for businesses. Explore our work and tell us about your next project.",
+    title: "San Antonio Web Design & Development | Devnetiks",
+    description: "Custom websites and web apps for San Antonio businesses and beyond. Explore Devnetiks’ work in business websites, booking systems, and application development.",
     index: true,
   },
+  ...Object.fromEntries(detailPages.map(page => [page.path, { title: page.title, description: page.description, index: true }])),
   "/start": {
     title: "Start Your Website or Web App Project | Devnetiks",
     description: "Tell Devnetiks LLC about your website, custom web app, or booking system. Share your goals and connect with us to discuss scope, timeline, and budget.",
@@ -29,6 +31,7 @@ const pages: Record<string, { title: string; description: string; index: boolean
 export function getSeo(pathname: string) {
   const path = pathname.replace(/\/+$/, "") || "/";
   const page = pages[path] ?? pages["/404"];
+  const detail = detailPages.find(item => item.path === path);
   const url = `${SITE_URL}${path === "/" ? "/" : path}`;
   const canonical = page.index ? url : null;
   const imageAlt = "Devnetiks — Modern websites. Powerful web apps. Blue and teal Devnetiks emblem on a midnight background.";
@@ -66,6 +69,7 @@ export function getSeo(pathname: string) {
       organization,
       { "@type": "WebSite", "@id": `${SITE_URL}/#website`, url: `${SITE_URL}/`, name: "Devnetiks", alternateName: "Devnetiks LLC", publisher: { "@id": organization["@id"] }, inLanguage: "en" },
       { "@type": path === "/start" ? "ContactPage" : "WebPage", "@id": `${url}#webpage`, url, name: page.title, description: page.description, isPartOf: { "@id": `${SITE_URL}/#website` }, about: { "@id": organization["@id"] }, inLanguage: "en" },
+      ...(detail?.kind === "service" ? [{ "@type": "Service", "@id": `${url}#service`, name: detail.title.split(" | ")[0], description: detail.description, url, provider: { "@id": organization["@id"] }, areaServed: { "@type": "City", name: "San Antonio" } }] : []),
       ...(path === "/" ? [
         { "@type": "OfferCatalog", "@id": `${SITE_URL}/#services`, name: "Devnetiks services", itemListElement: [
           { "@type": "Offer", itemOffered: { "@type": "Service", name: "Website design and development", serviceType: "Brochure and marketing websites", provider: { "@id": organization["@id"] }, url: `${SITE_URL}/#services-heading` } },
@@ -75,7 +79,7 @@ export function getSeo(pathname: string) {
       ] : [
         { "@type": "BreadcrumbList", itemListElement: [
           { "@type": "ListItem", position: 1, name: "Home", item: `${SITE_URL}/` },
-          { "@type": "ListItem", position: 2, name: "Start a project", item: url },
+          { "@type": "ListItem", position: 2, name: detail?.title.split(" | ")[0] ?? "Start a project", item: url },
         ] },
       ]),
     ],

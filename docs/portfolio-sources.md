@@ -25,3 +25,7 @@ All destinations returned HTTP 200 when checked. Portfolio links open in a new t
 ## Homepage interaction
 
 The logo previews are public website links. `BrandPreview.tsx` updates local CSS coordinates for a mouse-following light; only fine pointers with hover and no reduced-motion preference enable tracking. Touch retains the original static artwork and background. Keyboard focus adds a centered light and a visible outline. All motion is decorative, and the source brand files are unchanged.
+
+## Case-study screenshots — 2026-09-14
+
+Screenshots in `public/work/` capture the public marketing homepages at https://www.satxink.com/, https://demo.satxink.com/ (Sweet Venom demonstration studio), and https://www.rogersroofingtx.com/. Captured at 1440 × 1000 with reduced motion. Descriptions were checked against the public sites and the existing read-only project source snapshots. They describe implemented workflows, not measured business outcomes. Sweet Venom is a system demo, not an additional client.
