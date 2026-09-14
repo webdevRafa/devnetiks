@@ -81,7 +81,7 @@ test("service and case-study pages have working internal destinations and local 
     }
     if (file.includes("development") || file.includes("web-design")) {
       assert.match(head(html), /"@type":"Service"/);
-      assert.match(html, /<details>/);
+      assert.match(html, /<details[ >]/);
     }
   }
 });

@@ -56,7 +56,7 @@ export default function SiteHeader() {
       <nav aria-label="Main navigation" className="flex items-center gap-5">
         <a href="/#portfolio" className="hidden min-h-11 items-center text-sm font-medium text-white/75 hover:text-white sm:inline-flex">Portfolio</a>
         <Link to={pathname === "/start" ? "/" : "/start"} className="site-header-action inline-flex min-h-11 items-center rounded-xl px-3 py-2 text-sm font-semibold sm:px-4">
-          {pathname === "/start" ? "Back to home" : "Start a Project"}
+          {pathname === "/start" ? "Back to home" : "Share Your Idea"}
         </Link>
       </nav>
       </div>

@@ -5,6 +5,7 @@ import SiteFooter from "@/components/SiteFooter";
 import ArrowUpRight from "@/components/ArrowUpRight";
 import NotFoundPage from "./NotFoundPage";
 import "./DetailPage.css";
+import AnimatedFaq from "@/components/AnimatedFaq";
 
 export default function DetailPage() {
   const { pathname } = useLocation();
@@ -30,7 +31,7 @@ export default function DetailPage() {
         </div>
       </div>
       {page.images?.slice(1).map(image => <figure className="detail-image" key={image.src}><img src={image.src} alt={image.alt} width={image.width} height={image.height} loading="lazy" decoding="async" /><figcaption>{image.caption}</figcaption></figure>)}
-      {page.questions && <section className="detail-questions"><p className="home-eyebrow">Before we begin</p><h2>A few practical questions.</h2>{page.questions.map(item => <details key={item.question}><summary>{item.question}</summary><p>{item.answer}</p></details>)}</section>}
+      {page.questions && <section className="detail-questions"><p className="home-eyebrow">Before we begin</p><h2>A few practical questions.</h2>{page.questions.map(item => <AnimatedFaq key={item.question} question={item.question} answer={item.answer} />)}</section>}
       <section className="detail-related"><p className="home-eyebrow">Keep exploring</p><h2>{page.kind === "service" ? "See the work behind the approach." : "Explore a related project or service."}</h2><div>{page.related.map(link => <Link to={link.href} key={link.href}><h3>{link.label}<ArrowUpRight /></h3><p>{link.summary}</p></Link>)}</div></section>
       <section className="home-next detail-next"><div><p className="home-eyebrow">Your next chapter</p><h2>Let’s build what’s next.</h2></div><Link to="/start" className="home-primary-link">Start a conversation<ArrowUpRight /></Link></section>
     </main>
