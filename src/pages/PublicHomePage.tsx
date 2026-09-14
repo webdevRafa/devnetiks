@@ -5,6 +5,7 @@ import SiteFooter from "@/components/SiteFooter";
 import PortfolioSection from "@/components/PortfolioSection";
 import ArrowUpRight from "@/components/ArrowUpRight";
 import "./PublicHomePage.css";
+import HeroSculpture from "@/components/HeroSculpture";
 
 const services = [
   {
@@ -43,7 +44,7 @@ export default function PublicHomePage() {
       <SiteHeader />
       <main id="main-content">
         <section className="home-hero mx-auto max-w-7xl px-6 pt-10 md:pt-16">
-          <p className="home-eyebrow mb-5">Web design & development · San Antonio, Texas</p>
+          <div className="home-hero-copy"><p className="home-eyebrow mb-5">Web design & development · San Antonio, Texas</p>
           <h1 className="max-w-3xl text-balance text-4xl font-bold leading-tight md:text-6xl">
             Modern websites and web apps,{" "}<span className="home-gradient-text">delivered end-to-end</span>.
           </h1>
@@ -54,7 +55,8 @@ export default function PublicHomePage() {
             <Link to="/start" className="home-primary-link">Get a Quote <span aria-hidden="true"><ArrowUpRight /></span></Link>
             <a href="#projects" className="home-text-link">Explore things we’ve built <span aria-hidden="true">↓</span></a>
           </div>
-          <div className="mt-8"><ServicesTicker maxWidthPx={580} /></div>
+          <div className="mt-8"><ServicesTicker maxWidthPx={580} /></div></div>
+          <HeroSculpture />
         </section>
 
         <section className="home-services mx-auto max-w-7xl px-6" aria-labelledby="services-heading">

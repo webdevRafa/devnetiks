@@ -1,0 +1,15 @@
+.hero-sculpture { position: relative; min-width: 0; width: 100%; align-self: center; aspect-ratio: 1; }
+.sculpture-art { position: absolute; inset: 0 0 36px; background: radial-gradient(ellipse at 50% 50%, #117f9b14, transparent 64%); }
+.sculpture-art::after { content: ""; position: absolute; pointer-events: none; bottom: 5%; left: 25%; right: 25%; height: 8%; background: #066f9c20; filter: blur(24px); border-radius: 50%; }
+.sculpture-still, .sculpture-canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+.sculpture-still { transition: opacity .6s; }
+.hero-sculpture[data-ready="true"] .sculpture-still { opacity: 0; }
+.sculpture-canvas { animation: sculpture-appear .8s ease both; }
+.sculpture-canvas canvas { touch-action: pan-y; }
+.sculpture-caption { position: absolute; bottom: 0; left: 12%; right: 12%; display: flex; justify-content: flex-end; align-items: center; min-height: 44px; }
+.sculpture-caption button { display: flex; gap: 10px; align-items: center; min-height: 44px; padding: 0 4px; font-size: .7rem; color: #9cafbc; cursor: pointer; }
+.sculpture-caption button:hover { color: #69efd7; }
+@keyframes sculpture-appear { from { opacity: 0; } to { opacity: 1; } }
+@media (max-width: 1023px) { .hero-sculpture { max-width: 430px; margin: 12px auto 0; } }
+@media (max-width: 539px) { .hero-sculpture { width: min(100%, 360px); margin-top: 4px; } }
+@media (prefers-reduced-motion: reduce) { .sculpture-still { transition: none; } .sculpture-canvas { animation: none; } }

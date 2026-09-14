@@ -42,3 +42,7 @@ Run `npm run build` and `npm run test:seo` before deploying. After deployment, `
 Authentication, client/admin dashboards, organizations, projects, invoices, quotes, CRM utilities, Firebase initialization, and their unused dependencies have been removed. Retired login, client, app, and invoice URLs permanently redirect to the public homepage. The existing Firebase service and any previously stored records are not changed by this repository update; retire those separately if no other application uses them.
 
 The original user-supplied emblem is in `public/devnetiks-emblem.png`, used by the navbar, confirmation page, favicon, and touch icon.
+
+## Procedural hero sculpture
+
+The homepage uses a lazy-loaded React Three Fiber / Three.js scene built from geometry, with no external models or textures. `HeroSculpture.tsx` provides the prerendered SVG fallback, visibility tracking, and pause control; `HeroScene.tsx` owns the scene. Rendering pauses outside the viewport or in a hidden tab. Reduced-motion visitors receive the static artwork without downloading the scene. The fixed aspect ratio reserves layout space. WebGL initialization failures and context loss retain the static fallback. Pixel ratio is capped at 1.5, and the scene uses no postprocessing or shadows.
